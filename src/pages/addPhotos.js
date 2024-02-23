@@ -1,38 +1,40 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import Editor from "../Editor";
 
-export default function CreatePost() {
+export default function AddPhotos() {
   const [title, setTitle] = useState('');
+  const [summary, setSummary] = useState('');
+  const [content, setContent] = useState('');
   const [files, setFiles] = useState([]);
   const [redirect, setRedirect] = useState(false);
 
   async function createNewPost(ev) {
     ev.preventDefault();
 
-    const formData = new FormData();
-    formData.append('title', title);
+    const data = new FormData();
+    data.set('title', title);
+    data.set('summary', summary);
+    data.set('content', content);
 
-    // Append each file to FormData with the correct field name matching your backend configuration
+    // Append each file to FormData
     files.forEach((file, index) => {
-      formData.append('files', file); // Adjust the field name if different
+      data.append(`files[${index}]`, file);
     });
 
     const response = await fetch('http://localhost:4000/post', {
       method: 'POST',
-      body: formData,
+      body: data,
       credentials: 'include',
     });
 
     if (response.ok) {
       setRedirect(true);
-    } else {
-      // Handle errors here
-      console.error('Error creating post:', response.statusText);
     }
   }
 
   if (redirect) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={'/'} />
   }
 
   return (
@@ -46,8 +48,9 @@ export default function CreatePost() {
       <input
         type="file"
         onChange={(ev) => setFiles([...ev.target.files])}
-        multiple // Allow selecting multiple files
+        multiple  // Allow selecting multiple files
       />
+      {/* <Editor value={content} onChange={setContent} className="editor-border" /> */}
       <button style={{ marginTop: '1rem' }}>Create post</button>
     </form>
   );
