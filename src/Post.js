@@ -5,7 +5,7 @@ export default function Post({_id,title,summary,accepted,cover,content,createdAt
 
   return (
     <div className="post">
-      <div className="image">
+      {/* <div className="image">
         <Link to={`/post/${_id}`}>
           <img src={'http://localhost:4000/'+cover} alt=""/>
         </Link>
@@ -19,7 +19,7 @@ export default function Post({_id,title,summary,accepted,cover,content,createdAt
           <time>{formatISO9075(new Date(createdAt))}</time>
         </p>
         <p className="summary">{summary}</p>
-      </div>
+      </div> */}
     </div>
   );
 }
