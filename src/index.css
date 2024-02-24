@@ -20,10 +20,6 @@ code {
   display: none;
 }
 
-.inputfile {
-  display: none;
-}
-
 .custom-file-upload {
   display: inline-block;
   position: relative;

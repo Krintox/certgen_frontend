@@ -18,9 +18,9 @@ const UploadPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen bg-black">
+    <div className="flex flex-col items-center justify-center w-full h-screen">
       <h1 className="text-3xl md:text-5xl font-bold text-white border-b-2 under md:pb-2">CERT GEN</h1>
-      <div className="w-full max-w-md pt-14 bg-transparent rounded-lg shadow-md md:mt-20">
+      <div className="w-full max-w-md  bg-transparent rounded-lg shadow-md md:mt-20">
         {uploadedImageFile && ( // Check if there's an image file object
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
             <div className="flex flex-col items-center justify-center p-4 border-2 border-dashed rounded-lg">
@@ -52,11 +52,11 @@ const UploadPage = () => {
           </div>
         )}
         {!uploadedImageFile && !uploadedExcelFile && ( // Display only the upload boxes initially
-          <div className="flex flex-col items-center justify-center p-4  border-2 border-dashed rounded-lg max-md:p-10">
+          <div className="flex flex-col items-center justify-center p-4  border-2 border-dashed rounded-lg md:p-10">
             {/* Modified file upload input for image */}
             <label htmlFor="fileInput" className="custom-file-upload">
               <input type="file" accept="image/*" id="fileInput" className='inputfile' onChange={handleImageUpload} />
-              <div className="upload-icon">+</div>
+              <div className="upload-icon custom-file-upload">+</div>
             </label>
             <p className="text-lg font-medium text-gray-500 md:mt-10">
               Upload the certificate template
