@@ -1,9 +1,13 @@
-import {Link} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
-import {UserContext} from "./UserContext";
+import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "./UserContext";
+import logoImage from "./images/Logo.png";
+import certificateLogo from "./images/certificate-logo.png";
+import commentsLogo from "./images/comments-logo.png";
 
 export default function Header() {
-  const {setUserInfo,userInfo} = useContext(UserContext);
+  const { setUserInfo, userInfo } = useContext(UserContext);
+
   useEffect(() => {
     fetch('http://localhost:4000/profile', {
       credentials: 'include',
@@ -26,7 +30,8 @@ export default function Header() {
 
   return (
     <header>
-      <Link to="/" className="logo">Cert<span>Gen</span></Link>
+      <div className="header-title">
+      <img src={logoImage} alt="Logo" className="logo-image" />
       <nav>
         {username && (
           <>
@@ -36,11 +41,42 @@ export default function Header() {
         )}
         {!username && (
           <>
-            <Link to="/login" className="nav-icon">Login</Link>
-            <Link to="/register" className="nav-icon">Register</Link>
+            <Link to="/how-to-use" className="nav-icon">
+              <img src={certificateLogo} alt="Certificate" className="nav-icon-image" />
+              HOW TO USE
+            </Link>
+            <Link to="/reviews" className="nav-icon">
+              <img src={commentsLogo} alt="Comments" className="nav-icon-image" />
+              REVIEWS
+            </Link>
           </>
         )}
       </nav>
+      </div>
+      <div className="header-title-2">
+      <nav>
+        {username && (
+          <>
+            <Link to="/create" className="nav-icon">
+              Post +
+            </Link>
+            <a onClick={logout} className="nav-icon">
+              Logout ({username})
+            </a>
+          </>
+        )}
+        {!username && (
+          <>
+            <Link to="/register" className="signup-button">
+              Sign Up
+            </Link>
+            <Link to="/login" className="signin-button">
+              Sign In
+            </Link>
+          </>
+        )}
+      </nav>
+      </div>
     </header>
   );
 }

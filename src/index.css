@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,31 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.inputfile {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  position: relative;
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  line-height: 50px; /* Adjust line height to center content */
+  cursor: pointer;
+}
+
+.upload-icon {
+  font-size: 30px; /* Adjust icon size as needed */
+}
+
+.under
+{
+  border-color: #F09819;
 }
