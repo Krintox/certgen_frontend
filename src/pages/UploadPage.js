@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
 import * as XLSX from 'xlsx';
 
 const UploadPage = () => {
@@ -40,9 +39,13 @@ const UploadPage = () => {
   };
 
   const handleRedirect = () => {
-    // Redirect to the preview page using the window
-    window.location.href = '/preview';
+    // Construct the query parameter with the excelData
+    const queryString = `?excelData=${encodeURIComponent(JSON.stringify(excelData))}`;
+  
+    // Redirect to the preview page with the query parameter
+    window.location.href = `/preview${queryString}`;
   };
+  
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
@@ -112,7 +115,7 @@ const UploadPage = () => {
                           {entry.name}
                       </td>
                       <td class="px-6 py-4 text-right">
-                          <buttton class="hover:text-indigo-900 bg-orange-600 p-2">Remove</buttton>
+                          <buttton class="hover:text-indigo-900 bg-green-600 p-2">Remove</buttton>
                       </td>
                   </tr>
                  ))}
