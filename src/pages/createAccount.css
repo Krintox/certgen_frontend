@@ -1,0 +1,91 @@
+*{
+    font-family: 'Bebas Neue', sans-serif;
+}
+.create-account-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .create-account-head {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .left-column {
+    margin-right: 100px;
+    width: 50%;
+    padding: 30px;
+  }
+  
+  .circle-image {
+    margin: 20px;
+    width: 300px; 
+    height: 300px;
+    object-fit: cover;
+  }
+  
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+  }
+  
+  .body {
+    font-size: 1rem;
+    color: white;
+  }
+  
+  .account-form {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: white;
+    text-align: center;
+  }
+  
+  
+  input {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 5px;
+    width: 100%;
+    background-color: #333;
+}  
+  
+  button {
+    background-color: rgb(237, 133, 88);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+  .orange-text {
+    color: rgb(237, 133, 88);
+  }
+
+.new-project{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
