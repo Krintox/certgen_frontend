@@ -34,18 +34,21 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen md:flex-row rounded-2xl bg-gray-100">
-      <div className="md:w-full md:max-w-sm bg-gradient-to-br from-orange-500 to-yellow-600 rounded-tl-2xl rounded-bl-2xl relative flex flex-col items-center justify-center">
+    <div className="flex flex-col min-h-screen md:flex-row bg-gray-100 p-4 md: p-8">
+      <div className="md:w-full md:max-w-sm bg-gradient-to-br from-orange-500 to-yellow-600 rounded-tl-2xl rounded-bl-2xl relative flex flex-col items-start justify-start p-6">
         <div className='mb-8'>
-          <img src={logo} alt="logo" className="w-16 h-16 mr-4" />
-          <p className='text-lg text-white font-normal'>The only certificate automation tool you need</p>
+          <img src={logo} alt="logo" className="w-full h-16 object-cover" />
+          <p className='text-xl md:text-2xl text-white font-normal mt-8'>
+            The only certificate automation tool you need
+          </p>
         </div>
-        <img src={certificate} className="absolute bottom-0 left-0 w-32 h-32" alt="certificate" />
+        <div className="absolute bottom-0 left-0 w-full h-60 md:h-80">
+          <img src={certificate} className="w-full h-full object-cover" alt="certificate" />
+        </div>
       </div>
-      <div className="md:w-full md:max-w-md bg-gradient-to-br from-gray-800 to-gray-600 rounded-tr-2xl p-6 flex flex-col items-center justify-center">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-white">WELCOME <span className="text-orange-500">BACK</span></h2>
+      <div className="md:w-full md:max-w-md bg-gradient-to-br from-gray-800 to-gray-600 rounded-tr-2xl p-6 flex flex-col items-center justify-center flex flex-row">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-10 text-white">WELCOME <span className="text-orange-500">BACK</span></h2>
         <div className="w-full">
-
           <form className="login" onSubmit={login}>
             <input
               type="text"
@@ -54,7 +57,6 @@ export default function LoginPage() {
               onChange={ev => setUsername(ev.target.value)}
               className="w-full text-white py-2 my-2 bg-transparent outline-none focus:outline-none login-input"
             />
-
             <input
               type="password"
               placeholder="Password"
@@ -62,7 +64,7 @@ export default function LoginPage() {
               onChange={ev => setPassword(ev.target.value)}
               className="w-full text-white py-2 my-2 bg-transparent border-b border-white outline-none focus:outline-none login-input"
             />
-            <div className='w-full flex flex-col my-4'>
+            <div className='w-full flex flex-col my-10'>
               <button
                 className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer bg-orange-500'
               >
