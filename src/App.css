@@ -1,7 +1,7 @@
 *{
     box-sizing: border-box;
     font-family: 'Bebas Neue', sans-serif;
-    background-color: rgb(32,35,31);
+    color: #222;
 }
 a{
     cursor: pointer;
@@ -10,7 +10,6 @@ body{
     color: #222;
 }
 img{
-    background-color: rgb(52, 52, 52);
     max-width: 100%;
 }
 main{
@@ -110,6 +109,13 @@ input{
     border-radius: 5px;
     background-color: #fff;
 }
+
+.login-input {
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    border-color: #ddd;
+    border-radius: 0px;
+  }
 button{
     cursor: pointer;
     width: 100%;
