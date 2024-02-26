@@ -88,7 +88,7 @@ export default function LoginPage() {
                 </div>
 
                 <div className='w-full flex flex-col my-4'>
-                  <button
+                  <button type="submit"
                     className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
                     style={gradientBgLeft}
                   >
