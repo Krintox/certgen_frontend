@@ -8,6 +8,7 @@ a{
 }
 body{
     color: #222;
+    background-color: #333;
 }
 img{
     max-width: 100%;
@@ -262,10 +263,6 @@ a svg{
 .heading2:hover {
     color: rgb(101, 196, 234);
     transition: 0.3s;
-}
-
-.iframeclass {
-
 }
 
 .edit-btn {
