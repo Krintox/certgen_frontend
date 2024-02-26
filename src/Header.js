@@ -31,11 +31,12 @@ export default function Header() {
   return (
     <header>
       <div className="header-title">
-      <img src={logoImage} alt="Logo" className="logo-image" />
+      <Link to = '/'><img src={logoImage} alt="Logo" className="logo-image" /></Link>
       <nav>
         {username && (
           <>
             <Link to="/create" className="nav-icon">Post +</Link>
+            <Link to="/postprocess" className="nav-icon">Upload Cert</Link>
             <a onClick={logout} className="nav-icon">Logout ({username})</a>
           </>
         )}
