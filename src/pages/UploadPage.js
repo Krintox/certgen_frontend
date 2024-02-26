@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 
 const UploadPage = () => {
@@ -6,6 +6,7 @@ const UploadPage = () => {
   const [uploadedImageFile, setUploadedImageFile] = useState(null);
   const [uploadedExcelFile, setUploadedExcelFile] = useState(null);
   const [excelData, setExcelData] = useState([]);
+  const [error, setError] = useState(null);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -16,6 +17,7 @@ const UploadPage = () => {
   const handleExcelUpload = (event) => {
     const file = event.target.files[0];
     setUploadedExcelFile(file);
+
     const reader = new FileReader();
     reader.onload = (e) => {
       const data = new Uint8Array(e.target.result);
@@ -25,25 +27,49 @@ const UploadPage = () => {
       const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
       const [header, ...rows] = jsonData;
-      const excelData = rows.map((row, index) => ({
+      const processedData = rows.map((row, index) => ({
         slNo: index + 1,
         email: row[0],
         name: row[1],
       }));
 
-      setExcelData(excelData);
+      setExcelData(processedData);
     };
 
     reader.readAsArrayBuffer(file);
-    setShowExcelSheet(true);
   };
 
-  const handleRedirect = () => {
-    // Construct the query parameter with the excelData
-    const queryString = `?excelData=${encodeURIComponent(JSON.stringify(excelData))}`;
-  
-    // Redirect to the preview page with the query parameter
-    window.location.href = `/preview${queryString}`;
+  const handleDataSubmission = async () => {
+    if (!uploadedImageFile || !uploadedExcelFile) {
+      setError('Please upload both the certificate template and the Excel data file.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', uploadedImageFile);
+    formData.append('excel', uploadedExcelFile); // Append entire Excel file
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const results = await response.json();
+      console.log('API response:', results);
+
+      // Handle successful submission (optional)
+      // You can redirect to the preview page at this point if needed:
+      // window.location.href = `/preview`;
+
+    } catch (error) {
+      console.error('Error sending data:', error);
+      setError('An error occurred while submitting the data. Please try again later.');
+    }
   };
   
 
@@ -135,7 +161,7 @@ const UploadPage = () => {
           </div>
         )}
         {uploadedImageFile && uploadedExcelFile && (
-       <button onClick={handleRedirect} className="mt-4 bg-orange-500 text-white py-2 px-4 rounded cursor-pointer">
+       <button onClick={handleDataSubmission} className="mt-4 bg-orange-500 text-white py-2 px-4 rounded cursor-pointer">
               Proceed
         </button>
         )}

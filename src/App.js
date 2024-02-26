@@ -8,7 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import UploadPage from './pages/UploadPage';
 import {UserContextProvider} from "./UserContext";
 import CreatePost from "./pages/addPhotos";
-import Preview from './pages/Preview';
+import Preview from './pages/preview';
 import CreateAccount from "./pages/createAccount";
 import Edit from "./pages/edit";
 function App() {
