@@ -1,15 +1,23 @@
 import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
-
 import logo from "../images/brand-logo.png";
 import certificate from "../images/Image(1).png";
+
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
+
+  const gradientBgLeft = {
+    background: "linear-gradient(to right, #FFA500, #FF6347)",
+  };
+
+  const gradientBgRight = {
+    background: "linear-gradient(to right, #333333, #666666)",
+  };
 
   async function login(ev) {
     ev.preventDefault();
@@ -103,3 +111,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

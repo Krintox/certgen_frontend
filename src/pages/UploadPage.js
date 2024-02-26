@@ -72,7 +72,14 @@ const UploadPage = () => {
     }
   };
   
+  const gradientBgLeft = {
+    background: "linear-gradient(to right, #FFA500, #FF6347)",
+  };
 
+  const gradientBgRight = {
+    background: "linear-gradient(to right, #333333, #666666)",
+  };
+  
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <h1 className="text-3xl md:text-5xl font-bold text-white border-b-2 under md:pb-2">CERT GEN</h1>
