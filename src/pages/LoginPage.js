@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+
 import logo from "../images/brand-logo.png";
 import certificate from "../images/Image(1).png";
 
@@ -18,27 +19,20 @@ export default function LoginPage() {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
+
     if (response.ok) {
       response.json().then(userInfo => {
         setUserInfo(userInfo);
         setRedirect(true);
       });
     } else {
-      alert('wrong credentials');
+      alert('Wrong credentials');
     }
   }
 
   if (redirect) {
     return <Navigate to={'/'} />;
   }
-
-  const gradientBgLeft = {
-    background: "linear-gradient(to right, #FFA500, #FF6347)",
-  };
-
-  const gradientBgRight = {
-    background: "linear-gradient(to right, #333333, #666666)",
-  };
 
   return (
     <div className="flex justify-center items-center h-screen">
