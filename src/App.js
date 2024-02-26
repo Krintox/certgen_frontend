@@ -12,6 +12,9 @@ import PostProcess from "./pages/postProcess";
 import Preview from "./pages/preview";
 import CreateAccount from "./pages/createAccount";
 import Edit from "./pages/edit";
+import NewProject from './pages/newProject';
+import SignUpPage from './pages/SignUp';
+
 function App() {
   return (
     <UserContextProvider>
@@ -25,6 +28,8 @@ function App() {
           <Route path="/preview" element={<Preview/>} />
           <Route path="/createaccount" element={<CreateAccount/>} />
           <Route path="/edit" element={<Edit/>} />
+          <Route path="/newproject" element={<NewProject/>} />
+          <Route path="/signup" element={<SignUpPage />} />
         </Route>
       </Routes>
     </UserContextProvider>
