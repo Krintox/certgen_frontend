@@ -1,21 +1,42 @@
-*{
+* {
     box-sizing: border-box;
+}
+
+body {
     font-family: 'Bebas Neue', sans-serif;
-    background-color: rgb(32,35,31);
-}
-a{
-    cursor: pointer;
-}
-body{
+    background: linear-gradient(to right, #222029, #3B4148);
     color: #222;
 }
-img{
-    background-color: rgb(52, 52, 52);
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
     max-width: 100%;
 }
-main{
+
+main {
     padding: 10px;
     margin: 0 auto;
+}
+
+header a.logo,
+header nav,
+div.post,
+div.post div.texts a,
+form.login,
+form.register,
+input,
+button,
+.post-page,
+.signup-button,
+.signin-button {
+    color: initial;
+    background-color: initial;
+    border: initial;
 }
 header{
     display:flex;
