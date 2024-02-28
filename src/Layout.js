@@ -20,8 +20,8 @@ export default function Layout() {
         </h2>
       </div>
     </div>
-    <div className="mb-10">
-
+    <div className="m-10">
+        <p className="text-center text-white text-2x1 p-y-2 px-4 border border-grey-300">Choose us for automated, customizable certificate creation with seamless data integration, user-friendly interface, and top-notch security.</p>
     </div>
     <Footer />
     </main>

@@ -6,7 +6,7 @@ import {
     FaXTwitter,
   } from "react-icons/fa6";
 
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaArrowRight } from "react-icons/fa";
 
 function Footer() {
     const socialLinks = [
@@ -17,7 +17,7 @@ function Footer() {
   
     return (
 
-    <footer style={{ backgroundColor: "#222029" }}>
+    <footer style={{ backgroundColor: 'linear-gradient(to right, #2E3038, #3B4148)', boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.1)' }}>
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
             <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0 flex flex-col">
@@ -57,8 +57,7 @@ function Footer() {
                 <div class="relative mr-4">
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Subscribe</h2>
                     <div className='flex flex-row'>
-                        <input type="email" id="email" class="flex-grow rounded-lg bg-white border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-white dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Get product updates" required />
-
+                        <input type="email" id="email" class="flex-grow rounded-lg bg-white border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500" placeholder="Get product updates" required />
                     </div>
 
                 </div>
@@ -68,10 +67,6 @@ function Footer() {
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
 
         <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2020 <a href="" class="hover:underline">Lift Media.</a>. All Rights Reserved.
-            </span>
-            
-            <p className='text-gray-500'>A product of <img src={Logo}></img></p>
 
             <div class="flex mt-4 sm:justify-center sm:mt-0">
                 <div className="footer-icons flex items-center space-x-3">
@@ -80,12 +75,19 @@ function Footer() {
                     return (
                         <Icon
                         key={`social-${index}`}
-                        className="w-14 h-14 p-2 rounded-full border border-gray-300 bg-transparent hover:bg-white hover:text-green-700 cursor-pointer transition-colors duration-300"
+                        className="w-12 h-12 p-2 text-white rounded-full border border-gray-300 bg-transparent hover:bg-white hover:text-black cursor-pointer transition-colors duration-300"
                         />
                     );
                     })}
                 </div>
             </div>
+            
+            <p className='text-gray-500'>
+                A product of <img src={Logo} className="inline" alt="Logo" />
+            </p>
+            
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2020 <a href="" class="hover:underline">Lift Media.</a>. All Rights Reserved.
+            </span>
 
         </div>
         </div>
