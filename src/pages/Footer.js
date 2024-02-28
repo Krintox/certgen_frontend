@@ -1,18 +1,14 @@
 import React from 'react';
 import Logo from "../images/Logo.png";
 import BrandLogo from "../images/brand-logo.png"
-import {
-    FaLinkedinIn,
-    FaXTwitter,
-  } from "react-icons/fa6";
-
+import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { FaFacebookF, FaArrowRight } from "react-icons/fa";
 
 function Footer() {
     const socialLinks = [
         { label: "Linkdln", icon: FaLinkedinIn },
         { label: "Facebook", icon: FaFacebookF },
-        { label: "Twitter", icon: FaXTwitter },
+        { label: "Twitter", icon: FaTwitter },
       ];
   
     return (
