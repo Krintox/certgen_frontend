@@ -7,23 +7,27 @@ import UploadPage from './pages/UploadPage';
 import {UserContextProvider} from "./UserContext";
 import CreatePost from "./pages/addPhotos";
 import Preview from './pages/preview';
-import CreateAccount from "./pages/createAccount";
 import Edit from "./pages/edit";
 import NewProject from './pages/newProject';
+import Drag from './pages/dragDrop';
+import LandingPage from './pages/LandingPage';
+
 
 function App() {
   return (
     <UserContextProvider>
       <Routes>
           <Route path="/" element={<Layout />}>
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/create" element={<CreatePost />} />
           <Route path="/upload" element={<UploadPage />} />
           <Route path="/preview" element={<Preview/>} />
-          <Route path="/createaccount" element={<CreateAccount/>} />
+
           <Route path="/edit" element={<Edit/>} />
           <Route path="/newproject" element={<NewProject/>} />
+          <Route path="/drag" element={<Drag/>} />
         </Route>
       </Routes>
     </UserContextProvider>
