@@ -9,8 +9,8 @@ import CreatePost from "./pages/addPhotos";
 import Preview from './pages/preview';
 import Edit from "./pages/edit";
 import NewProject from './pages/newProject';
-import Drag from './pages/dragDrop';
 import LandingPage from './pages/LandingPage';
+import Canvas from './pages/Canvas';
 
 
 function App() {
@@ -24,10 +24,9 @@ function App() {
           <Route path="/create" element={<CreatePost />} />
           <Route path="/upload" element={<UploadPage />} />
           <Route path="/preview" element={<Preview/>} />
-
           <Route path="/edit" element={<Edit/>} />
           <Route path="/newproject" element={<NewProject/>} />
-          <Route path="/drag" element={<Drag/>} />
+          <Route path="/drag" element={<Canvas/>} />
         </Route>
       </Routes>
     </UserContextProvider>

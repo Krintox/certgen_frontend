@@ -41,10 +41,10 @@ export default function Header() {
         )}
         {!username && (
           <>
-            <Link to="/how-to-use" className="nav-icon">
+            <a href="#how-to-use" className="nav-icon">
               <img src={certificateLogo} alt="Certificate" className="nav-icon-image" />
               HOW TO USE
-            </Link>
+            </a>
             <Link to="/reviews" className="nav-icon">
               <img src={commentsLogo} alt="Comments" className="nav-icon-image" />
               REVIEWS
