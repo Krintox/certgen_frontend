@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { fabric } from 'fabric';
-import Word from './Word';
+import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 
 const Canvas = () => {
   const [canvas, setCanvas] = useState(null);
   const [annotations, setAnnotations] = useState([]);
   const [imageURL, setImageURL] = useState('');
   const [customText, setCustomText] = useState('');
+  const [fontColor, setFontColor] = useState('#ffffff'); // Default color is white
+  const [selectedFont, setSelectedFont] = useState(null);
+  const [attributes, setAttributes] = useState([
+    "Recipient's Name",
+    'Designation',
+    'Position',
+    'Institution Name',
+  ]);
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -20,7 +28,10 @@ const Canvas = () => {
       left: x,
       top: y,
       fontSize: 20,
-      fill: 'red', // Customize as needed
+      fill: fontColor,
+      fontFamily: selectedFont ? selectedFont.family : 'Arial',
+      selectable: true,
+      hasControls: true,
     });
     canvas.add(text);
 
@@ -31,9 +42,9 @@ const Canvas = () => {
         left: boundingBox.left,
         top: boundingBox.top,
         width: boundingBox.width,
-        height: boundingBox.height
+        height: boundingBox.height,
       },
-      fontSize: 20
+      fontSize: 20,
     };
     setAnnotations([...annotations, newAnnotation]);
   };
@@ -42,11 +53,23 @@ const Canvas = () => {
     setCustomText(e.target.value);
   };
 
+  const handleFontColorChange = (e) => {
+    setFontColor(e.target.value);
+  };
+
+  const handleFontStyleChange = (font) => {
+    setSelectedFont(font);
+  };
+
   const handleCustomTextAdd = () => {
     if (customText.trim() !== '') {
-      addWordToCanvas(customText, 20, 20); // Add custom text at fixed position (you can modify as needed)
+      addWordToCanvas(customText, 20, 20);
       setCustomText('');
     }
+  };
+
+  const handleAttributeClick = (word) => {
+    setCustomText(word);
   };
 
   const handleDragOver = (e) => {
@@ -63,7 +86,14 @@ const Canvas = () => {
           scaleX: canvas.width / img.width,
           scaleY: canvas.height / img.height,
         });
-        canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
+        canvas.setBackgroundImage(
+          fabricImg,
+          canvas.renderAll.bind(canvas)
+        );
+
+        canvas.setWidth(Math.min(400, img.width));
+        canvas.setHeight(Math.min(400, img.height));
+
         setImageURL(event.target.result);
       };
       img.src = event.target.result;
@@ -72,41 +102,89 @@ const Canvas = () => {
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      <div
-        className="canvas-container"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-      >
-        <canvas
-          id="canvas"
-          ref={(ref) => {
-            if (ref && !canvas) {
-              const newCanvas = new fabric.Canvas(ref);
-              setCanvas(newCanvas);
-            }
-          }}
-        />
-        <div id="words">
-          <Word text="Word1" />
-          <Word text="Word2" />
-          {/* Add more words here */}
-        </div>
-        <div>
-          <input type="text" value={customText} onChange={handleCustomTextChange} />
-          <button onClick={handleCustomTextAdd}>Add Custom Text</button>
-        </div>
-      </div>
-      <div>
-        <h2>Annotations</h2>
+    <div className="flex p-4">
+      <div className="w-48 mr-4">
+        <h2 className="text-orange-500 mb-4 text-3xl">ATTRIBUTES</h2>
         <ul>
-          {annotations.map((annotation, index) => (
-            <li key={index}>
-              {annotation.word} - Left: {annotation.boundingBox.left}, Top: {annotation.boundingBox.top}, Width: {annotation.boundingBox.width}, Height: {annotation.boundingBox.height}, Font Size: {annotation.fontSize}
+          {attributes.map((attribute, index) => (
+            <li
+              key={index}
+              className="cursor-pointer mb-2 text-white"
+              onClick={() => handleAttributeClick(attribute)}
+            >
+              {attribute}
             </li>
           ))}
         </ul>
+        <div className="mt-4">
+          <input
+            type="text"
+            value={customText}
+            onChange={handleCustomTextChange}
+            className="mb-2 p-2 w-full bg-white text-black"
+          />
+          <label className="block text-orange-500 mb-1 text-3xl">FONT COLOR</label>
+          <input
+            type="color"
+            value={fontColor}
+            onChange={handleFontColorChange}
+            className="mb-2 p-2 w-full bg-white text-black"
+          />
+          <button
+            onClick={handleCustomTextAdd}
+            className="bg-orange-500 text-white p-2"
+          >
+            Add Custom Text
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 relative">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="mb-4"
+        />
+        <div
+          className="canvas-container"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          style={{
+            position: 'relative',
+            border: '1px solid #ccc',
+            width: canvas ? `${canvas.width}px` : '300px',
+            height: canvas ? `${canvas.height}px` : '300px',
+          }}
+        >
+          <canvas
+            id="canvas"
+            ref={(ref) => {
+              if (ref && !canvas) {
+                const newCanvas = new fabric.Canvas(ref, {
+                  backgroundColor: 'rgba(255, 255, 255, 0)',
+                });
+                setCanvas(newCanvas);
+              }
+            }}
+            className="absolute inset-0"
+          />
+        </div>
+
+        <div>
+          <h2 className="text-white mb-2">Annotations</h2>
+          <ul>
+            {annotations.map((annotation, index) => (
+              <li key={index} className="text-white">
+                {annotation.word} - Left: {annotation.boundingBox.left}, Top:{' '}
+                {annotation.boundingBox.top}, Width:{' '}
+                {annotation.boundingBox.width}, Height:{' '}
+                {annotation.boundingBox.height}, Font Size:{' '}
+                {annotation.fontSize}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

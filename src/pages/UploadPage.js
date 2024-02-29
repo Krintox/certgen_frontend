@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from React Router
 import * as XLSX from 'xlsx';
 
 const UploadPage = () => {
@@ -7,6 +8,8 @@ const UploadPage = () => {
   const [uploadedExcelFile, setUploadedExcelFile] = useState(null);
   const [excelData, setExcelData] = useState([]);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -47,7 +50,7 @@ const UploadPage = () => {
 
     const formData = new FormData();
     formData.append('image', uploadedImageFile);
-    formData.append('excel', uploadedExcelFile); // Append entire Excel file
+    formData.append('excel', uploadedExcelFile);
 
     try {
       const response = await fetch('http://127.0.0.1:5000', {
@@ -62,9 +65,8 @@ const UploadPage = () => {
       const results = await response.json();
       console.log('API response:', results);
 
-      // Handle successful submission (optional)
-      // You can redirect to the preview page at this point if needed:
-      // window.location.href = `/preview`;
+      // Redirect to the preview page
+      navigate('/preview');
 
     } catch (error) {
       console.error('Error sending data:', error);
@@ -113,49 +115,7 @@ const UploadPage = () => {
             )}
           </div>
         )}
-        {excelData.length > 0 && (
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-white-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                      <th scope="col" class="px-6 py-3">
-                          Product name
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          Color
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          Category
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          Price
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          <span class="sr-only">Edit</span>
-                      </th>
-                  </tr>
-              </thead>
-                <tbody>
-                 {excelData.map((entry) => (
-                  <tr key={entry.s1No} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                      <td class="px-6 py-4">
-                          {entry.slNo}
-                      </td>
-                      <td class="px-6 py-4">
-                          {entry.email}
-                      </td>
-                      <td class="px-6 py-4">
-                          {entry.name}
-                      </td>
-                      <td class="px-6 py-4 text-right">
-                          <buttton class="hover:text-indigo-900 bg-green-600 p-2">Remove</buttton>
-                      </td>
-                  </tr>
-                 ))}
-              </tbody>
-            </table>
-            </div>
-        )}
+        
         {!uploadedImageFile && !uploadedExcelFile && (
           <div className="flex flex-col items-center justify-center p-4  border-2 border-dashed rounded-lg md:p-10">
             <label htmlFor="fileInput" className="custom-file-upload">
