@@ -28,7 +28,7 @@ export default function LandingPage() {
         CHOOSE US FOR AUTOMATED, CUSTOMIZABLE CERTIFICATE CREATION WITH SEAMLESS DATA INTEGRATION,
         USER- <br/> FRIENDLY INTERFACE, AND TOP-NOTCH SECURITY.
       </p>
-      <div className="text-left ml-10 mr-10 mb-10">
+      <div className="text-left ml-10 mr-10 mb-10" id="how-to-use">
         <h2 className="text-5xl font-semibold leading-tight flex items-center">
           <img src={iconCertificate} alt="Icon Certificate" className="mr-4 mt-3" />
           <p className="text-left text-orange-500">HOW TO USE</p>

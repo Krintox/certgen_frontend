@@ -305,3 +305,36 @@ input {
     background-color: transparent; 
   }
   
+
+
+
+  .App {
+    text-align: center;
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+  }
+  
+  .main {
+    padding: 20px;
+  }
+  
+  .canvas-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .canvas-container canvas {
+    border: 1px solid #000;
+    margin-right: 20px;
+  }
+  
+  .word {
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
