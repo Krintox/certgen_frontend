@@ -6,7 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import UploadPage from './pages/UploadPage';
 import {UserContextProvider} from "./UserContext";
 import CreatePost from "./pages/addPhotos";
-import Preview from "./pages/preview";
+import Preview from './pages/preview';
 import CreateAccount from "./pages/createAccount";
 import Edit from "./pages/edit";
 import NewProject from './pages/newProject';

@@ -1,5 +1,5 @@
 import React from "react";
-import circleImage from "../images/circle.png"; // Replace with the actual path
+import circleImage from "../images/circle.png"; 
 import "./createAccount.css";
 function CreateAccount() {
   return (
