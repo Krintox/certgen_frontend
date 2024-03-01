@@ -305,6 +305,16 @@ input {
     background-color: transparent; 
   }
   
+  /* Add this to your CSS file */
+  .start-project-button {
+    border: 2px solid rgb(255, 255, 255);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: transparent; 
+  }
+  
 
 
 

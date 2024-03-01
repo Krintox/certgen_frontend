@@ -67,6 +67,7 @@ export default function Header() {
         )}
         {!username && (
           <>
+            <Link to="/upload" className="start-project-button">Start Project</Link>
             <Link to="/register" className="signup-button">
               Sign Up
             </Link>
