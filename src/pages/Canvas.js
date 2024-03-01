@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import Word from './Word';
 
@@ -7,6 +7,32 @@ const Canvas = () => {
   const [annotations, setAnnotations] = useState([]);
   const [imageURL, setImageURL] = useState('');
   const [customText, setCustomText] = useState('');
+
+  useEffect(() => {
+    if (canvas) {
+      canvas.on('object:moving', (e) => {
+        const obj = e.target;
+        const boundingBox = obj.getBoundingRect();
+        const word = obj.text;
+
+        const updatedAnnotations = annotations.map(annotation => {
+          if (annotation.word === word) {
+            return {
+              ...annotation,
+              boundingBox: {
+                left: boundingBox.left,
+                top: boundingBox.top,
+                width: boundingBox.width,
+                height: boundingBox.height
+              }
+            };
+          }
+          return annotation;
+        });
+        setAnnotations(updatedAnnotations);
+      });
+    }
+  }, [canvas, annotations]);
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -22,6 +48,7 @@ const Canvas = () => {
       fontSize: 20,
       fill: 'red', // Customize as needed
     });
+
     canvas.add(text);
 
     const boundingBox = text.getBoundingRect();
@@ -49,6 +76,16 @@ const Canvas = () => {
     }
   };
 
+  const handleDeleteWord = (word) => {
+    const updatedAnnotations = annotations.filter(annotation => annotation.word !== word);
+    setAnnotations(updatedAnnotations);
+    canvas.forEachObject(obj => {
+      if (obj.text === word) {
+        canvas.remove(obj);
+      }
+    });
+  };
+
   const handleDragOver = (e) => {
     e.preventDefault();
   };
@@ -72,22 +109,9 @@ const Canvas = () => {
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      <div
-        className="canvas-container"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-      >
-        <canvas
-          id="canvas"
-          ref={(ref) => {
-            if (ref && !canvas) {
-              const newCanvas = new fabric.Canvas(ref);
-              setCanvas(newCanvas);
-            }
-          }}
-        />
+    <div className="flex">
+      <div className="w-1/3 p-4">
+        <h2>Words</h2>
         <div id="words">
           <Word text="Word1" />
           <Word text="Word2" />
@@ -98,15 +122,34 @@ const Canvas = () => {
           <button onClick={handleCustomTextAdd}>Add Custom Text</button>
         </div>
       </div>
-      <div>
-        <h2>Annotations</h2>
-        <ul>
-          {annotations.map((annotation, index) => (
-            <li key={index}>
-              {annotation.word} - Left: {annotation.boundingBox.left}, Top: {annotation.boundingBox.top}, Width: {annotation.boundingBox.width}, Height: {annotation.boundingBox.height}, Font Size: {annotation.fontSize}
-            </li>
-          ))}
-        </ul>
+      <div className="w-2/3 p-4">
+        <input type="file" accept="image/*" onChange={handleImageUpload} />
+        <div
+          className="canvas-container"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
+          <canvas
+            id="canvas"
+            ref={(ref) => {
+              if (ref && !canvas) {
+                const newCanvas = new fabric.Canvas(ref,{ width: 800, height: 600 });
+                setCanvas(newCanvas);
+              }
+            }}
+          />
+        </div>
+        <div>
+          <h2>Annotations</h2>
+          <ul>
+            {annotations.map((annotation, index) => (
+              <li key={index}>
+                {annotation.word} - Left: {annotation.boundingBox.left}, Top: {annotation.boundingBox.top}, Width: {annotation.boundingBox.width}, Height: {annotation.boundingBox.height}, Font Size: {annotation.fontSize}
+                <button onClick={() => handleDeleteWord(annotation.word)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
