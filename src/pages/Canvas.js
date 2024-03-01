@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import Word from './Word';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Canvas = () => {
   const [canvas, setCanvas] = useState(null);
   const [annotations, setAnnotations] = useState([]);
   const [imageURL, setImageURL] = useState('');
   const [customText, setCustomText] = useState('');
+
+  const location = useLocation();
+  const uploadedImageFile = location.state ? location.state.uploadedImageFile : null;
+
+  useEffect(() => {
+    if (canvas && uploadedImageFile) {
+      loadImageToCanvas(uploadedImageFile);
+    }
+  }, [canvas, uploadedImageFile]);
+
+  useEffect(() => {
+    if (!canvas) {
+      const newCanvas = new fabric.Canvas('canvas', { width: 800, height: 600 });
+      setCanvas(newCanvas);
+    }
+  }, [canvas]);
 
   useEffect(() => {
     if (canvas) {
@@ -33,6 +51,23 @@ const Canvas = () => {
       });
     }
   }, [canvas, annotations]);
+
+  const loadImageToCanvas = (file) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const fabricImg = new fabric.Image(img, {
+          scaleX: canvas.width / img.width,
+          scaleY: canvas.height / img.height,
+        });
+        canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
+        setImageURL(event.target.result);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -107,12 +142,20 @@ const Canvas = () => {
     };
     reader.readAsDataURL(file);
   };
+  
+  const navigate = useNavigate();
+
+  const handleProceed = () => {
+    // Add logic here to customize the redirection as needed
+    navigate('/excel');
+  };
+  
 
   return (
     <div className="flex">
       <div className="w-1/3 p-4">
-        <h2>Words</h2>
-        <div id="words">
+        <h2>Wo<span className='text-orange-500'>rds</span></h2>
+        <div id="words" className='text-white'>
           <Word text="Word1" />
           <Word text="Word2" />
           {/* Add more words here */}
@@ -143,10 +186,13 @@ const Canvas = () => {
           <h2>Annotations</h2>
           <ul>
             {annotations.map((annotation, index) => (
-              <li key={index}>
+              <li key={index} className="text-white">
                 {annotation.word} - Left: {annotation.boundingBox.left}, Top: {annotation.boundingBox.top}, Width: {annotation.boundingBox.width}, Height: {annotation.boundingBox.height}, Font Size: {annotation.fontSize}
-                <button onClick={() => handleDeleteWord(annotation.word)}>Delete</button>
-              </li>
+              <div className='flex items-center pt-4'>
+              <button onClick={() => handleDeleteWord(annotation.word)} className="ml-2">Delete</button>
+              <button onClick={handleProceed} className="ml-2">Proceed</button>
+              </div>
+            </li>
             ))}
           </ul>
         </div>
