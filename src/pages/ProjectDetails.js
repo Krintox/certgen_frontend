@@ -54,14 +54,14 @@ const ProjectDetails = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">{project.title}</h2>
-      <p className="mb-4">Excel File: <button onClick={handleDownloadExcel} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download</button></p>
-      <div className="mb-4">
-        <h1 className="text-lg font-bold">Image File:</h1>
+      <h2 className="text-xl font-bold mb-4 gen-certs">Project Name: {project.title}</h2>
+      <p className="mb-4 gen-certs">Excel File: <button onClick={handleDownloadExcel} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download</button></p>
+      <div className="mb-4"><br />
+        <h1 className="text-lg font-bold cert-temp-down">Certificate Template uploaded</h1><br />
         <img src={`http://localhost:4000/uploads/images/${project.imageFile}`} alt="Image" className="mt-2 w-1/5 p-2" />
       </div>
-      <div className="mb-4">
-        <h1 className="text-lg font-bold">Array of Images:</h1>
+      <div className="mb-4"><br />
+        <h1 className="text-lg font-bold gen-certs">Generated Certificates:</h1><br />
         <div className="flex flex-wrap">
           {project.arrayOfImages.map((image, index) => (
             <img key={index} src={`http://localhost:4000/uploads/arrayImages/${image}`} alt={`Image ${index}`} className="w-1/5 p-2" />

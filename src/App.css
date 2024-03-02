@@ -305,3 +305,7 @@ input {
     background-color: transparent; 
   }
   
+
+.cert-temp-down, .gen-certs {
+    font-size: 3rem !important;
+}
