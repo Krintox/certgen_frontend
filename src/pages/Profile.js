@@ -34,7 +34,7 @@ const ProfileForm = () => {
     formDataWithImage.append('profileImage', formData.profileImage);
 
     try {
-      const response = await fetch('http://localhost:4000/profile', {
+      const response = await fetch('http://localhost:4000/profile123', {
         method: 'POST',
         body: formDataWithImage,
         credentials: 'include'

@@ -35,8 +35,8 @@ export default function Header() {
       <nav>
         {username && (
           <>
-            <Link to="/create" className="nav-icon">Post +</Link>
-            <a onClick={logout} className="nav-icon">Logout ({username})</a>
+            <Link to="/newproj" className="nav-icon">New Project</Link>
+            <Link to="/myproject" className="nav-icon">View Projects</Link>
           </>
         )}
         {!username && (
@@ -57,8 +57,11 @@ export default function Header() {
       <nav>
         {username && (
           <>
-            <Link to="/create" className="nav-icon">
-              Post +
+            <Link to="/profileform" className="nav-icon">
+              Create Profile
+            </Link>
+            <Link to="/profileview" className="nav-icon">
+              View Profile
             </Link>
             <a onClick={logout} className="nav-icon">
               Logout ({username})

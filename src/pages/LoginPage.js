@@ -38,7 +38,7 @@ export default function LoginPage() {
     <div className="flex justify-center items-center h-screen">
       <div className="container mx-auto p-6 rounded-lg shadow-md relative flex overflow-hidden h-5/6 w-10/12">
         {/* Left Side */}
-        <div className="relative w-1/2 h-full flex flex-col rounded-lg" style={gradientBgLeft}>
+        <div className="relative w-1/2 h-full flex flex-col rounded-lg">
           <div className='absolute top-[10%] left-[10%] flex flex-col'>
             <h1 className='text-4xl text-white font-bold my-4 flex items-center'>
               <img src={logo} alt="logo" className="w-12 h-12 mr-2" />
@@ -52,7 +52,7 @@ export default function LoginPage() {
         </div>
 
         {/* Right Side */}
-        <div className="w-1/2 h-full flex flex-col justify-between items-center p-6 rounded-lg" style={gradientBgRight}>
+        <div className="w-1/2 h-full flex flex-col justify-between items-center p-6 rounded-lg">
 
           <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
             <div className="w-full flex flex-col mb-2">
@@ -84,7 +84,7 @@ export default function LoginPage() {
                 <div className='w-full flex flex-col my-4'>
                   <button type="submit"
                     className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
-                    style={gradientBgLeft}
+                    
                   >
                     Log in
                   </button>
