@@ -1,31 +1,68 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
     box-sizing: border-box;
-    font-family: 'Bebas Neue', sans-serif;
-    color: #222029;
 }
-a{
+
+body {
+    background: linear-gradient(to right, #222029, #3B4148);
+    color: #222;
+}
+
+a {
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
-body{
-    color: #222029;
-    background-color: #333;
-}
-img{
+
+img {
     max-width: 100%;
 }
-main{
+
+.font-urbanist {
+    font-family: 'Urbanist', sans-serif;
+    font-optical-sizing: auto;
+  }
+  
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+main {
     padding: 10px;
     margin: 0 auto;
+}
+
+header a.logo,
+header nav,
+div.post,
+div.post div.texts a,
+form.login,
+form.register,
+input,
+button,
+.post-page,
+.signup-button,
+.signin-button {
+    color: initial;
+    background-color: initial;
+    border: initial;
+    
 }
 header{
     display:flex;
     justify-content:space-between;
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
     padding: 0.5rem 2rem;
     padding-left: 2rem;
     align-items: center;
     box-shadow: 0px 2.98256px 17.4564px rgba(0, 0, 0, 0.1);
     background-color: rgba(255,255,255,0.1);
-    border-radius: 5px;
+    border-radius: 10PX;
     border: 2px solid #6C6F74;
 }
 
@@ -118,6 +155,8 @@ input{
     border-radius: 0px;
   }
 button{
+    font-family: "Urbanist", sans-serif;
+    font-optical-sizing: auto;
     cursor: pointer;
     width: 100%;
     display: block;
@@ -227,7 +266,6 @@ a svg{
     color: rgb(255, 255, 255);
     transition: 0.3s;
     padding: 0.5rem 1rem;
-    font-weight: bold;
     font-family: 'Bebas Neue', sans-serif;
 }
 
@@ -289,6 +327,8 @@ input {
 }
 
 .signup-button {
+    font-family: "Urbanist", sans-serif;
+    font-optical-sizing: auto;
     background-color: rgb(255, 81, 47);
     color: #fff; 
     padding: 0.5rem 1rem; 
@@ -297,6 +337,8 @@ input {
   }
   
   .signin-button {
+    font-family: "Urbanist", sans-serif;
+    font-optical-sizing: auto;
     border: 2px solid rgb(255, 81, 47);
     color: #fff;
     padding: 0.5rem 1rem;
@@ -307,6 +349,8 @@ input {
   
   /* Add this to your CSS file */
   .start-project-button {
+    font-family: "Urbanist", sans-serif;
+    font-optical-sizing: auto;
     border: 2px solid rgb(255, 255, 255);
     color: #fff;
     padding: 0.5rem 1rem;
