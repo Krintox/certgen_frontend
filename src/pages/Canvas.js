@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
-import Word from './Word';
+import axios from 'axios';
 
 const Canvas = () => {
   const [canvas, setCanvas] = useState(null);
   const [annotations, setAnnotations] = useState([]);
-  const [imageURL, setImageURL] = useState('');
+  const [imageFile, setImageFile] = useState(null); // State to hold the uploaded image file
   const [customText, setCustomText] = useState('');
+  const [excelFile, setExcelFile] = useState(null); // State to hold the Excel file
 
   useEffect(() => {
     if (canvas) {
@@ -92,6 +93,7 @@ const Canvas = () => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
+    setImageFile(file); // Store the uploaded image file
     const reader = new FileReader();
     reader.onload = (event) => {
       const img = new Image();
@@ -101,11 +103,61 @@ const Canvas = () => {
           scaleY: canvas.height / img.height,
         });
         canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
-        setImageURL(event.target.result);
       };
       img.src = event.target.result;
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleSaveImage = () => {
+    if (!canvas || !imageFile || !excelFile) {
+      console.error("Canvas, image, or Excel file is missing.");
+      return;
+    }
+
+    const img = new Image();
+    img.onload = () => {
+      const canvasData = canvas.toDataURL({ format: 'png', multiplier: 1 });
+      const resizedCanvas = document.createElement('canvas');
+      const resizedCanvasContext = resizedCanvas.getContext('2d');
+
+      // Set the dimensions of the resized canvas to match the canvas
+      resizedCanvas.width = canvas.width;
+      resizedCanvas.height = canvas.height;
+
+      // Draw the image onto the resized canvas
+      resizedCanvasContext.drawImage(img, 0, 0, resizedCanvas.width, resizedCanvas.height);
+
+      // Convert the resized canvas to a blob
+      resizedCanvas.toBlob(blob => {
+        // Create a new FormData object
+        const formData = new FormData();
+
+        // Append the resized image blob as 'image' to the FormData object
+        formData.append('image', blob);
+
+        // Append the Excel file to the FormData object
+        formData.append('excel', excelFile);
+
+        // Append the annotations as JSON string to the FormData object
+        formData.append('coordinates', JSON.stringify(annotations));
+
+        // Send a POST request to the backend with the FormData
+        axios.post('https://aliws.pythonanywhere.com/api', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(response => {
+          console.log('Response from server:', response.data); // Log the response data
+        })
+        .catch(error => {
+          console.error('Error saving image:', error);
+        });
+      }, 'image/png');
+    };
+
+    img.src = URL.createObjectURL(imageFile); // Load the original image
   };
 
   return (
@@ -113,8 +165,6 @@ const Canvas = () => {
       <div className="w-1/3 p-4">
         <h2>Words</h2>
         <div id="words">
-          <Word text="Word1" />
-          <Word text="Word2" />
           {/* Add more words here */}
         </div>
         <div>
@@ -124,6 +174,7 @@ const Canvas = () => {
       </div>
       <div className="w-2/3 p-4">
         <input type="file" accept="image/*" onChange={handleImageUpload} />
+        <input type="file" accept=".xlsx,.xls" onChange={(e) => setExcelFile(e.target.files[0])} /> {/* Input field for Excel file */}
         <div
           className="canvas-container"
           onDrop={handleDrop}
@@ -150,6 +201,7 @@ const Canvas = () => {
             ))}
           </ul>
         </div>
+        <button onClick={handleSaveImage}>Save Image</button>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
     box-sizing: border-box;
     font-family: 'Bebas Neue', sans-serif;
     color: #222;
+    
 }
 a{
     cursor: pointer;
@@ -305,9 +306,6 @@ input {
     background-color: transparent; 
   }
   
-
-
-
   .App {
     text-align: center;
   }
