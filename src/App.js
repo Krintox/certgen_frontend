@@ -12,6 +12,7 @@ import Edit from "./pages/edit";
 import NewProject from './pages/newProject';
 import LandingPage from './pages/LandingPage';
 import Canvas from './pages/Canvas';
+import History from './pages/history';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/edit" element={<Edit/>} />
           <Route path="/newproject" element={<NewProject/>} />
           <Route path="/drag" element={<Canvas/>} />
+          <Route path="/history" element={<History/>} />
         </Route>
       </Routes>
     </UserContextProvider>

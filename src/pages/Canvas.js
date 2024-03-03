@@ -136,16 +136,16 @@ const Canvas = () => {
 
   return (
     <div className="flex">
-      <div className="w-1/3 p-4">
-        <h2>Words</h2>
+      <div className="w-1/3 p-4 mt-12">
+        <h2>Wo<span className='text-orange-400'>rds</span></h2>
         <div id="words">
           <Word text="Word1" onClick={() => addWordToCanvas("Word1", 20, 20)} />
           <Word text="Word2" onClick={() => addWordToCanvas("Word2", 20, 50)} />
           {/* Add more words here */}
         </div>
         <div>
-          <input type="text" value={customText} onChange={handleCustomTextChange} />
-          <button onClick={handleCustomTextAdd}>Add Custom Text</button>
+          <input type="text" value={customText} className="bg-transparent text-white font-urbanist" onChange={handleCustomTextChange} />
+          <button onClick={handleCustomTextAdd} className="font-urbanist">Add Custom Text</button>
         </div>
       </div>
       <div className="w-2/3 p-4">
@@ -168,9 +168,9 @@ const Canvas = () => {
           <h2>Annotations</h2>
           <ul>
             {annotations.map((annotation, index) => (
-              <li key={index}>
+              <li key={index} className="text-white font-urbanist flex items-center">
                 {annotation.word} - Left: {annotation.boundingBox.left}, Top: {annotation.boundingBox.top}, Width: {annotation.boundingBox.width}, Height: {annotation.boundingBox.height}, Font Size: {annotation.fontSize}
-                <button onClick={() => handleDeleteWord(annotation.word)}>Delete</button>
+                <button onClick={() => handleDeleteWord(annotation.word)} className="ml-2 bg-orange-400 text-white py-1 px-2 rounded cursor-pointer">Delete</button>
               </li>
             ))}
           </ul>
