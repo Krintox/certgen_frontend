@@ -10,6 +10,7 @@ const Word = ({ text }) => {
       className="word"
       draggable="true"
       onDragStart={handleDragStart}
+      style={{ color: 'white' }}
     >
       {text}
     </div>
