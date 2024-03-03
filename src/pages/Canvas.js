@@ -8,6 +8,7 @@ const Canvas = () => {
   const [imageFile, setImageFile] = useState(null); // State to hold the uploaded image file
   const [customText, setCustomText] = useState('');
   const [excelFile, setExcelFile] = useState(null); // State to hold the Excel file
+  const [imageUrls, setImageUrls] = useState([]); // State to hold the image URLs
 
   useEffect(() => {
     if (canvas) {
@@ -150,6 +151,10 @@ const Canvas = () => {
         })
         .then(response => {
           console.log('Response from server:', response.data); // Log the response data
+          const result_images = response.data.result_images;
+          // Convert base64 images to URLs
+          const urls = result_images.map(base64 => `data:image/jpeg;base64,${base64}`);
+          setImageUrls(urls);
         })
         .catch(error => {
           console.error('Error saving image:', error);
@@ -202,6 +207,17 @@ const Canvas = () => {
           </ul>
         </div>
         <button onClick={handleSaveImage}>Save Image</button>
+      {/* Display the images */}
+      <div className="w-full p-4">
+        <h2>Result Images</h2>
+        <div className="flex flex-wrap">
+          {imageUrls.map((url, index) => (
+            <div key={index} className="m-2">
+              <img src={url} alt={`Result Image ${index}`} />
+            </div>
+          ))}
+        </div>
+      </div>
       </div>
     </div>
   );
