@@ -47,7 +47,7 @@ export default function NewProject() {
               </p>
             </div>
             <div className="absolute w-full bottom-0">
-              <img src={certificate} alt="Certificate" className="w-full h-5/6 z-0" />
+              <img src={certificate} alt="Certificate" className="w-full h-3/5 z-0" />
             </div>
           </div>
 

@@ -90,17 +90,17 @@ export default function RegisterPage() {
                 <h3 className="text-4xl font-semibold mb-10 text-center text-white mt-12 ">CREATE AN <span className="text-orange-500">ACCOUNT</span></h3>
               </div>
               <div className="rounded-lg p-4 mb-4 items-center text-center flex justify-center" style={borderOrange}>
-                <img src={googleIcon} alt="Google Icon" className="w-6 h-6 mr-2" />
-                <span className="text-white ">Sign up with Google</span>
+                <img src={googleIcon} alt="Google Icon" className="w-1 h-1 mr-2" />
+                <span className="text-white font-urbanist">Sign up with Google</span>
               </div>
-              <p className="text-white mb-4 text-center">- OR -</p>
+              <p className="text-white mb-4 text-center font-urbanist">- OR -</p>
               <form className="Register" onSubmit={Register}>
                 <input
                   type="text"
                   placeholder="Name"
                   value={username}
                   onChange={(ev) => setName(ev.target.value)}
-                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
+                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
                 />
 
 
@@ -109,7 +109,7 @@ export default function RegisterPage() {
                   placeholder="Password"
                   value={password}
                   onChange={(ev) => setPassword(ev.target.value)}
-                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
+                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
                 />
 
                 <input
@@ -117,13 +117,13 @@ export default function RegisterPage() {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(ev) => setConfirmPassword(ev.target.value)}
-                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
+                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
                 />
 
                 <div className='w-full flex items-center justify-between'>
-                  <p className='text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2 text-white'>
+                  <p className='text-sm font-medium whitespace-nowrap cursor-pointer text-white font-urbanist'>
                     Already have an account?{' '}
-                    <Link to="/login" className="text-orange font-semibold">
+                    <Link to="/login" className="text-orange font-semibold font-urbanist text-orange-500">
                       Log in
                     </Link>
                   </p>
@@ -132,7 +132,7 @@ export default function RegisterPage() {
                 <div className='w-full flex flex-col my-4'>
                   <button
                     type="submit"
-                    className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
+                    className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer font-urbanist'
                     style={gradientBgLeft}>
                     Create Account
                   </button>
