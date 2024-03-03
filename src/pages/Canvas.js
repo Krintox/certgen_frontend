@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
+import axios from 'axios';
 import Word from './Word';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Canvas = () => {
   const [canvas, setCanvas] = useState(null);
   const [annotations, setAnnotations] = useState([]);
-  const [imageURL, setImageURL] = useState('');
   const [customText, setCustomText] = useState('');
-
+  const [uploadedImage, setUploadedImage] = useState(null); // New state for the uploaded image
+  const navigate = useNavigate();
   const location = useLocation();
   const uploadedImageFile = location.state ? location.state.uploadedImageFile : null;
 
   useEffect(() => {
-    if (canvas && uploadedImageFile) {
-      loadImageToCanvas(uploadedImageFile);
+    if (canvas && uploadedImage) {
+      resizeAndLoadImageToCanvas(uploadedImage);
     }
-  }, [canvas, uploadedImageFile]);
+  }, [canvas, uploadedImage]);
 
-  useEffect(() => {
-    if (!canvas) {
-      const newCanvas = new fabric.Canvas('canvas', { width: 800, height: 600 });
-      setCanvas(newCanvas);
-    }
-  }, [canvas]);
+  const resizeAndLoadImageToCanvas = (image) => {
+    const img = new Image();
+    img.onload = () => {
+      const fabricImg = new fabric.Image(img, {
+        scaleX: canvas.width / img.width,
+        scaleY: canvas.height / img.height,
+      });
+      canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
+    };
+    img.src = image;
+  };
 
   useEffect(() => {
     if (canvas) {
@@ -51,23 +56,6 @@ const Canvas = () => {
       });
     }
   }, [canvas, annotations]);
-
-  const loadImageToCanvas = (file) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const fabricImg = new fabric.Image(img, {
-          scaleX: canvas.width / img.width,
-          scaleY: canvas.height / img.height,
-        });
-        canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
-        setImageURL(event.target.result);
-      };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-  };
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -125,39 +113,34 @@ const Canvas = () => {
     e.preventDefault();
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const fabricImg = new fabric.Image(img, {
-          scaleX: canvas.width / img.width,
-          scaleY: canvas.height / img.height,
-        });
-        canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
-        setImageURL(event.target.result);
+  useEffect(() => {
+    if (uploadedImageFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setUploadedImage(event.target.result); // Update the state with the uploaded image
       };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-  };
-  
-  const navigate = useNavigate();
+      reader.readAsDataURL(uploadedImageFile);
+    }
+  }, [uploadedImageFile]);
 
   const handleProceed = () => {
-    // Add logic here to customize the redirection as needed
-    navigate('/excel');
+    // Example: navigate to the /excel endpoint with annotations, canvasImage, and resizedImage
+    navigate('/excel', {
+      state: {
+        annotations: annotations,
+        canvasImage: canvas.toDataURL('image/png'),
+        resizedImage: uploadedImage
+      }
+    });
   };
-  
 
   return (
     <div className="flex">
       <div className="w-1/3 p-4">
-        <h2>Wo<span className='text-orange-500'>rds</span></h2>
-        <div id="words" className='text-white'>
-          <Word text="Word1" />
-          <Word text="Word2" />
+        <h2>Words</h2>
+        <div id="words">
+          <Word text="Word1" onClick={() => addWordToCanvas("Word1", 20, 20)} />
+          <Word text="Word2" onClick={() => addWordToCanvas("Word2", 20, 50)} />
           {/* Add more words here */}
         </div>
         <div>
@@ -167,7 +150,7 @@ const Canvas = () => {
       </div>
       <div className="w-2/3 p-4">
         <div
-          className="canvas-container pt-4"
+          className="canvas-container"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
@@ -175,7 +158,7 @@ const Canvas = () => {
             id="canvas"
             ref={(ref) => {
               if (ref && !canvas) {
-                const newCanvas = new fabric.Canvas(ref,{ width: 800, height: 600 });
+                const newCanvas = new fabric.Canvas(ref, { width: 800, height: 600 });
                 setCanvas(newCanvas);
               }
             }}
@@ -185,16 +168,14 @@ const Canvas = () => {
           <h2>Annotations</h2>
           <ul>
             {annotations.map((annotation, index) => (
-              <li key={index} className="text-white">
+              <li key={index}>
                 {annotation.word} - Left: {annotation.boundingBox.left}, Top: {annotation.boundingBox.top}, Width: {annotation.boundingBox.width}, Height: {annotation.boundingBox.height}, Font Size: {annotation.fontSize}
-              <div className='flex items-center pt-4'>
-              <button onClick={() => handleDeleteWord(annotation.word)} className="ml-2">Delete</button>
-              <button onClick={handleProceed} className="ml-2">Proceed</button>
-              </div>
-            </li>
+                <button onClick={() => handleDeleteWord(annotation.word)}>Delete</button>
+              </li>
             ))}
           </ul>
         </div>
+        <button onClick={handleProceed}>Proceed</button>
       </div>
     </div>
   );
