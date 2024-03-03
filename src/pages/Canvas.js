@@ -166,9 +166,8 @@ const Canvas = () => {
         </div>
       </div>
       <div className="w-2/3 p-4">
-        <input type="file" accept="image/*" onChange={handleImageUpload} />
         <div
-          className="canvas-container"
+          className="canvas-container pt-4"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >

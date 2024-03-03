@@ -68,7 +68,7 @@ function Footer() {
                   <Icon
                     key={`social-${index}`}
                     className="w-12 h-12 p-2 text-white rounded-full border border-gray-300 bg-transparent hover:bg-white hover:text-black cursor-pointer transition-colors duration-300"
-                    color="white"
+                    style={{ color: 'white' }}
                   />
                 );
               })}
