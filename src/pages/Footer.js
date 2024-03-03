@@ -1,63 +1,63 @@
 import React from 'react';
-import BrandLogo from "../images/brand-logo.png"
+import BrandLogo from "../images/brand-logo.png";
 import Logo from "../images/Logo.png";
-import { FaLinkedinIn, FaTwitter, FaFacebookF, FaArrowRight } from "react-icons/fa";
+import { FaLinkedinIn, FaTwitter, FaFacebookF } from "react-icons/fa";
 
 function Footer() {
   const socialLinks = [
-    { label: "Linkdln", icon: FaLinkedinIn },
+    { label: "LinkedIn", icon: FaLinkedinIn },
     { label: "Facebook", icon: FaFacebookF },
     { label: "Twitter", icon: FaTwitter },
   ];
 
   return (
-    <footer style={{ backgroundColor: 'linear-gradient(to right, #2E3038, #3B4148)', boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.1)' }}>
-      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0 flex flex-col">
-            <a href="" className="flex items-center text-lg mb-4">
-              <img src={BrandLogo} className="h-8 me-3" alt="Webkite Logo" />
-              <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">WEB<span className='text-orange-600'>KITES</span></span>
+    <footer className="bg-transparent shadow-md py-8">
+      <div className="container mx-auto px-6 lg:px-20">
+        <div className="md:flex md:justify-between items-center">
+          <div className="mb-8 md:mb-0 md:w-1/4">
+            <a href="/" className="flex items-center text-lg mb-4">
+              <img src={BrandLogo} className="h-12 me-3" alt="Webkite Logo" />
+              <span className="text-4xl font-semibold whitespace-nowrap text-white">WEB<span className='text-orange-600'>KITES</span></span>
             </a>
-            <p className="self-center text-xl mb-2 whitespace-nowrap text-white">+1 (7635) 547-12-97</p>
-            <p className="self-center text-lg whitespace-nowrap text-white">support@lift.agency</p>
+            <p className="text-xl mb-2 text-white font-urbanist">+1 (7635) 547-12-97</p>
+            <p className="text-base text-white font-urbanist">support@lift.agency</p>
           </div>
-          <div className='flex flex-col'>
-            <h2 className="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Quick Links</h2>
-            <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2">
+          <div className='md:w-2/4 md:pl-10'>
+            <h2 className="mb-6 text-sm font-bold text-white uppercase font-urbanist text-left">Quick Links</h2>
+            <div className="grid grid-cols-2 gap-4 sm:gap-4 sm:grid-cols-2">
               <div>
-                <ul className="text-white dark:text-white font-medium">
+                <ul className="text-white font-medium">
                   <li className="mb-4">
-                    <a href="" className="hover:underline text-white">Product</a>
+                    <a href="/" className="hover:underline text-white font-urbanist">Product</a>
                   </li>
                   <li>
-                    <a href="" className="hover:underline text-white">Information</a>
+                    <a href="/" className="hover:underline text-white font-urbanist">Information</a>
                   </li>
                 </ul>
               </div>
               <div>
-                <ul className="text-white dark:text-white font-medium">
+                <ul className="text-white font-medium">
                   <li className="mb-4">
-                    <a href="" className="hover:underline text-white">Company</a>
+                    <a href="/" className="hover:underline text-white font-urbanist">Company</a>
                   </li>
                   <li>
-                    <a href="" className="hover:underline text-white">Lift Media</a>
+                    <a href="/" className="hover:underline text-white font-urbanist">Lift Media</a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center mb-6 rounded-lg p-6 sm:flex-row sm:mb-0">
-            <div className="relative mr-4">
-              <h2 className="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Subscribe</h2>
+          <div className="md:w-1/4 flex flex-col items-center justify-center">
+            <div className="relative mb-6">
+              <h2 className="mb-2 text-sm font-semibold text-white text-left uppercase font-urbanist">Subscribe</h2>
               <div className='flex flex-row'>
-                <input type="email" id="email" className="flex-grow rounded-lg bg-white border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500" placeholder="Get product updates" required />
+                <input type="email" id="email" className="flex-grow rounded-lg bg-white border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 font-urbanist" placeholder="Get product updates" required />
               </div>
             </div>
           </div>
         </div>
 
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <hr className="my-8 border sm:mx-auto lg:my-8" style={{ borderColor: "#57595F" }} />
 
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex mt-4 sm:justify-center sm:mt-0">
@@ -67,19 +67,18 @@ function Footer() {
                 return (
                   <Icon
                     key={`social-${index}`}
-                    className="w-12 h-12 p-2 text-white rounded-full border border-gray-300 bg-transparent hover:bg-white hover:text-black cursor-pointer transition-colors duration-300"
-                    style={{ color: 'white' }}
+                    className="w-10 h-10 p-2 text-white rounded-full border border-gray-300 bg-transparent hover:bg-white hover:text-black cursor-pointer transition-colors duration-300"
                   />
                 );
               })}
             </div>
           </div>
 
-          <p className='text-white'>
+          <p className='text-white font-urbanist'>
             A product of <img src={Logo} className="inline" alt="Logo" />
           </p>
 
-          <span className="text-sm text-white sm:text-center dark:text-white">© 2020 <a href="" className="hover:underline">Lift Media.</a>. All Rights Reserved.</span>
+          <span className="text-sm text-white sm:text-center dark:text-white font-urbanist">© 2024 <a href="/" className="hover:underline font-urbanist">Lift Media</a>. All Rights Reserved.</span>
         </div>
       </div>
     </footer>

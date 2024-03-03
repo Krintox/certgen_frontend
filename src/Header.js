@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import logoImage from "./images/Logo.png";
 import certificateLogo from "./images/certificate-logo.png";
+import newProject from "./images/newProject.png";
 import commentsLogo from "./images/comments-logo.png";
 
 export default function Header() {
@@ -49,6 +50,10 @@ export default function Header() {
               <img src={commentsLogo} alt="Comments" className="nav-icon-image" />
               REVIEWS
             </Link>
+            <Link to="/newproject" className="nav-icon">
+              <img src={newProject} alt="Project" className="nav-icon-image" />
+              NEW PROJECT
+            </Link>
           </>
         )}
       </nav>
@@ -67,7 +72,6 @@ export default function Header() {
         )}
         {!username && (
           <>
-            <Link to="/upload" className="start-project-button">Start Project</Link>
             <Link to="/register" className="signup-button">
               Sign Up
             </Link>
