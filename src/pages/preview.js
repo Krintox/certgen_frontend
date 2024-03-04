@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import JSZip from 'jszip';
+import LoadingComponent from './LoadingPage'; // Import your loading component
 
 const PreviewPage = () => {
   const location = useLocation();
@@ -57,8 +58,7 @@ const PreviewPage = () => {
   const handleBulkDownload = () => {
     const zip = new JSZip();
     const imagesFolder = zip.folder('images');
-  
-    resultImages.slice(0, 5).forEach((base64String, index) => {
+    resultImages.forEach((base64String, index) => {
       const fileName = `image_${index + 1}.png`;
       const byteCharacters = atob(base64String);
       const byteNumbers = new Array(byteCharacters.length);
@@ -69,10 +69,10 @@ const PreviewPage = () => {
   
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: 'image/png' });
-  
+
       imagesFolder.file(fileName, blob);
     });
-  
+
     zip.generateAsync({ type: 'blob' }).then((content) => {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(content);
@@ -125,16 +125,13 @@ const PreviewPage = () => {
       }
     };
   
-  
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <h1 className="text-3xl md:text-5xl font-bold text-white border-b-2 under md:pb-2">CERT GEN - Preview</h1>
       <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden">
         {isLoading ? (
-          <div className="flex items-center justify-center h-40">
-            <span className="text-xl text-gray-600">Loading...</span>
-          </div>
+          <LoadingComponent /> // Display the loading component here
         ) : (
           <>
             <div className="flex justify-between">
@@ -172,11 +169,9 @@ const PreviewPage = () => {
               </div>
             ) : (
               <div className="w-full p-4 flex justify-center">
-                <button
-                  onClick={handleSendRequest}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Generate Certificate
+
+                <button onClick={handleSendRequest} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Generate
                 </button>
               </div>
             )}
