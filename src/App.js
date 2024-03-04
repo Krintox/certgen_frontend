@@ -8,12 +8,11 @@ import UploadExcel from './pages/UploadExcel';
 import {UserContextProvider} from "./UserContext";
 import CreatePost from "./pages/addPhotos";
 import Preview from './pages/preview';
-import Edit from "./pages/edit";
 import NewProject from './pages/newProject';
 import LandingPage from './pages/LandingPage';
 import Canvas from './pages/Canvas';
 import History from './pages/history';
-
+import CreateAccount from './pages/createaccount';
 
 function App() {
   return (
@@ -27,10 +26,10 @@ function App() {
           <Route path="/upload" element={<UploadPage />} />
           <Route path="/excel" element={<UploadExcel />} />
           <Route path="/preview" element={<Preview/>} />
-          <Route path="/edit" element={<Edit/>} />
           <Route path="/newproject" element={<NewProject/>} />
           <Route path="/drag" element={<Canvas/>} />
           <Route path="/history" element={<History/>} />
+          <Route path="/createaccount" element={<CreateAccount/>}/>
         </Route>
       </Routes>
     </UserContextProvider>
