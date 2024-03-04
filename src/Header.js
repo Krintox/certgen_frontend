@@ -23,8 +23,10 @@ export default function Header() {
     fetch('http://localhost:4000/logout', {
       credentials: 'include',
       method: 'POST',
+    }).then(() => {
+      setUserInfo(null);
+      window.location.href = "/"; // Redirect to homepage
     });
-    setUserInfo(null);
   }
 
   const username = userInfo?.username;
@@ -37,10 +39,10 @@ export default function Header() {
       </Link>
       <nav>
         {username && (
-          <>
-            <Link to="/create" className="nav-icon">Post +</Link>
-            <a onClick={logout} className="nav-icon">Logout ({username})</a>
-          </>
+          <Link to="/newproject" className="nav-icon">
+          <img src={newProject} alt="Project" className="nav-icon-image" />
+          NEW PROJECT
+        </Link>
         )}
         {!username && (
           <>
@@ -52,10 +54,6 @@ export default function Header() {
               <img src={commentsLogo} alt="Comments" className="nav-icon-image" />
               REVIEWS
             </Link>
-            <Link to="/newproject" className="nav-icon">
-              <img src={newProject} alt="Project" className="nav-icon-image" />
-              NEW PROJECT
-            </Link>
           </>
         )}
       </nav>
@@ -64,9 +62,6 @@ export default function Header() {
       <nav>
         {username && (
           <>
-            <Link to="/create" className="nav-icon">
-              Post +
-            </Link>
             <a onClick={logout} className="nav-icon">
               Logout ({username})
             </a>

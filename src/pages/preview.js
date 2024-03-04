@@ -1,30 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import JSZip from 'jszip';
 
 const PreviewPage = () => {
   const location = useLocation();
   const annotations = location.state.annotations || {};
+  const canvasImage = location.state.canvasImage || {};
   const resizedImage = location.state.uploadImage || {};
-  const uploadedExcelFile = location.state.uploadedExcelFile || {}
+  const uploadedExcelFile = location.state.uploadedExcelFile || {};
   const [resultImages, setResultImages] = useState([]);
   const [resultEmails, setResultEmails] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // State for loading status
+  const [isLoading, setIsLoading] = useState(false); 
+  const [showProceedButton, setShowProceedButton] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && resultImages.length > 0 && resultEmails.length > 0) {
+      setShowProceedButton(true);
+    }
+  }, [isLoading, resultImages, resultEmails]);
 
   const handleSendRequest = async () => {
-    setIsLoading(true); // Set loading status to true
+    setIsLoading(true); 
     if (annotations && resizedImage && uploadedExcelFile) {
       try {
-        // Fetch the resizedImage as a Blob
+        
         const response = await fetch(resizedImage);
         const blob = await response.blob();
 
-        // Create a new File object from the Blob
+        
         const file = new File([blob], 'image.jpg', { type: blob.type });
 
         const formData = new FormData();
         formData.append('coordinates', JSON.stringify(annotations));
-        formData.append('image', file); // Append the converted File object
+        formData.append('image', file); 
         formData.append('excel', uploadedExcelFile);
 
         // Send the POST request with the FormData
@@ -35,53 +44,93 @@ const PreviewPage = () => {
         });
 
         console.log('Response from server:', apiResponse.data);
-        const { resultImages, resultEmails } = apiResponse.data;
-        setResultImages(resultImages);
-        setResultEmails(resultEmails);
+        const { result_images, result_emails } = apiResponse.data;
+        setResultImages(result_images);
+        setResultEmails(result_emails);
       } catch (error) {
         console.error('Error fetching preview:', error);
       } finally {
-        setIsLoading(false); // Set loading status back to false
+        setIsLoading(false); 
       }
     } else {
       console.log('Missing Values');
-      setIsLoading(false); // Set loading status back to false
+      setIsLoading(false); 
     }
   };
-  
+
+  const handleBulkDownload = () => {
+    const zip = new JSZip();
+    const imagesFolder = zip.folder('images');
+    resultImages.slice(0, 5).forEach((base64String, index) => {
+      const fileName = `image_${index + 1}.png`; 
+      const imageData = base64String.split(';base64,')[1];
+      imagesFolder.file(fileName, imageData, { base64: true });
+    });
+
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(content);
+      link.download = 'images.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  };
+
+  const handleProceed = () => {
+    // Handle proceeding to the next step
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <h1 className="text-3xl md:text-5xl font-bold text-white border-b-2 under md:pb-2">CERT GEN - Preview</h1>
-      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20">
-        {isLoading ? ( // Display loading screen if isLoading is true
+      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden"> {/* Apply overflow-hidden to contain the images */}
+        {isLoading ? (
           <div className="flex items-center justify-center h-40">
             <span className="text-xl text-gray-600">Loading...</span>
           </div>
         ) : (
           <>
-            <div className="w-full p-4">
-              <h2>Result Images</h2>
-              <div className="flex flex-wrap">
-                {resultImages.map((url, index) => (
-                  <div key={index} className="m-2">
-                    <img src={url} alt={`Result Image ${index}`} />
-                  </div>
-                ))}
+            <div className="flex justify-between"> 
+              <div className="w-full p-4">
+                <h2>Result Images</h2>
+                <div className="flex flex-wrap justify-center">
+                  {resultImages.slice(0, 5).map((base64String, index) => (
+                    <div key={index} className="m-2">
+                      <img src={`data:image/jpeg;base64,${base64String}`} alt={`Result Image ${index}`} style={{ maxWidth: '150px', maxHeight: '150px' }} /> {/* Limit image size */}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="w-1/2 p-4">
+                <h2>Result Emails</h2>
+                <ul>
+                  {resultEmails.slice(0, 5).map((email, index) => (
+                    <li key={index}>{email}</li>
+                  ))}
+                </ul>
               </div>
             </div>
-            <div className="w-full p-4">
-              <h2>Result Emails</h2>
-              <ul>
-                {resultEmails.map((email, index) => (
-                  <li key={index}>{email}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="w-full p-4">
-              <button onClick={handleSendRequest} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Send Request
-              </button>
-            </div>
+            {showProceedButton ? (
+              <div className="w-full p-4 flex justify-center">
+                <button onClick={handleProceed} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Proceed
+                </button>
+              </div>
+            ) : (
+              <div className="w-full p-4 flex justify-center">
+                <button onClick={handleSendRequest} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Send Request
+                </button>
+              </div>
+            )}
+            {resultImages.length > 0 && (
+              <div className="w-full p-4 flex justify-center">
+                <button onClick={handleBulkDownload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Bulk Download Images
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
