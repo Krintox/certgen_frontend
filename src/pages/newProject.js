@@ -34,7 +34,7 @@ export default function NewProject() {
   return (
     <div className="flex justify-center items-center">
       <div className="flex justify-center items-center h-screen w-3/4 ">
-        <div className="container mx-auto rounded-lg shadow-md relative flex overflow-hidden h-5/6 w-10/12">
+        <div className="container mx-auto rounded-lg shadow-md relative flex h-5/6 w-10/12">
           {/* Left Side */}
           <div className="relative w-1/2 h-full flex flex-col rounded-lg" style={gradientBgLeft}>
             <div className='absolute left-[10%] flex flex-col'>
@@ -56,7 +56,7 @@ export default function NewProject() {
 
             <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
               <div className="w-full flex flex-col mb-2">
-                <h3 className="text-3xl font-semibold mb-2 text-center text-white mt-24">LET'S BEGIN</h3>
+                <h3 className="text-3xl font-semibold mb-2 text-center text-white mt-24 font-urbanist">LET'S BEGIN</h3>
               </div>
 
               <div className="w-full flex flex-col">
@@ -64,24 +64,24 @@ export default function NewProject() {
                   <div className="w-full">
                     <input
                       type="text"
-                      placeholder="Project Name"
+                      placeholder=" Project Name"
                       value={projectName}
                       onChange={ev => setProjectName(ev.target.value)}
-                      className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
+                      className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
                     />
                   </div>
 
                   <div className="w-full">
                     <textarea
-                      placeholder="Description"
+                      placeholder=" Description"
                       value={description}
                       onChange={ev => setDescription(ev.target.value)}
-                      className="w-full text-white py-2 my-2 bg-transparent shadow-md border=black outline-none focus:outline-none"
+                      className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
                     />
                   </div>
 
                   <div className='w-full flex items-center justify-between'>
-                    <p className='text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2 text-white'>
+                    <p className='text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2 text-white font-urbanist'>
                       Forgot Password?
                     </p>
                   </div>
@@ -89,7 +89,7 @@ export default function NewProject() {
                   <div className='w-full flex flex-col my-4'>
                     <button
                       type="submit"
-                      className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
+                      className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer font-urbanist'
                       style={gradientBgLeft}
                     >
                       Proceed

@@ -7,7 +7,7 @@ const Canvas = () => {
   const [annotations, setAnnotations] = useState([]);
   const [imageURL, setImageURL] = useState('');
   const [customText, setCustomText] = useState('');
-  const [fontColor, setFontColor] = useState('#ffffff'); // Default color is white
+  const [fontColor, setFontColor] = useState('#000000'); // Default color is black
   const [selectedFont, setSelectedFont] = useState(null);
   const [attributes, setAttributes] = useState([
     "Recipient's Name",
@@ -103,13 +103,13 @@ const Canvas = () => {
 
   return (
     <div className="flex p-4">
-      <div className="w-48 mr-4">
-        <h2 className="text-orange-500 mb-4 text-3xl">ATTRIBUTES</h2>
+      <div className="w-48 mr-4 bg-white bg-opacity-10 p-4 glassmorphism">
+        <h2 className="text-orange-500 mb-4 text-3xl font-urbanist">ATTRIBUTES</h2>
         <ul>
           {attributes.map((attribute, index) => (
             <li
               key={index}
-              className="cursor-pointer mb-2 text-white"
+              className="cursor-pointer mb-2 text-white font-urbanist"
               onClick={() => handleAttributeClick(attribute)}
             >
               {attribute}
@@ -121,18 +121,18 @@ const Canvas = () => {
             type="text"
             value={customText}
             onChange={handleCustomTextChange}
-            className="mb-2 p-2 w-full bg-white text-black"
+            className="mb-2 p-2 w-full bg-white text-white"
           />
-          <label className="block text-orange-500 mb-1 text-3xl">FONT COLOR</label>
+          <label className="block text-orange-500 mb-1 text-3xl font-urbanist">FONT COLOR</label>
           <input
             type="color"
             value={fontColor}
             onChange={handleFontColorChange}
-            className="mb-2 p-2 w-full bg-white text-black"
+            className="mb-2 p-2 w-full bg-white text-white font-urbanist"
           />
           <button
             onClick={handleCustomTextAdd}
-            className="bg-orange-500 text-white p-2"
+            className="bg-orange-500 text-white p-2 font-urbanist"
           >
             Add Custom Text
           </button>
@@ -172,7 +172,7 @@ const Canvas = () => {
         </div>
 
         <div>
-          <h2 className="text-white mb-2">Annotations</h2>
+          <h2 className="text-white font-urbanist mb-2">Annotations</h2>
           <ul>
             {annotations.map((annotation, index) => (
               <li key={index} className="text-white">

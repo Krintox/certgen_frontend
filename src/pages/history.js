@@ -13,37 +13,46 @@ const gradientText = {
 
 function History() {
   return (
-    <div>
-      <div className="flex flex-row mx-36">
-        <div className="relative bg-white bg-opacity-10 p-4 w-full h-40 mx-auto my-4 mr-8 mt-12 rounded-lg text-white shadow-md glassmorphism font-urbanist">
-          Certificates generated
-          <img src={icon1} alt="Icon 1" className="absolute top-3 right-2 mt-2 mx-4" />
-          <p className="absolute bottom-0 left-0 text-5xl ml-4 mb-4 font-semibold font-urbanist" style={gradientText}>1800</p>
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col sm:flex-row mb-4">
+        <div className="sm:w-1/4 mb-4 sm:mr-4">
+          <div className="relative bg-white bg-opacity-10 p-4 w-full h-40 mx-auto my-4 rounded-lg text-white shadow-md glassmorphism font-urbanist">
+            Certificates generated
+            <img src={icon1} alt="Icon 1" className="absolute top-3 right-2 mt-2 mx-4" />
+            <p className="absolute bottom-0 left-0 text-5xl ml-4 mb-4 font-semibold font-urbanist" style={gradientText}>1800</p>
+          </div>
         </div>
 
-        <div className="relative bg-white bg-opacity-10 p-4 w-full h-40 mx-auto my-4 mr-8 mt-12 rounded-lg text-white shadow-md glassmorphism font-urbanist">
-          Total Emails sent
-          <img src={icon2} alt="Icon 2" className="absolute top-3 right-2 mt-2 mx-4" />
-          <p className="absolute bottom-0 left-0 text-5xl ml-4 mb-4 font-semibold font-urbanist" style={gradientText}>1500</p>
+        <div className="sm:w-1/4 mb-4 sm:mr-4">
+          <div className="relative bg-white bg-opacity-10 p-4 w-full h-40 mx-auto my-4 rounded-lg text-white shadow-md glassmorphism font-urbanist">
+            Total Emails sent
+            <img src={icon2} alt="Icon 2" className="absolute top-3 right-2 mt-2 mx-4" />
+            <p className="absolute bottom-0 left-0 text-5xl ml-4 mb-4 font-semibold font-urbanist" style={gradientText}>1500</p>
+          </div>
         </div>
 
-        <div className="relative bg-white bg-opacity-10 p-4 w-full h-40 mx-auto my-4 mr-8 mt-12 rounded-lg text-white shadow-md glassmorphism font-urbanist">
-          Total Competitions
-          <img src={icon3} alt="Icon 3" className="absolute top-3 right-2 mt-2 mx-4" />
-          <p className="absolute bottom-0 left-0 text-5xl ml-4 mb-4 font-semibold font-urbanist" style={gradientText}>5</p>
+        <div className="sm:w-1/4 mb-4 sm:mr-4">
+          <div className="relative bg-white bg-opacity-10 p-4 w-full h-40 mx-auto my-4 rounded-lg text-white shadow-md glassmorphism font-urbanist">
+            Total Competitions
+            <img src={icon3} alt="Icon 3" className="absolute top-3 right-2 mt-2 mx-4" />
+            <p className="absolute bottom-0 left-0 text-5xl ml-4 mb-4 font-semibold font-urbanist" style={gradientText}>5</p>
+          </div>
         </div>
 
-        <div className="relative bg-white bg-opacity-10 p-4 w-full h-40 mx-auto my-4 mt-12 rounded-lg text-white shadow-md glassmorphism font-urbanist">
-          Certificates Downloaded
-          <img src={icon4} alt="Icon 4" className="absolute top-3 right-2 mt-2 mx-4" />
-          <p className="absolute bottom-0 left-0 text-5xl ml-4 mb-4 font-semibold font-urbanist" style={gradientText}>1500</p>
+        <div className="sm:w-1/4 mb-4">
+          <div className="relative bg-white bg-opacity-10 p-4 w-full h-40 mx-auto my-4 rounded-lg text-white shadow-md glassmorphism font-urbanist">
+            Certificates Downloaded
+            <img src={icon4} alt="Icon 4" className="absolute top-3 right-2 mt-2 mx-4" />
+            <p className="absolute bottom-0 left-0 text-5xl ml-4 mb-4 font-semibold font-urbanist" style={gradientText}>1500</p>
+          </div>
         </div>
       </div>
+
       <div>
-        <div className="w-3/4 bg-white bg-opacity-10 p-2 text-white text-center font-semibold mt-5 rounded-t-lg shadow-md mx-auto glassmorphism font-urbanist">
+        <div className="w-full bg-white bg-opacity-10 p-2 text-white text-center font-semibold mt-2 rounded-t-lg shadow-md mx-auto glassmorphism font-urbanist">
           Total Certifications
         </div>
-        <table className=" w-3/4 bg-white bg-opacity-10 p-2 rounded-lg text-xs mx-auto glassmorphism font-urbanist">
+        <table className="w-full bg-white bg-opacity-10 p-2 rounded-lg text-xs mx-auto glassmorphism font-urbanist">
           <thead className="w-full bg-white bg-opacity-20 text-center font-urbanist">
             <tr>
               <th className="p-2 text-white w-1/4 h-10 font-urbanist">Project name</th>
@@ -91,7 +100,7 @@ function History() {
           </tbody>
         </table>
         <div className="fixed w-full bottom-0 left-0 bg-white bg-opacity-10 glassmorphism font-urbanist">
-          <button className="w-1/5 bg-gradient-to-r from-orange-500 to-red-500 text-white p-3 rounded-lg my-4 mx-auto font-urbanist">
+          <button className="w-full sm:w-1/5 bg-gradient-to-r from-orange-500 to-red-500 text-white p-3 rounded-lg my-4 mx-auto font-urbanist">
             New Project
           </button>
         </div>
