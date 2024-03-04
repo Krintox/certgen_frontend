@@ -61,12 +61,20 @@ const PreviewPage = () => {
   const handleBulkDownload = () => {
     const zip = new JSZip();
     const imagesFolder = zip.folder('images');
+    
     resultImages.slice(0, 5).forEach((base64String, index) => {
       const fileName = `image_${index + 1}.png`; 
-      const imageData = base64String.split(';base64,')[1];
-      imagesFolder.file(fileName, imageData, { base64: true });
+      const byteCharacters = atob(base64String);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'image/png' });
+  
+      imagesFolder.file(fileName, blob);
     });
-
+  
     zip.generateAsync({ type: 'blob' }).then((content) => {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(content);
@@ -76,6 +84,7 @@ const PreviewPage = () => {
       document.body.removeChild(link);
     });
   };
+  
 
   const handleProceed = () => {
     // Handle proceeding to the next step
