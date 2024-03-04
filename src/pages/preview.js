@@ -34,7 +34,6 @@ const PreviewPage = () => {
         formData.append('image', file);
         formData.append('excel', uploadedExcelFile);
 
-        // Send the POST request with the FormData
         const apiResponse = await axios.post('https://aliws.pythonanywhere.com/api', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -59,14 +58,15 @@ const PreviewPage = () => {
   const handleBulkDownload = () => {
     const zip = new JSZip();
     const imagesFolder = zip.folder('images');
-
     resultImages.forEach((base64String, index) => {
       const fileName = `image_${index + 1}.png`;
       const byteCharacters = atob(base64String);
       const byteNumbers = new Array(byteCharacters.length);
+  
       for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
+  
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: 'image/png' });
 
@@ -76,21 +76,60 @@ const PreviewPage = () => {
     zip.generateAsync({ type: 'blob' }).then((content) => {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(content);
-      link.download = 'images.zip';
+      link.download = `images_${new Date().toISOString()}.zip`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     });
   };
-
-  const handleProceed = () => {
-    // Handle proceeding to the next step
-  };
+  
+    const handleProceed = async () => {
+      try {
+        const attachments = [];
+    
+        resultImages.forEach((base64String, index) => {
+          const fileName = `image_${index + 1}.png`; // Fix: Use backticks for string interpolation
+          const byteCharacters = atob(base64String);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'image/png' });
+    
+          const file = new File([blob], fileName, { type: 'image/png' });
+    
+          attachments.push({
+            filename: fileName,
+            data: file,
+          });
+        });
+    
+        const emailData = {
+          subject: "Test Email Subject",
+          content: "This is a test email content.",
+          recipients: resultEmails,
+          attachments: attachments,
+        };
+    
+        const response = await axios.post('http://localhost:4000/sendEmails', emailData);
+    
+        if (response.status === 200) {
+          alert('Emails sent successfully');
+          console.log('Emails sent successfully');
+        } else {
+          console.error('Failed to send emails');
+        }
+      } catch (error) {
+        console.error('Error sending emails:', error);
+      }
+    };
+  
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <h1 className="text-3xl md:text-5xl font-bold text-white border-b-2 under md:pb-2">CERT GEN - Preview</h1>
-      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden"> {/* Apply overflow-hidden to contain the images */}
+      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden">
         {isLoading ? (
           <LoadingComponent /> // Display the loading component here
         ) : (
@@ -101,7 +140,11 @@ const PreviewPage = () => {
                 <div className="flex flex-wrap justify-center">
                   {resultImages.slice(0, 5).map((base64String, index) => (
                     <div key={index} className="m-2">
-                      <img src={`data:image/jpeg;base64,${base64String}`} alt={`Result Image ${index}`} style={{ maxWidth: '150px', maxHeight: '150px' }} /> {/* Limit image size */}
+                      <img
+                        src={`data:image/jpeg;base64,${base64String}`}
+                        alt={`Result Image ${index}`}
+                        style={{ maxWidth: '150px', maxHeight: '150px' }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -117,12 +160,16 @@ const PreviewPage = () => {
             </div>
             {showProceedButton ? (
               <div className="w-full p-4 flex justify-center">
-                <button onClick={handleProceed} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Proceed
+                <button
+                  onClick={handleProceed}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Send Emails
                 </button>
               </div>
             ) : (
               <div className="w-full p-4 flex justify-center">
+
                 <button onClick={handleSendRequest} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Generate
                 </button>
@@ -130,8 +177,11 @@ const PreviewPage = () => {
             )}
             {resultImages.length > 0 && (
               <div className="w-full p-4 flex justify-center">
-                <button onClick={handleBulkDownload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Bulk Download Images
+                <button
+                  onClick={handleBulkDownload}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Download Images
                 </button>
               </div>
             )}
@@ -143,3 +193,4 @@ const PreviewPage = () => {
 };
 
 export default PreviewPage;
+
