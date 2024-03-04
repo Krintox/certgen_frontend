@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import logo from "../images/brand-logo.png";
 import certificate from "../images/Image(1).png";
@@ -15,26 +15,26 @@ export default function RegisterPage() {
 
   async function Register(ev) {
     ev.preventDefault();
-  
+
     // Check if any of the fields are empty
     if (!username || !password || !confirmPassword) {
       alert('Please fill in all fields');
       return;
     }
-  
+
     // Check if passwords match
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-  
+
     try {
       const response = await fetch('http://localhost:4000/register', {
         method: 'POST',
         body: JSON.stringify({ username, password }),
         headers: { 'Content-Type': 'application/json' },
       });
-  
+
       if (response.status === 200) {
         alert('Registration successful');
         setRedirect(true);
@@ -47,9 +47,7 @@ export default function RegisterPage() {
       alert('Registration failed. Please try again.');
     }
   }
-  
-  
-  
+
   const gradientBgLeft = {
     background: "linear-gradient(to right, #FFA500, #FF6347)",
   };
@@ -64,10 +62,10 @@ export default function RegisterPage() {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="flex justify-center items-center h-screen w-3/4 ">
-        <div className="container mx-auto rounded-lg shadow-md relative flex overflow-hidden h-5/6 w-10/12">
+      <div className="flex justify-center items-center w-3/4 mt-8">
+        <div className="container mx-auto rounded-lg shadow-md relative flex h-5/6 w-10/12">
           {/* Left Side */}
-          <div className="relative w-1/2 h-full flex flex-col rounded-lg" style={gradientBgLeft}>
+          <div className="relative w-1/2 flex flex-col rounded-lg" style={gradientBgLeft}>
             <div className='absolute left-[10%] flex flex-col'>
               <h1 className='text-4xl text-white font-bold mt-8 flex items-center z-10'>
                 <img src={logo} alt="logo" className="w-12 h-12 mr-2 mb-1" />
@@ -78,7 +76,7 @@ export default function RegisterPage() {
               </p>
             </div>
             <div className="absolute w-full bottom-0">
-              <img src={certificate} alt="Certificate" className="w-full h-5/6 z-0" />
+              <img src={certificate} alt="Certificate" className="w-full h-auto max-h-5/6 z-0" />
             </div>
           </div>
 
@@ -87,29 +85,28 @@ export default function RegisterPage() {
             {/* Your existing right side content */}
             <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
               <div className="w-full flex flex-col mb-2">
-                <h3 className="text-4xl font-semibold mb-10 text-center text-white mt-12 ">CREATE AN <span className="text-orange-500">ACCOUNT</span></h3>
+                <h3 className="text-4xl mb-10 text-center text-white mt-12 ">CREATE AN <span className="text-orange-500">ACCOUNT</span></h3>
               </div>
               <div className="rounded-lg p-4 mb-4 items-center text-center flex justify-center" style={borderOrange}>
                 <img src={googleIcon} alt="Google Icon" className="w-6 h-6 mr-2" />
-                <span className="text-white ">Sign up with Google</span>
+                <span className="text-white font-urbanist">Sign up with Google</span>
               </div>
-              <p className="text-white mb-4 text-center">- OR -</p>
+              <p className="text-white mb-4 text-center font-urbanist">- OR -</p>
               <form className="Register" onSubmit={Register}>
                 <input
                   type="text"
                   placeholder="Name"
                   value={username}
                   onChange={(ev) => setName(ev.target.value)}
-                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
+                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
                 />
-
 
                 <input
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(ev) => setPassword(ev.target.value)}
-                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
+                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
                 />
 
                 <input
@@ -117,13 +114,13 @@ export default function RegisterPage() {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(ev) => setConfirmPassword(ev.target.value)}
-                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
+                  className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
                 />
 
                 <div className='w-full flex items-center justify-between'>
-                  <p className='text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2 text-white'>
+                  <p className='text-sm whitespace-nowrap cursor-pointer text-white font-urbanist'>
                     Already have an account?{' '}
-                    <Link to="/login" className="text-orange font-semibold">
+                    <Link to="/login" className="text-orange-500">
                       Log in
                     </Link>
                   </p>
@@ -132,7 +129,7 @@ export default function RegisterPage() {
                 <div className='w-full flex flex-col my-4'>
                   <button
                     type="submit"
-                    className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
+                    className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer font-urbanist'
                     style={gradientBgLeft}>
                     Create Account
                   </button>
