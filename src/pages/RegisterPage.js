@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import logo from "../images/brand-logo.png";
 import certificate from "../images/Image(1).png";
@@ -15,26 +15,26 @@ export default function RegisterPage() {
 
   async function Register(ev) {
     ev.preventDefault();
-  
+
     // Check if any of the fields are empty
     if (!username || !password || !confirmPassword) {
       alert('Please fill in all fields');
       return;
     }
-  
+
     // Check if passwords match
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-  
+
     try {
       const response = await fetch('http://localhost:4000/register', {
         method: 'POST',
         body: JSON.stringify({ username, password }),
         headers: { 'Content-Type': 'application/json' },
       });
-  
+
       if (response.status === 200) {
         alert('Registration successful');
         setRedirect(true);
@@ -47,9 +47,7 @@ export default function RegisterPage() {
       alert('Registration failed. Please try again.');
     }
   }
-  
-  
-  
+
   const gradientBgLeft = {
     background: "linear-gradient(to bottom right, #FB360F, #F28A18)",
   };
@@ -78,7 +76,7 @@ export default function RegisterPage() {
               </p>
             </div>
             <div className="absolute w-full bottom-0">
-              <img src={certificate} alt="Certificate" className="w-full h-5/6 z-0" />
+              <img src={certificate} alt="Certificate" className="w-full h-auto max-h-5/6 z-0" />
             </div>
           </div>
 
@@ -123,6 +121,7 @@ export default function RegisterPage() {
                   <p className='text-sm font-medium whitespace-nowrap cursor-pointer text-white font-urbanist'>
                     Already have an account?{' '}
                     <Link to="/login" className="text-orange font-urbanist">
+
                       Log in
                     </Link>
                   </p>

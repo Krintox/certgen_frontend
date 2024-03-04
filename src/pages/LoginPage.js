@@ -78,7 +78,7 @@ export default function RegisterPage() {
                 <form className="login" onSubmit={login}>
                   <input
                     type="text"
-                    placeholder="username"
+                    placeholder=" Username"
                     value={username}
                     onChange={ev => setUsername(ev.target.value)}
                     className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist"
@@ -86,7 +86,7 @@ export default function RegisterPage() {
 
                   <input
                     type="password"
-                    placeholder="password"
+                    placeholder=" Password"
                     value={password}
                     onChange={ev => setPassword(ev.target.value)}
                     className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist"
