@@ -32,7 +32,9 @@ export default function Header() {
   return (
     <header>
       <div className="header-title">
-      <img src={logoImage} alt="Logo" className="logo-image" />
+      <Link to="/" className="logo-link">
+        <img src={logoImage} alt="Logo" className="logo-image" />
+      </Link>
       <nav>
         {username && (
           <>
