@@ -49,7 +49,7 @@ export default function RegisterPage() {
   return (
     <div className="flex justify-center items-center">
       <div className="flex justify-center items-center h-screen w-3/4 ">
-        <div className="container mx-auto rounded-lg shadow-md relative flex h-5/6 w-10/12">
+        <div className="container mx-auto rounded-lg shadow-md relative flex overflow-hidden h-5/6 w-10/12">
           {/* Left Side */}
           <div className="relative w-1/2 h-full flex flex-col rounded-lg" style={gradientBgLeft}>
             <div className='absolute left-[10%] flex flex-col'>
@@ -71,34 +71,34 @@ export default function RegisterPage() {
             {/* Your existing right side content */}
             <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
               <div className="w-full flex flex-col mb-2">
-                <h3 className="text-4xl font-semibold mb-10 text-center text-white mt-12 font-urbanist ">WELCOME <span className="text-orange-500 font-urbanist">BACK </span> </h3>
+                <h3 className="text-4xl font-semibold mb-10 text-center text-white mt-12 ">WELCOME <span className="text-orange-500">BACK </span> </h3>
               </div>
 
               <div className="w-full flex flex-col">
                 <form className="login" onSubmit={login}>
                   <input
                     type="text"
-                    placeholder=" Username"
+                    placeholder="username"
                     value={username}
                     onChange={ev => setUsername(ev.target.value)}
-                    className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
+                    className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
                   />
 
                   <input
                     type="password"
-                    placeholder=" Password"
+                    placeholder="password"
                     value={password}
                     onChange={ev => setPassword(ev.target.value)}
-                    className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none font-urbanist"
+                    className="w-full text-white py-2 my-2 bg-transparent shadow-md outline-none focus:outline-none"
                   />
 
                   <div className='w-full flex items-center justify-between'>
-                    <p className='text-sm font-medium whitespace-nowrap cursor-pointer text-white font-urbanist'>Forgot Password?</p>
+                    <p className='text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2 text-white'>Forgot Password?</p>
                   </div>
 
                   <div className='w-full flex flex-col my-4'>
                     <button type="submit"
-                      className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer font-urbanist'
+                      className='w-full text-white my-2 font-semibold rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
                       style={gradientBgLeft}
                     >
                       Log in
@@ -107,7 +107,7 @@ export default function RegisterPage() {
                 </form>
 
                 <div className="w-full flex items-center justify-center">
-                  <p className="text-sm font-normal text-white font-urbanist">Don't have an account? <span className="font-semibold underline underline-offset-2 cursor-pointer font-urbanist">Create account</span></p>
+                  <p className="text-sm font-normal text-white">Don't have an account? <span className="font-semibold underline underline-offset-2 cursor-pointer">Create account</span></p>
                 </div>
               </div>
             </div>
