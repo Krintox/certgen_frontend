@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import JSZip from 'jszip';
+import LoadingComponent from './LoadingPage'; // Import your loading component
 
 const PreviewPage = () => {
   const location = useLocation();
   const annotations = location.state.annotations || {};
-  const canvasImage = location.state.canvasImage || {};
   const resizedImage = location.state.uploadImage || {};
   const uploadedExcelFile = location.state.uploadedExcelFile || {};
   const [resultImages, setResultImages] = useState([]);
   const [resultEmails, setResultEmails] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const [showProceedButton, setShowProceedButton] = useState(false);
 
   useEffect(() => {
@@ -21,19 +21,17 @@ const PreviewPage = () => {
   }, [isLoading, resultImages, resultEmails]);
 
   const handleSendRequest = async () => {
-    setIsLoading(true); 
+    setIsLoading(true);
     if (annotations && resizedImage && uploadedExcelFile) {
       try {
-        
         const response = await fetch(resizedImage);
         const blob = await response.blob();
 
-        
         const file = new File([blob], 'image.jpg', { type: blob.type });
 
         const formData = new FormData();
         formData.append('coordinates', JSON.stringify(annotations));
-        formData.append('image', file); 
+        formData.append('image', file);
         formData.append('excel', uploadedExcelFile);
 
         // Send the POST request with the FormData
@@ -50,20 +48,20 @@ const PreviewPage = () => {
       } catch (error) {
         console.error('Error fetching preview:', error);
       } finally {
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     } else {
       console.log('Missing Values');
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
   const handleBulkDownload = () => {
     const zip = new JSZip();
     const imagesFolder = zip.folder('images');
-    
-    resultImages.slice(0, 5).forEach((base64String, index) => {
-      const fileName = `image_${index + 1}.png`; 
+
+    resultImages.forEach((base64String, index) => {
+      const fileName = `image_${index + 1}.png`;
       const byteCharacters = atob(base64String);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
@@ -71,10 +69,10 @@ const PreviewPage = () => {
       }
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: 'image/png' });
-  
+
       imagesFolder.file(fileName, blob);
     });
-  
+
     zip.generateAsync({ type: 'blob' }).then((content) => {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(content);
@@ -84,7 +82,6 @@ const PreviewPage = () => {
       document.body.removeChild(link);
     });
   };
-  
 
   const handleProceed = () => {
     // Handle proceeding to the next step
@@ -95,12 +92,10 @@ const PreviewPage = () => {
       <h1 className="text-3xl md:text-5xl font-bold text-white border-b-2 under md:pb-2">CERT GEN - Preview</h1>
       <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden"> {/* Apply overflow-hidden to contain the images */}
         {isLoading ? (
-          <div className="flex items-center justify-center h-40">
-            <span className="text-xl text-gray-600">Loading...</span>
-          </div>
+          <LoadingComponent /> // Display the loading component here
         ) : (
           <>
-            <div className="flex justify-between"> 
+            <div className="flex justify-between">
               <div className="w-full p-4">
                 <h2>Result Images</h2>
                 <div className="flex flex-wrap justify-center">
@@ -129,7 +124,7 @@ const PreviewPage = () => {
             ) : (
               <div className="w-full p-4 flex justify-center">
                 <button onClick={handleSendRequest} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Send Request
+                  Generate
                 </button>
               </div>
             )}
