@@ -149,7 +149,7 @@ const PreviewPage = () => {
                   ))}
                 </div>
               </div>
-              <div className="w-1/2 p-4">
+              <div className="w-1/2 p-4 text-white">
                 <h2>Result Emails</h2>
                 <ul>
                   {resultEmails.slice(0, 5).map((email, index) => (
