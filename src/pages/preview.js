@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import JSZip from 'jszip';
-import LoadingComponent from './LoadingPage'; // Import your loading component
+import Modal from 'react-modal';
+import LoadingComponent from './LoadingPage';
+import './styles/modal.css';
+import { IoMdClose } from "react-icons/io";
+
+Modal.setAppElement('#root');
 
 const PreviewPage = () => {
   const location = useLocation();
@@ -13,12 +18,24 @@ const PreviewPage = () => {
   const [resultEmails, setResultEmails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showProceedButton, setShowProceedButton] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailContent, setEmailContent] = useState('');
 
   useEffect(() => {
     if (!isLoading && resultImages.length > 0 && resultEmails.length > 0) {
       setShowProceedButton(true);
     }
   }, [isLoading, resultImages, resultEmails]);
+
+  const openEmailModal = () => {
+    setIsEmailModalOpen(true);
+  };
+
+  const closeEmailModal = () => {
+    setIsEmailModalOpen(false);
+  };
+
 
   const handleSendRequest = async () => {
     setIsLoading(true);
@@ -95,8 +112,8 @@ const PreviewPage = () => {
       });
   
       const emailData = {
-        subject: "Test Email Subject",
-        content: "This is a test email content.",
+        subject: emailSubject,
+        content: emailContent,
         recipients: resultEmails,
         attachments: attachments,
       };
@@ -154,7 +171,7 @@ const PreviewPage = () => {
             {showProceedButton ? (
               <div className="w-full p-4 flex justify-center">
                 <button
-                  onClick={handleProceed}
+                  onClick={openEmailModal}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Send Emails
@@ -181,6 +198,30 @@ const PreviewPage = () => {
           </>
         )}
       </div>
+      <Modal
+        isOpen={isEmailModalOpen}
+        onRequestClose={closeEmailModal}
+        contentLabel="Email Modal"
+        className="Modal"
+        overlayClassName="Overlay"
+      >
+        <h2>Send Emails</h2>
+        <label className='ModalLabel'>Email Subject:</label>
+        <input
+          type="text"
+          value={emailSubject}
+          onChange={(e) => setEmailSubject(e.target.value)}
+          className="ModalInput"
+        />
+        <label className='ModalLabel'>Email Content:</label>
+        <textarea
+          value={emailContent}
+          onChange={(e) => setEmailContent(e.target.value)}
+          className="ModalInput"
+        />
+        <button onClick={handleProceed} className="ModalButton">Send</button>
+        <button onClick={closeEmailModal} className="ModalCloseButton"><IoMdClose /></button>
+      </Modal>
     </div>
   );
 };

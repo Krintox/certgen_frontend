@@ -151,7 +151,7 @@ const Canvas = () => {
           <Word text="Word2" onClick={() => addWordToCanvas("Word2", 20, 50)} />
         </div>
         <div>
-          <input className='text-white' type="text" value={customText} onChange={handleCustomTextChange} />
+          <input className='text-white font-urbanist bg-transparent' type="text" value={customText} onChange={handleCustomTextChange} />
           <button onClick={handleCustomTextAdd}>Add Custom Text</button>
         </div>
       </div>

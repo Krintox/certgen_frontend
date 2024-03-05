@@ -1,0 +1,78 @@
+/* Add this to your main stylesheet or create a new one */
+
+/* Modal styles */
+.Modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #222029;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  /* Overlay styles */
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Close button styles (you can customize this further) */
+  .ModalCloseButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .ModalCloseButton:hover {
+    color: #000;
+  }
+
+  .ModalInput {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: darkgrey;
+    font-family: 'Urbanist', sans-serif;
+  }
+
+  .ModalLabel {
+    color: #fff; /* White color for the labels */
+    font-family: 'Urbanist', sans-serif;
+    margin-bottom: 4px;
+  }
+  
+  /* Button styles */
+  .ModalButton {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 auto;
+  }
+  
+  .ModalButton:hover {
+    background-color: #45a049;
+  }
+  
