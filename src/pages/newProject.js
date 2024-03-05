@@ -12,12 +12,36 @@ export default function NewProject() {
 
   async function handleProceed(ev) {
     ev.preventDefault();
-
-    // Here, you can perform actions such as saving the project details
-
-    // Redirect logic
-    setRedirect(true);
+  
+    // Create a JSON object with title and description
+    const projectData = {
+      title: projectName,
+      description: description
+    };
+  
+    try {
+      // Make a POST request to the backend endpoint with credentials
+      const response = await fetch('http://localhost:4000/createProject/titleDesc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include', // Include credentials
+        body: JSON.stringify(projectData)
+      });
+  
+      if (response.ok) {
+        // Redirect to the next step if the request is successful
+        setRedirect(true);
+      } else {
+        // Handle error response
+        console.error('Failed to create project title and description:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error creating project title and description:', error);
+    }
   }
+  
 
   if (redirect) {
     return <Navigate to={'/upload'} />;

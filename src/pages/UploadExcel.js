@@ -1,4 +1,3 @@
-import { upload } from '@testing-library/user-event/dist/upload';
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -10,20 +9,39 @@ const UploadExcel = () => {
   const { annotations, canvasImage } = state || {};
   const uploadImage = location.state ? location.state.resizedImage : null;
 
-
   const handleExcelUpload = (event) => {
     const file = event.target.files[0];
     setUploadedExcelFile(file);
   };
 
-  const handleDataSubmission = () => {
+  const handleDataSubmission = async () => {
     if (!uploadedExcelFile) {
       // Handle error if no email is uploaded
       return;
     }
-    
-    // Send the uploaded email to the Preview page for processing
-    navigate('/preview', { state: {uploadedExcelFile,annotations,canvasImage,uploadImage } });
+
+    try {
+      // Create FormData object to send the Excel file
+      const formData = new FormData();
+      formData.append('excelFile', uploadedExcelFile);
+
+      // Make a POST request to the backend endpoint
+      const response = await fetch('http://localhost:4000/createProject/excel', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include' // Include credentials for cookie authentication
+      });
+
+      if (response.ok) {
+        // Proceed to the Preview page if the request is successful
+        navigate('/preview', { state: { uploadedExcelFile, annotations, canvasImage, uploadImage } });
+      } else {
+        // Handle error response
+        console.error('Failed to upload Excel file:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error uploading Excel file:', error);
+    }
   };
 
   return (

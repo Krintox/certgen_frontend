@@ -10,16 +10,36 @@ const UploadPage = () => {
     setUploadedImageFile(file);
   };
 
-  const handleDataSubmission = () => {
+  const handleDataSubmission = async () => {
     if (!uploadedImageFile) {
-      // Handle error if no image is uploaded
+      alert("No image uploaded")
       return;
     }
 
-    // Send the uploaded image to the Canvas page for processing
-    navigate('/drag', { state: { uploadedImageFile } });
-  };
+    try {
+      // Create FormData object to send the image file
+      const formData = new FormData();
+      formData.append('imageFile', uploadedImageFile);
 
+      // Make a POST request to the backend endpoint
+      const response = await fetch('http://localhost:4000/createProject/image', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include' // Include credentials for cookie authentication
+      });
+
+      if (response.ok) {
+        // Redirect to the next step if the request is successful
+        alert("image uploaded");
+        navigate('/drag', { state: { uploadedImageFile } });
+      } else {
+        // Handle error response
+        console.error('Failed to upload project image:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error uploading project image:', error);
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
       <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERT GEN</h1>

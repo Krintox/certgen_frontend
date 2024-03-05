@@ -83,47 +83,40 @@ const PreviewPage = () => {
     });
   };
   
-    const handleProceed = async () => {
-      try {
-        const attachments = [];
-    
-        resultImages.forEach((base64String, index) => {
-          const fileName = `image_${index + 1}.png`; // Fix: Use backticks for string interpolation
-          const byteCharacters = atob(base64String);
-          const byteNumbers = new Array(byteCharacters.length);
-          for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-          }
-          const byteArray = new Uint8Array(byteNumbers);
-          const blob = new Blob([byteArray], { type: 'image/png' });
-    
-          const file = new File([blob], fileName, { type: 'image/png' });
-    
-          attachments.push({
-            filename: fileName,
-            data: file,
-          });
+  const handleProceed = async () => {
+    try {
+      const attachments = [];
+  
+      resultImages.forEach((base64String, index) => {
+        attachments.push({
+          filename: `image_${index + 1}.png`,
+          content: base64String,
         });
-    
-        const emailData = {
-          subject: "Test Email Subject",
-          content: "This is a test email content.",
-          recipients: resultEmails,
-          attachments: attachments,
-        };
-    
-        const response = await axios.post('http://localhost:4000/sendEmails', emailData);
-    
-        if (response.status === 200) {
-          alert('Emails sent successfully');
-          console.log('Emails sent successfully');
-        } else {
-          console.error('Failed to send emails');
-        }
-      } catch (error) {
-        console.error('Error sending emails:', error);
+      });
+  
+      const emailData = {
+        subject: "Test Email Subject",
+        content: "This is a test email content.",
+        recipients: resultEmails,
+        attachments: attachments,
+      };
+  
+      console.log('Email data:', emailData); // Log email data before sending request
+  
+      const response = await axios.post('http://localhost:4000/sendEmails', emailData);
+  
+      if (response.status === 200) {
+        alert('Emails sent successfully');
+        console.log('Emails sent successfully');
+      } else {
+        console.error('Failed to send emails');
       }
-    };
+    } catch (error) {
+      console.error('Error sending emails:', error);
+    }
+  };
+  
+  
   
 
   return (

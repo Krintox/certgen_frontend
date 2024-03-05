@@ -13,6 +13,8 @@ import LandingPage from './pages/LandingPage';
 import Canvas from './pages/Canvas';
 import History from './pages/history';
 import CreateAccount from './pages/createaccount';
+import ProjectsList from './pages/projectview';
+import ProjectDetails from './pages/projectdetails';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/drag" element={<Canvas/>} />
           <Route path="/history" element={<History/>} />
           <Route path="/createaccount" element={<CreateAccount/>}/>
+          <Route path="/projectview" element={<ProjectsList/>}/>
+          <Route path="/projectdet/:id" element={<ProjectDetails/>}/>
         </Route>
       </Routes>
     </UserContextProvider>
