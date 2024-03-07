@@ -21,6 +21,7 @@ const PreviewPage = () => {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [emailSubject, setEmailSubject] = useState('');
   const [emailContent, setEmailContent] = useState('');
+  const [subLoad, setSubLoad] = useState(false);
 
   useEffect(() => {
     if (!isLoading && resultImages.length > 0 && resultEmails.length > 0) {
@@ -103,6 +104,7 @@ const PreviewPage = () => {
   const handleProceed = async () => {
     try {
       const attachments = [];
+      setSubLoad(true);
   
       resultImages.forEach((base64String, index) => {
         attachments.push({
@@ -123,6 +125,7 @@ const PreviewPage = () => {
       const response = await axios.post('http://localhost:4000/sendEmails', emailData);
   
       if (response.status === 200) {
+        setSubLoad(false);
         alert('Emails sent successfully');
         console.log('Emails sent successfully');
       } else {
@@ -219,7 +222,13 @@ const PreviewPage = () => {
           onChange={(e) => setEmailContent(e.target.value)}
           className="ModalInput"
         />
-        <button onClick={handleProceed} className="ModalButton">Send</button>
+        {
+          subLoad
+          ?
+          <button className="ModalButton">Loading...</button>          
+          :
+          <button onClick={handleProceed} className="ModalButton">Send</button>
+        }
         <button onClick={closeEmailModal} className="ModalCloseButton"><IoMdClose /></button>
       </Modal>
     </div>
