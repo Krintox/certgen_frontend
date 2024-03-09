@@ -11,7 +11,7 @@ const ProjectDetails = () => {
   // Function to fetch project details
   const fetchProjectDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/projects/${projectId}`, {
+      const response = await fetch(`https://certgen-backend.vercel.app/projects/${projectId}`, {
         method: 'GET',
         credentials: 'include' // Include credentials for cookie authentication
       });
@@ -41,11 +41,11 @@ const ProjectDetails = () => {
         <div className="max-w-md bg-transparent rounded-lg shadow-md mt-8 p-8">
           <h2 className="text-xl font-semibold text-gray-800">{projectDetails.title}</h2>
           <p className="text-sm text-gray-600 mt-2">{projectDetails.description}</p>
-          <img src={`http://localhost:4000/uploads/images/${projectDetails.imageFile}`} alt="Project Image" className="w-full mt-4" />
+          <img src={`https://certgen-backend.vercel.app/uploads/images/${projectDetails.imageFile}`} alt="Project Image" className="w-full mt-4" />
           <p className="text-sm text-gray-600 mt-2">Excel File: {projectDetails.excelFile}</p>
           <div className="flex flex-wrap mt-4">
             {projectDetails.arrayOfImages.map((image, index) => (
-              <img key={index} src={`http://localhost:4000/uploads/arrayImages/${image}`} alt={`Image ${index + 1}`} className="w-32 h-32 object-cover mr-2 mb-2" />
+              <img key={index} src={`https://certgen-backend.vercel.app/uploads/arrayImages/${image}`} alt={`Image ${index + 1}`} className="w-32 h-32 object-cover mr-2 mb-2" />
             ))}
           </div>
         </div>

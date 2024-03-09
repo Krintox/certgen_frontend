@@ -22,7 +22,7 @@ const UploadPage = () => {
       formData.append('imageFile', uploadedImageFile);
 
       // Make a POST request to the backend endpoint
-      const response = await fetch('http://localhost:4000/createProject/image', {
+      const response = await fetch('https://certgen-backend.vercel.app/createProject/image', {
         method: 'POST',
         body: formData,
         credentials: 'include' // Include credentials for cookie authentication

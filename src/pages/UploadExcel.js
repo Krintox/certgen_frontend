@@ -26,7 +26,7 @@ const UploadExcel = () => {
       formData.append('excelFile', uploadedExcelFile);
 
       // Make a POST request to the backend endpoint
-      const response = await fetch('http://localhost:4000/createProject/excel', {
+      const response = await fetch('https://certgen-backend.vercel.app/createProject/excel', {
         method: 'POST',
         body: formData,
         credentials: 'include' // Include credentials for cookie authentication

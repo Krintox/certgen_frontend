@@ -38,7 +38,7 @@ export default function CreatePost() {
 
 
 
-    const response = await fetch('http://localhost:4000/post', {
+    const response = await fetch('https://certgen-backend.vercel.app/post', {
 
       method: 'POST',
 

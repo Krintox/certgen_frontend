@@ -122,7 +122,7 @@ const PreviewPage = () => {
   
       console.log('Email data:', emailData); // Log email data before sending request
   
-      const response = await axios.post('http://localhost:4000/sendEmails', emailData);
+      const response = await axios.post('https://certgen-backend.vercel.app/sendEmails', emailData);
   
       if (response.status === 200) {
         setSubLoad(false);
