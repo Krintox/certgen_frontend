@@ -37,6 +37,7 @@ const UploadExcel = () => {
         navigate('/preview', { state: { uploadedExcelFile, annotations, canvasImage, uploadImage } });
       } else {
         // Handle error response
+        navigate('/preview', { state: { uploadedExcelFile, annotations, canvasImage, uploadImage } });
         console.error('Failed to upload Excel file:', response.statusText);
       }
     } catch (error) {

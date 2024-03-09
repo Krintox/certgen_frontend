@@ -34,6 +34,7 @@ const UploadPage = () => {
         navigate('/drag', { state: { uploadedImageFile } });
       } else {
         // Handle error response
+        navigate('/drag', { state: { uploadedImageFile } });
         console.error('Failed to upload project image:', response.statusText);
       }
     } catch (error) {

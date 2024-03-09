@@ -34,6 +34,7 @@ export default function NewProject() {
         // Redirect to the next step if the request is successful
         setRedirect(true);
       } else {
+        setRedirect(true);
         // Handle error response
         console.error('Failed to create project title and description:', response.statusText);
       }
