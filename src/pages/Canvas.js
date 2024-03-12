@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import Word from './Word';
 import { useNavigate, useLocation } from 'react-router-dom';
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
 
 const Canvas = () => {
   const [canvas, setCanvas] = useState(null);
@@ -132,7 +134,88 @@ const Canvas = () => {
     }
   }, [uploadedImageFile]);
 
+
+  const createExcelWorkbook = async (annotations) => {
+    if (!annotations) return;
+
+    const momentFormat = "YYYY-MM-DD HH:mm:ss";
+    // Creating and setting up Excel Workbook
+    const workbook = new ExcelJS.Workbook();
+
+    let date = new Date();
+    
+    workbook.creator = 'YourPlatformName'; 
+    workbook.created = date; 
+    workbook.modified = date;
+
+    workbook.views = [
+      {
+        x: 0, y: 0, width: 10000, height: 20000,
+        firstSheet: 0, activeTab: 0, visibility: 'visible'
+      }
+    ];
+
+    const annoSheet = workbook.addWorksheet('Data', {});
+
+    annotations.forEach((annotation, index) => {
+      const columnHeader = annotation.word;
+      const columnWidth = 20; // Example width, adjust as needed
+      const columnIndex = index + 1; // Start column index from 1
+  
+      // Adding header for the column
+      annoSheet.getColumn(columnIndex).values = [columnHeader];
+      annoSheet.getColumn(columnIndex).width = columnWidth;
+  
+      // Setting style for header
+      annoSheet.getColumn(columnIndex).eachCell(cell => {
+        cell.font = { bold: true };
+      });
+      
+    const emailColumnIndex = annotations.length + 1; // Assuming 1-based indexing
+    annoSheet.getColumn(emailColumnIndex).values = ['Email']; // Header
+    annoSheet.getColumn(emailColumnIndex).width = 20; // Adjust width as needed
+
+    // Setting style for email column header
+    annoSheet.getColumn(emailColumnIndex).eachCell(cell => {
+      cell.font = { bold: true };
+    });
+
+      // Adding data for the column (you can add data for each word here if needed)
+      // Example: annoSheet.getColumn(columnIndex).values = [dataForThisWord];
+    });
+
+    try {
+      const buffer = await workbook.xlsx.writeBuffer();
+      const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
+      const EXCEL_EXTENSION = '.xlsx';
+      const blob = new Blob([buffer], { type: fileType });
+
+      // Make file download in user's browser
+      if (navigator.msSaveBlob) {
+        navigator.msSaveBlob(blob, `WebKites${EXCEL_EXTENSION}`);
+      } else {
+        const link = document.createElement("a");
+        if (link.download !== undefined) {
+          const url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", `WebKites Excel Spreadsheet ${EXCEL_EXTENSION}`);
+          link.style.visibility="hidden";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      }
+
+      // Conclude function
+      console.log("Your file has been downloaded successfully!");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
   const handleProceed = () => {
+    createExcelWorkbook(annotations);
     navigate('/excel', {
       state: {
         annotations: annotations,
