@@ -15,6 +15,7 @@ import History from './pages/history';
 import CreateAccount from './pages/createaccount';
 import ProjectsList from './pages/projectview';
 import ProjectDetails from './pages/projectdetails';
+import ExcelDownload from './pages/downloadExcel';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/preview" element={<Preview/>} />
           <Route path="/newproject" element={<NewProject/>} />
           <Route path="/drag" element={<Canvas/>} />
+          <Route path='/excelDownload' element={<ExcelDownload/>} />
           <Route path="/history" element={<History/>} />
           <Route path="/createaccount" element={<CreateAccount/>}/>
           <Route path="/projectview" element={<ProjectsList/>}/>
