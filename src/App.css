@@ -42,7 +42,6 @@ div.post div.texts a,
 form.login,
 form.register,
 input,
-button,
 .post-page,
 .signup-button,
 .signin-button {
@@ -64,6 +63,10 @@ header{
     background-color: rgba(255,255,255,0.1);
     border-radius: 10PX;
     border: 2px solid #6C6F74;
+    @media screen and (max-width: 700px) {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 .header-title{
@@ -72,6 +75,15 @@ header{
     align-items: center;
     gap: 10px;
 
+}
+
+.header-title-3
+{
+    background-color: transparent;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 5px;
 }
 
 .header-title-2{
@@ -382,3 +394,17 @@ input {
     margin-bottom: 10px;
     cursor: pointer;
   }
+
+ 
+
+.logout-button
+{
+        font-family: "Urbanist", sans-serif;
+        font-optical-sizing: auto;
+        border: 2px solid rgb(255, 81, 47);
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        text-decoration: none;
+        background-color: transparent; 
+}

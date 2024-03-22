@@ -42,3 +42,9 @@ code {
 {
   border-color: #F09819;
 }
+
+
+::-webkit-scrollbar
+{
+  width: 0px;
+}
