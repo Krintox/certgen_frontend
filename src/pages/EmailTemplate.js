@@ -15,22 +15,6 @@ const EmailTemplate = () => {
   const [subLoad, setSubLoad] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
 
-  useEffect(() => {
-    if (Object.keys(annotations).length > 0) {
-      let updatedSubject = subject;
-      let updatedBody = body;
-
-      // Replace annotations in subject
-      Object.keys(annotations).forEach((key) => {
-        const annotation = '\\$\\{' + key + '\\}';
-        updatedSubject = updatedSubject.replace(new RegExp(annotation, 'g'), annotations[key]);
-        updatedBody = updatedBody.replace(new RegExp(annotation, 'g'), annotations[key]);
-      });
-
-      setSubject(updatedSubject);
-      setBody(updatedBody);
-    }
-  }, [annotations, subject, body]);
 
   const handleViewChange = (selectedView) => {
     setView(selectedView);
@@ -46,43 +30,65 @@ const EmailTemplate = () => {
           content: base64String,
         });
       });
+  
+      const emailDataList = []; 
+      for (let i = 0; i < uploadedExcelFile.length; i++) {
+        const rowData = uploadedExcelFile[i];
+        let updatedSubject = subject;
+        let updatedBody = body;
+  
+        Object.keys(rowData).forEach((key) => {
+          const placeholder = '\\$\\{' + key + '\\}';
+          const regex = new RegExp(placeholder, 'g');
+  
+          if (updatedSubject.includes(placeholder)) {
+            updatedSubject = updatedSubject.replace(regex, rowData[key]);
+          }
+          if (updatedBody.includes(placeholder)) {
+            updatedBody = updatedBody.replace(regex, rowData[key]);
+          }
+        });
+  
+        emailDataList.push({
+          subject: updatedSubject,
+          content: updatedBody,
+          recipients: rowData.email,
+        attachments: attachments[i],
+        });
+      }
+  
+      console.log('Email data list:', emailDataList);
 
-      const emailData = {
-        subject: subject,
-        content: body,
-        recipients: resultEmails,
-        attachments: attachments,
-      };
-
-      console.log('Email data:', emailData); // Log email data before sending request
-
-      const response = await axios.post('https://certgen-backend.vercel.app/sendEmails', emailData);
-
-      if (response.status === 200) {
-        alert('Emails sent successfully');
-        console.log('Emails sent successfully');
-      } else {
-        console.error('Failed to send emails');
+      for (let i = 0; i < emailDataList.length; i++) {
+        const response = await axios.post('https://certgen-backend.vercel.app/sendEmails', emailDataList[i]);
+  
+        if (response.status === 200) {
+          alert('Emails sent successfully');
+          console.log('Emails sent successfully');
+        } else {
+          console.error('Failed to send emails');
+        }
       }
     } catch (error) {
       console.error('Error sending emails:', error);
     }
   };
+  
 
   const gradientBtn = {
     background: selectedButton === 'labelled' ? "linear-gradient(to bottom right, #FB360F, #F28A18)" : "transparent", // Conditional background for labelled button
-    border: selectedButton === 'labelled' ? "none" : "1px solid white", // Border color for the button
+    border: selectedButton === 'labelled' ? "none" : "1px solid white", 
   };
 
   const gradientBtnUnlabelled = {
     background: selectedButton === 'unlabelled' ? "linear-gradient(to bottom right, #FB360F, #F28A18)" : "transparent", // Conditional background for unlabelled button
-    border: selectedButton === 'unlabelled' ? "none" : "1px solid white", // Border color for the button
+    border: selectedButton === 'unlabelled' ? "none" : "1px solid white", 
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-w-screen m-5 min-h-screen">
       <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERT GEN</h1>
-      <div className="w-full bg-transparent rounded-lg shadow-md mt-10 p-4"> {/* Removed max-w-md class */}
+      <div className="w-full bg-transparent rounded-lg shadow-md mt-10 p-4">
         <div className="flex justify-center mb-8">
           <button onClick={() => handleViewChange('labelled')} className="text-white py-2 px-4 border border-2 rounded cursor-pointer mr-4" style={gradientBtn}>
             Labelled <span className="arrow">&#62;</span>
