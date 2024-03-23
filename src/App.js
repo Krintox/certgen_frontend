@@ -16,6 +16,8 @@ import CreateAccount from './pages/createaccount';
 import ProjectsList from './pages/projectview';
 import ProjectDetails from './pages/projectdetails';
 import ExcelDownload from './pages/downloadExcel';
+import ExcelTemplate from './pages/EmailTemplate';
+import EmailTemplate from './pages/EmailTemplate';
 
 function App() {
   return (
@@ -36,6 +38,7 @@ function App() {
           <Route path="/createaccount" element={<CreateAccount/>}/>
           <Route path="/projectview" element={<ProjectsList/>}/>
           <Route path="/projectdet/:id" element={<ProjectDetails/>}/>
+          <Route path="/email" element={<EmailTemplate/>}/>
         </Route>
       </Routes>
     </UserContextProvider>

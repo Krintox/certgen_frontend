@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import JSZip from 'jszip';
-import Modal from 'react-modal';
 import LoadingComponent from './LoadingPage';
 import './styles/modal.css';
 import { IoMdClose } from "react-icons/io";
 
-Modal.setAppElement('#root');
-
 const PreviewPage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const annotations = location.state.annotations || {};
   const resizedImage = location.state.uploadImage || {};
@@ -18,7 +16,6 @@ const PreviewPage = () => {
   const [resultEmails, setResultEmails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showProceedButton, setShowProceedButton] = useState(false);
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [emailSubject, setEmailSubject] = useState('');
   const [emailContent, setEmailContent] = useState('');
   const [subLoad, setSubLoad] = useState(false);
@@ -28,14 +25,6 @@ const PreviewPage = () => {
       setShowProceedButton(true);
     }
   }, [isLoading, resultImages, resultEmails]);
-
-  const openEmailModal = () => {
-    setIsEmailModalOpen(true);
-  };
-
-  const closeEmailModal = () => {
-    setIsEmailModalOpen(false);
-  };
 
 
   const handleSendRequest = async () => {
@@ -103,36 +92,16 @@ const PreviewPage = () => {
   
   const handleProceed = async () => {
     try {
-      const attachments = [];
-      setSubLoad(true);
-  
-      resultImages.forEach((base64String, index) => {
-        attachments.push({
-          filename: `image_${index + 1}.png`,
-          content: base64String,
-        });
+      navigate('/email', { 
+        state: { 
+          uploadedExcelFile,
+          annotations,
+          resultImages,
+          resultEmails
+        } 
       });
-  
-      const emailData = {
-        subject: emailSubject,
-        content: emailContent,
-        recipients: resultEmails,
-        attachments: attachments,
-      };
-  
-      console.log('Email data:', emailData); // Log email data before sending request
-  
-      const response = await axios.post('https://certgen-backend.vercel.app/sendEmails', emailData);
-  
-      if (response.status === 200) {
-        setSubLoad(false);
-        alert('Emails sent successfully');
-        console.log('Emails sent successfully');
-      } else {
-        console.error('Failed to send emails');
-      }
     } catch (error) {
-      console.error('Error sending emails:', error);
+      console.error('Error navigating to email page:', error);
     }
   };
   
@@ -174,7 +143,7 @@ const PreviewPage = () => {
             {showProceedButton ? (
               <div className="w-full p-4 flex justify-center">
                 <button
-                  onClick={openEmailModal}
+                  onClick={handleProceed}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Send Emails
@@ -201,36 +170,6 @@ const PreviewPage = () => {
           </>
         )}
       </div>
-      <Modal
-        isOpen={isEmailModalOpen}
-        onRequestClose={closeEmailModal}
-        contentLabel="Email Modal"
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <h2>Send Emails</h2>
-        <label className='ModalLabel'>Email Subject:</label>
-        <input
-          type="text"
-          value={emailSubject}
-          onChange={(e) => setEmailSubject(e.target.value)}
-          className="ModalInput"
-        />
-        <label className='ModalLabel'>Email Content:</label>
-        <textarea
-          value={emailContent}
-          onChange={(e) => setEmailContent(e.target.value)}
-          className="ModalInput"
-        />
-        {
-          subLoad
-          ?
-          <button className="ModalButton">Loading...</button>          
-          :
-          <button onClick={handleProceed} className="ModalButton">Send</button>
-        }
-        <button onClick={closeEmailModal} className="ModalCloseButton"><IoMdClose /></button>
-      </Modal>
     </div>
   );
 };
