@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< Updated upstream
 import { useLocation } from 'react-router-dom';
+=======
+import { useLocation, useNavigate } from 'react-router-dom';
+>>>>>>> Stashed changes
 import axios from 'axios';
 import JSZip from 'jszip';
 import Modal from 'react-modal';
@@ -22,6 +26,7 @@ const PreviewPage = () => {
   const [emailSubject, setEmailSubject] = useState('');
   const [emailContent, setEmailContent] = useState('');
   const [subLoad, setSubLoad] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     if (!isLoading && resultImages.length > 0 && resultEmails.length > 0) {
@@ -29,6 +34,7 @@ const PreviewPage = () => {
     }
   }, [isLoading, resultImages, resultEmails]);
 
+<<<<<<< Updated upstream
   const openEmailModal = () => {
     setIsEmailModalOpen(true);
   };
@@ -38,6 +44,8 @@ const PreviewPage = () => {
   };
 
 
+=======
+>>>>>>> Stashed changes
   const handleSendRequest = async () => {
     setIsLoading(true);
     if (annotations && resizedImage && uploadedExcelFile) {
@@ -135,32 +143,47 @@ const PreviewPage = () => {
       console.error('Error sending emails:', error);
     }
   };
-  
-  
-  
+
+  const handleImageClick = (base64String) => {
+    setSelectedImage(base64String);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedImage(null);
+  };
+
+  const gradientBtn = {
+    background: "linear-gradient(to bottom right, #FB360F, #F28A18)",
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen">
-      <h1 className="text-3xl md:text-5xl font-bold text-white border-b-2 under md:pb-2">CERT GEN - Preview</h1>
-      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden">
+    <div className="w-full flex flex-col items-center justify-center">
+      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden p-4">
+        <div className="flex justify-between">
+          <div className="w-1/2 pr-4">
+            <h1 className="text-5xl md:text-7xl font-bold text-white border-b-2 md:pb-2">CERT GEN</h1>
+          </div>
+          <div className="w-1/2">
+          <p className="text-white font-urbanist">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </div>
         {isLoading ? (
           <LoadingComponent /> // Display the loading component here
-        ) : (
-          <>
-            <div className="flex justify-between">
-              <div className="w-full p-4">
-                <h2>Result Images</h2>
-                <div className="flex flex-wrap justify-center">
-                  {resultImages.slice(0, 5).map((base64String, index) => (
-                    <div key={index} className="m-2">
-                      <img
-                        src={`data:image/jpeg;base64,${base64String}`}
-                        alt={`Result Image ${index}`}
-                        style={{ maxWidth: '150px', maxHeight: '150px' }}
-                      />
-                    </div>
-                  ))}
+          ) : (
+            <>
+              {selectedImage && (
+                <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
+                  <div className="relative bg-white rounded-lg shadow-lg w-800px h-600px">
+                    <button
+                      className="absolute top-0 right-0 m-2 text-gray-600 hover:text-gray-800"
+                      onClick={handleClosePopup}
+                    >
+                      <IoMdClose size={24} />
+                    </button>
+                    <img src={`data:image/jpeg;base64,${selectedImage}`} alt="Selected Image" className="w-full h-full" /> {/* Adjust width and height here */}
+                  </div>
                 </div>
+<<<<<<< Updated upstream
               </div>
               <div className="w-1/2 p-4 text-white">
                 <h2>Result Emails</h2>
@@ -237,3 +260,67 @@ const PreviewPage = () => {
 
 export default PreviewPage;
 
+=======
+              )}
+              {showProceedButton ? (
+                <>
+                  <table className="w-full mt-14 mb-10">
+                  <thead>
+                    <tr>
+                      <th className="border-b-2 px-4 text-white font-urbanist py-2">Sl no</th>
+                      <th className="border-b-2 px-4 text-white font-urbanist py-2">Emails</th>
+                      <th className="border-b-2 px-4 text-white font-urbanist py-2">Click to preview</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {resultEmails.map((email, index) => (
+                      <tr key={index}>
+                        <td className="px-4 text-center text-white font-urbanist py-2">{index + 1}</td>
+                        <td className="px-4 text-center text-white font-urbanist py-2">{email}</td>
+                        <td className="px-4 text-center text-white font-urbanist py-2 flex justify-center">
+                          <button
+                            onClick={() => handleImageClick(resultImages[index])}
+                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                    </tbody>
+                  </table>
+  
+                  <div className="w-full p-4 flex justify-center">
+                    <button
+                      onClick={handleProceed}
+                      className="text-white font-bold py-2 px-4 rounded"
+                      style={gradientBtn}
+                    >
+                      Start Mailing
+                    </button>
+                    <button
+                      onClick={handleBulkDownload}
+                      className="ml-4 text-white font-bold py-2 px-4 rounded"
+                      style={gradientBtn}
+                    >
+                      Download as ZIP format
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="w-full p-4 flex justify-center">
+                  <button onClick={handleSendRequest} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Generate
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    );
+  };
+  
+  export default PreviewPage;
+  
+>>>>>>> Stashed changes
