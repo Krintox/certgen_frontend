@@ -11,6 +11,7 @@ Modal.setAppElement('#root');
 
 const PreviewPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const annotations = location.state.annotations || {};
   const resizedImage = location.state.uploadImage || {};
   const uploadedExcelFile = location.state.uploadedExcelFile || {};
@@ -95,37 +96,18 @@ const PreviewPage = () => {
   
   const handleProceed = async () => {
     try {
-      const attachments = [];
-      setSubLoad(true);
-  
-      resultImages.forEach((base64String, index) => {
-        attachments.push({
-          filename: `image_${index + 1}.png`,
-          content: base64String,
-        });
+      navigate('/email', { 
+        state: { 
+          uploadedExcelFile,
+          annotations,
+          resultImages,
+          resultEmails
+        } 
       });
-  
-      const emailData = {
-        subject: emailSubject,
-        content: emailContent,
-        recipients: resultEmails,
-        attachments: attachments,
-      };
-  
-      console.log('Email data:', emailData); // Log email data before sending request
-  
-      const response = await axios.post('https://certgen-backend.vercel.app/sendEmails', emailData);
-  
-      if (response.status === 200) {
-        setSubLoad(false);
-        alert('Emails sent successfully');
-        console.log('Emails sent successfully');
-      } else {
-        console.error('Failed to send emails');
-      }
     } catch (error) {
-      console.error('Error sending emails:', error);
+      console.error('Error navigating to email page:', error);
     }
+
   };
 
   const handleImageClick = (base64String) => {
