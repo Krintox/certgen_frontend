@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< Updated upstream
-import { useLocation } from 'react-router-dom';
-=======
 import { useLocation, useNavigate } from 'react-router-dom';
->>>>>>> Stashed changes
 import axios from 'axios';
 import JSZip from 'jszip';
 import Modal from 'react-modal';
@@ -34,18 +30,6 @@ const PreviewPage = () => {
     }
   }, [isLoading, resultImages, resultEmails]);
 
-<<<<<<< Updated upstream
-  const openEmailModal = () => {
-    setIsEmailModalOpen(true);
-  };
-
-  const closeEmailModal = () => {
-    setIsEmailModalOpen(false);
-  };
-
-
-=======
->>>>>>> Stashed changes
   const handleSendRequest = async () => {
     setIsLoading(true);
     if (annotations && resizedImage && uploadedExcelFile) {
@@ -183,84 +167,6 @@ const PreviewPage = () => {
                     <img src={`data:image/jpeg;base64,${selectedImage}`} alt="Selected Image" className="w-full h-full" /> {/* Adjust width and height here */}
                   </div>
                 </div>
-<<<<<<< Updated upstream
-              </div>
-              <div className="w-1/2 p-4 text-white">
-                <h2>Result Emails</h2>
-                <ul>
-                  {resultEmails.slice(0, 5).map((email, index) => (
-                    <li key={index}>{email}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            {showProceedButton ? (
-              <div className="w-full p-4 flex justify-center">
-                <button
-                  onClick={openEmailModal}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Send Emails
-                </button>
-              </div>
-            ) : (
-              <div className="w-full p-4 flex justify-center">
-
-                <button onClick={handleSendRequest} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Generate
-                </button>
-              </div>
-            )}
-            {resultImages.length > 0 && (
-              <div className="w-full p-4 flex justify-center">
-                <button
-                  onClick={handleBulkDownload}
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Download Images
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </div>
-      <Modal
-        isOpen={isEmailModalOpen}
-        onRequestClose={closeEmailModal}
-        contentLabel="Email Modal"
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <h2>Send Emails</h2>
-        <label className='ModalLabel'>Email Subject:</label>
-        <input
-          type="text"
-          value={emailSubject}
-          onChange={(e) => setEmailSubject(e.target.value)}
-          className="ModalInput"
-        />
-        <label className='ModalLabel'>Email Content:</label>
-        <textarea
-          value={emailContent}
-          onChange={(e) => setEmailContent(e.target.value)}
-          className="ModalInput"
-        />
-        {
-          subLoad
-          ?
-          <button className="ModalButton">Loading...</button>          
-          :
-          <button onClick={handleProceed} className="ModalButton">Send</button>
-        }
-        <button onClick={closeEmailModal} className="ModalCloseButton"><IoMdClose /></button>
-      </Modal>
-    </div>
-  );
-};
-
-export default PreviewPage;
-
-=======
               )}
               {showProceedButton ? (
                 <>
@@ -323,4 +229,3 @@ export default PreviewPage;
   
   export default PreviewPage;
   
->>>>>>> Stashed changes
