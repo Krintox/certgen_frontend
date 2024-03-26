@@ -149,10 +149,10 @@ const Canvas = () => {
             <u>POSITION OF THE ELEMENTS</u>
           </h2>
           <h4 className="text-white mb-3"><u>DRAG AND DROP THEM IN THE CERTIFICATE</u></h4>
-            <div id="word1" style={{ border: "2px solid", backgroundImage: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", marginBottom: "10px"}}>
+            <div id="word1" style={{ border: "2px solid white", borderRadius: "10px", padding: "10px", marginBottom: "10px"}}>
               <Word text="Word1" onClick={() => addWordToCanvas("Word1", 20, 20)} />
             </div>
-            <div id="word2" style={{ border: "2px solid", backgroundImage: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", marginBottom: "10px" }}>
+            <div id="word2" style={{ border: "2px solid white", borderRadius: "10px", padding: "10px", marginBottom: "10px" }}>
               <Word text="Word2" onClick={() => addWordToCanvas("Word2", 20, 50)} />
             </div>
             <div>
@@ -204,8 +204,8 @@ const Canvas = () => {
             <ul>
               {annotations.map((annotation, index) => (
                 <li className='text-white' key={index}>
-                  {annotation.word} - <button onClick={() => handleDeleteWord(annotation.word)}>Delete</button>
-                </li>
+                {annotation.word} - <button style={{background: "linear-gradient(to bottom right, #FB360F, #F28A18)"}} onClick={()  => handleDeleteWord(annotation.word)}>Delete</button>
+                </li>   
               ))}
             </ul>
           </div>
