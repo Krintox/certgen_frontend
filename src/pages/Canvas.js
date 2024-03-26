@@ -133,49 +133,86 @@ const Canvas = () => {
     }
   }, [uploadedImageFile]);
 
+  const gradientBgRight = {
+    background: "linear-gradient(to bottom right, #FB360F, #F28A18)",
+  };
+
   return (
-    <div className="flex">
-      <div className="w-1/3 p-4 mt-12">
-        <h2>Words</h2>
-        <div id="words">
-          <Word text="Word1" onClick={() => addWordToCanvas("Word1", 20, 20)} />
-          <Word text="Word2" onClick={() => addWordToCanvas("Word2", 20, 50)} />
+    <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
+      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERT GEN</h1>
+      <p className="text-white text-center font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-12">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam sollicitudin. Est velit egestas dui id ornare arcu odio ut sem.
+      </p>
+      <div className="flex items-center w-full">
+        <div className="w-1/3 p-4" style={{ backgroundColor: 'transparent', padding: '20px' }}>
+          <h2 className="text-white" style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            <u>POSITION OF THE ELEMENTS</u>
+          </h2>
+          <h4 className="text-white mb-3"><u>DRAG AND DROP THEM IN THE CERTIFICATE</u></h4>
+            <div id="word1" style={{ border: "2px solid", backgroundImage: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", marginBottom: "10px"}}>
+              <Word text="Word1" onClick={() => addWordToCanvas("Word1", 20, 20)} />
+            </div>
+            <div id="word2" style={{ border: "2px solid", backgroundImage: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", marginBottom: "10px" }}>
+              <Word text="Word2" onClick={() => addWordToCanvas("Word2", 20, 50)} />
+            </div>
+            <div>
+              <input className='text-white font-urbanist bg-transparent' type="text" value={customText} onChange={handleCustomTextChange} />
+              <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "white" }} onClick={handleCustomTextAdd}>Add Custom Text</button>
+            </div>
+            <div className="mt-5">
+              <h2 className="text-white"><u>FORMATTING OF THE ANNOTATIONS</u></h2>
+              <div className="flex mt-3 justify-center">
+                <div className="mr-3">
+                <label htmlFor="fontSelect" className="text-white mr-2" style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)', display: 'inline-block', padding: '5px 10px', borderRadius: '5px' }}>Font:</label>
+                  <select id="fontSelect" className="bg-transparent border border-gradient text-white p-2 rounded">
+                    <option style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)' }} value="Arial">Arial</option>
+                    <option style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)' }} value="Helvetica">Helvetica</option>
+                    <option style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)' }} value="Times New Roman">Times New Roman</option>
+                  </select>
+                </div>
+                <div>
+                <label htmlFor="fontSelect" className="text-white mr-2" style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)', display: 'inline-block', padding: '5px 10px', borderRadius: '5px' }}>Size:</label>
+                <select id="sizeSelect" className="bg-transparent border border-orange text-white p-2 rounded">
+                  <option value="12">12px</option>
+                  <option value="16">16px</option>
+                  <option value="20">20px</option>
+                </select>
+                </div>
+              </div>
+            </div>
+
+
         </div>
-        <div>
-          <input className='text-white font-urbanist bg-transparent' type="text" value={customText} onChange={handleCustomTextChange} />
-          <button onClick={handleCustomTextAdd}>Add Custom Text</button>
+        <div className="w-2/3 p-4">
+          <div
+            className="canvas-container"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            <canvas
+              id="canvas"
+              ref={(ref) => {
+                if (ref && !canvas) {
+                  const newCanvas = new fabric.Canvas(ref, { width: 800, height: 600 });
+                  setCanvas(newCanvas);
+                }
+              }}
+            />
+          </div>
+          <div>
+            <h2 className='mt-2'>Annotations</h2>
+            <ul>
+              {annotations.map((annotation, index) => (
+                <li className='text-white' key={index}>
+                  {annotation.word} - <button onClick={() => handleDeleteWord(annotation.word)}>Delete</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "white" }} onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage } })} className="mt-4 ml-auto mr-auto block">Download Excel</button>
         </div>
-      </div>
-      <div className="w-2/3 p-4">
-        <div
-          className="canvas-container"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-        >
-          <canvas
-            id="canvas"
-            ref={(ref) => {
-              if (ref && !canvas) {
-                const newCanvas = new fabric.Canvas(ref, { width: 800, height: 600 });
-                setCanvas(newCanvas);
-              }
-            }}
-          />
-        </div>
-        <div>
-          <h2>Annotations</h2>
-          <ul>
-            {annotations.map((annotation, index) => (
-              <li className='text-white' key={index}>
-                {annotation.word} - <button onClick={() => handleDeleteWord(annotation.word)}>Delete</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <button onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage } })} className="mt-4 ml-auto mr-auto block">Download Excel</button>
       </div>
     </div>
   );
-};
-
+}  
 export default Canvas;
