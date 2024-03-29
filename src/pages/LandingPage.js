@@ -53,7 +53,7 @@ export default function LandingPage() {
           <img src={img} alt="img" className="w-full" />
         </div>
         <div className="md:w-2/4">
-          <h2 className="text-4xl md:text-7xl leading-tight text-center md:text-right">
+          <h2 className="text-4xl md:text-7xl text-white leading-tight text-center md:text-right">
             <img src={smallRocket} alt="smallRocket" className="inline mr-2" />
             EMPOWER YOUR <span className="text-orange-600 underline underline-offset-4">CERTIFICATE </span>CREATION PROCESS WITH <span className="text-orange-600 underline underline-offset-4">EASE </span>AND <span className="text-orange-600 underline underline-offset-4">EFFICIENCY</span>
             <img src={smallRocket} alt="smallRocket" className="inline ml-2" />

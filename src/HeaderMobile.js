@@ -46,9 +46,9 @@ export default function HeaderMobile() {
       </div>
       <div>
         {!isMenuOpen ? (
-          <FiMenu size={30} onClick={() => setIsMenuOpen(true)} className="menu-icon" />
+          <FiMenu size={30} onClick={() => setIsMenuOpen(true)} className="text-white" />
         ) : (
-          <FiX size={30} onClick={() => setIsMenuOpen(false)} className="menu-icon" />
+          <FiX size={30} onClick={() => setIsMenuOpen(false)} className="text-white" />
         )}
       </div>
       {isMenuOpen && (
