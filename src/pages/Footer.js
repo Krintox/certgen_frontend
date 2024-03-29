@@ -22,8 +22,8 @@ function Footer() {
             <p className="text-xl mb-2 text-white font-urbanist">+1 (7635) 547-12-97</p>
             <p className="text-base text-white font-urbanist">support@lift.agency</p>
           </div>
-          <div className='md:w-2/4 md:pl-10'>
-            <h2 className="mb-6 text-sm font-bold text-white uppercase font-urbanist text-left">Quick Links</h2>
+          <div className='md:w-2/4 md:pl-10 md:py-4'>
+            <h2 className="mb-8 text-lg md:text-xl font-bold text-white uppercase font-urbanist text-left">Quick Links</h2>
             <div className="grid grid-cols-2 gap-4 sm:gap-4 sm:grid-cols-2">
               <div>
                 <ul className="text-white font-medium">
@@ -47,9 +47,9 @@ function Footer() {
               </div>
             </div>
           </div>
-          <div className="md:w-1/4 flex flex-col items-center justify-center">
+          <div className="md:w-1/4 flex flex-col items-center justify-center md:py-4 mt-12 md:mt-0">
             <div className="relative mb-6">
-              <h2 className="mb-2 text-sm font-semibold text-white text-left uppercase font-urbanist">Subscribe</h2>
+              <h2 className="mb-2 text-lg md:text-xl font-semibold text-white text-left uppercase font-urbanist">Subscribe</h2>
               <div className='flex flex-row'>
                 <input type="email" id="email" className="flex-grow rounded-lg bg-white border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 font-urbanist" placeholder="Get product updates" required />
               </div>
@@ -60,8 +60,8 @@ function Footer() {
         <hr className="my-8 border sm:mx-auto lg:my-8" style={{ borderColor: "#57595F" }} />
 
         <div className="sm:flex sm:items-center sm:justify-between">
-          <div className="flex mt-4 sm:justify-center sm:mt-0">
-            <div className="footer-icons flex items-center space-x-3">
+          <div className="flex mt-6 sm:mt-4 sm:justify-center sm:mt-0">
+            <div className="footer-icons flex items-center space-x-3 sm:text-center">
               {socialLinks.map((socialLink, index) => {
                 const Icon = socialLink.icon;
                 return (
@@ -74,7 +74,7 @@ function Footer() {
             </div>
           </div>
 
-          <p className='text-white font-urbanist'>
+          <p className='text-white font-urbanist text-center md:mt-4 sm:mt-8'>
             A product of <img src={Logo} className="inline" alt="Logo" />
           </p>
 
