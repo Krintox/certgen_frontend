@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import logo from "../images/brand-logo.png";
@@ -7,11 +7,30 @@ import googleIcon from "../images/google-icon.png";
 
 export default function RegisterPage() {
   const [username, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const [showLeftDiv, setShowLeftDiv] = useState(false); // State to control visibility of left div
   const { setUserInfo } = useContext(UserContext);
+
+  // Function to check screen size and set showLeftDiv state accordingly
+  const checkScreenSize = () => {
+    if (window.innerWidth >= 1280) {
+      setShowLeftDiv(true);
+    } else {
+      setShowLeftDiv(false);
+    }
+  };
+
+  useEffect(() => {
+    // Check screen size when component mounts
+    checkScreenSize();
+    // Add event listener to listen for screen size changes
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup function to remove event listener when component unmounts
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   async function Register(ev) {
     ev.preventDefault();
@@ -48,14 +67,6 @@ export default function RegisterPage() {
     }
   }
 
-  const gradientBgLeft = {
-    background: "linear-gradient(to bottom right, #FB360F, #F28A18)",
-  };
-
-  const borderOrange = {
-    border: "2px solid #FFA500",
-  };
-
   const gradientBgRight = {
     background: "linear-gradient(to right, #222029, #3B4148)",
   };
@@ -63,31 +74,33 @@ export default function RegisterPage() {
   return (
     <div className="flex justify-center items-center mt-12 mb-12">
       <div className="flex justify-center items-center w-3/4 ">
-        <div className="container mx-auto rounded-lg shadow-md relative flex w-10/12">
-          {/* Left Side */}
-          <div className="relative w-1/2 flex flex-col rounded-lg" style={gradientBgLeft}>
-            <div className='absolute left-[10%] flex flex-col'>
-              <h1 className='text-4xl text-white font-bold mt-8 flex items-center z-10'>
-                <img src={logo} alt="logo" className="w-12 h-12 mr-2 mb-1" />
-                <span className="text-white">WEBKITES</span>
-              </h1>
-              <p className='text-3xl text-white font-urbanist font-normal pt-4'>
-                The only <br /> certificate <br /> automation <br /> tool you need
-              </p>
+        <div className={`container mx-auto rounded-lg${showLeftDiv ? ' shadow-md' : ''} relative flex w-10/12`}>
+          {/* Left Side - Conditional Rendering */}
+          {showLeftDiv && (
+            <div className="relative w-1/2 flex flex-col rounded-lg" style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)" }}>
+              <div className='absolute left-[10%] flex flex-col'>
+                <h1 className='text-4xl text-white font-bold mt-8 flex items-center z-10'>
+                  <img src={logo} alt="logo" className="w-12 h-12 mr-2 mb-1" />
+                  <span className="text-white">WEBKITES</span>
+                </h1>
+                <p className='text-3xl text-white font-urbanist font-normal pt-4'>
+                  The only <br /> certificate <br /> automation <br /> tool you need
+                </p>
+              </div>
+              <div className="absolute w-full bottom-0">
+                <img src={certificate} alt="Certificate" className="w-full h-auto max-h-5/6 z-0" />
+              </div>
             </div>
-            <div className="absolute w-full bottom-0">
-              <img src={certificate} alt="Certificate" className="w-full h-auto max-h-5/6 z-0" />
-            </div>
-          </div>
+          )}
 
           {/* Right Side */}
-          <div className="w-1/2 flex flex-col justify-between items-center p-6 rounded-lg" style={{ ...gradientBgRight, flex: '1' }}>
+          <div className={`w-${showLeftDiv ? '1/2' : 'full'} flex flex-col justify-between items-center p-6 rounded-lg`} style={gradientBgRight}>
             {/* Your existing right side content */}
             <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
               <div className="w-full flex flex-col mb-2">
                 <h3 className="text-5xl mb-10 text-center text-white mt-12 ">CREATE AN <span className="text-orange-500">ACCOUNT</span></h3>
               </div>
-              <div className="rounded-lg p-4 mb-4 items-center text-center flex justify-center" style={borderOrange}>
+              <div className="rounded-lg p-4 mb-4 items-center text-center flex justify-center">
                 <img src={googleIcon} alt="Google Icon" className="w-6 h-6 mr-2" />
                 <span className="text-white font-urbanist">Sign up with Google</span>
               </div>
@@ -98,7 +111,7 @@ export default function RegisterPage() {
                   placeholder="Name"
                   value={username}
                   onChange={(ev) => setName(ev.target.value)}
-                  className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist mb-4"
+                  className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist mb-4 w-full"
                 />
 
                 <input
@@ -106,7 +119,7 @@ export default function RegisterPage() {
                   placeholder="Password"
                   value={password}
                   onChange={(ev) => setPassword(ev.target.value)}
-                  className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist mb-4"
+                  className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist mb-4 w-full"
                 />
 
                 <input
@@ -114,14 +127,13 @@ export default function RegisterPage() {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(ev) => setConfirmPassword(ev.target.value)}
-                  className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist mb-4"
+                  className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist mb-4 w-full"
                 />
 
                 <div className='w-full flex items-center justify-between mb-4'>
                   <p className='text-sm font-medium whitespace-nowrap cursor-pointer text-white font-urbanist'>
                     Already have an account?{' '}
                     <Link to="/login" className="text-orange font-urbanist">
-
                       Log in
                     </Link>
                   </p>
@@ -131,7 +143,7 @@ export default function RegisterPage() {
                   <button
                     type="submit"
                     className='w-full text-white my-2 rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
-                    style={gradientBgLeft}>
+                    style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)" }}>
                     Create Account
                   </button>
                 </div>

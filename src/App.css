@@ -408,3 +408,55 @@ input {
         text-decoration: none;
         background-color: transparent; 
 }
+
+#canvas-page .canvas-container-wrapper {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+  }
+  
+#canvas-page .canvas-container {
+    overflow: auto;
+    margin-bottom: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  }
+  
+#canvas-page .word-container, #canvas-page .input-container, #canvas-page .glass-effect {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+  }
+  
+#canvas-page .add-button, #canvas-page .delete-button, #canvas-page .download-button {
+    background: linear-gradient(to bottom right, #FB360F, #F28A18);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+#canvas-page .add-button:hover, #canvas-page .delete-button:hover, #canvas-page .download-button:hover {
+    background-color: #F28A18;
+  }
+  
+#canvas-page .glass-effect {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+  }
+  
+#canvas-page .glass-effect:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  

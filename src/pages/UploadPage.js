@@ -47,7 +47,7 @@ const UploadPage = () => {
       <p className="text-white text-center font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-12">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam sollicitudin. Est velit egestas dui id ornare arcu odio ut sem.
       </p>
-      <div className="w-full max-w-md bg-transparent rounded-lg shadow-md md:mt-20" style={{ minHeight: '500px' }}>
+      <div className="w-full max-w-md bg-transparent rounded-lg md:mt-20" style={{ minHeight: '500px' }}>
         {!uploadedImageFile && (
           <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-lg">
             <label htmlFor="fileInput" className="custom-file-upload">
