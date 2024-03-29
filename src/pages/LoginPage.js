@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import logo from "../images/brand-logo.png";
@@ -10,6 +10,25 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
+  const [showLeftDiv, setShowLeftDiv] = useState(true);
+
+  const checkScreenSize = () => {
+    if (window.innerWidth >= 1280) {
+      setShowLeftDiv(true);
+    } else {
+      setShowLeftDiv(false);
+    }
+  };
+
+  useEffect(() => {
+    // Check screen size when component mounts
+    checkScreenSize();
+    // Add event listener to listen for screen size changes
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup function to remove event listener when component unmounts
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   async function login(ev) {
     ev.preventDefault();
@@ -49,8 +68,9 @@ export default function RegisterPage() {
   return (
     <div className="flex justify-center items-center mt-12 mb-12">
       <div className="flex justify-center items-center w-3/4 ">
-        <div className="container mx-auto rounded-lg shadow-md relative flex w-10/12">
+        <div className={`container mx-auto rounded-lg${showLeftDiv ? ' shadow-md' : ''} relative flex overflow-hidden h-5/6 w-10/12`}>
           {/* Left Side */}
+          {showLeftDiv && (
           <div className="relative w-1/2 flex flex-col rounded-lg" style={gradientBgLeft}>
             <div className='absolute left-[10%] flex flex-col'>
               <h1 className='text-4xl text-white font-semibold mt-6 flex items-center z-10'>
@@ -65,9 +85,10 @@ export default function RegisterPage() {
               <img src={certificate} alt="Certificate" className="w-full z-0" />
             </div>
           </div>
+          )}
 
           {/* Right Side */}
-          <div className=" w-3/5 flex flex-col justify-between items-center p-6 rounded-lg" style={gradientBgRight}>
+          <div className={`w-${showLeftDiv ? '1/2' : 'full'} h-full flex flex-col justify-center items-center p-6 rounded-lg`} style={gradientBgRight}>
             {/* Your existing right side content */}
             <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
               <div className="w-full flex flex-col mb-2">
