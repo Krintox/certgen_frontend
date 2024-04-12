@@ -70,7 +70,10 @@ const PreviewPage = () => {
     const zip = new JSZip();
     const imagesFolder = zip.folder('images');
     resultImages.forEach((base64String, index) => {
-      const name = annotations[index].name || `name_${index + 1}`;
+      let name = `name`;
+      if (annotations[index] && annotations[index].Name) {
+        name = annotations[index].Name;
+      }
       const fileName = `${name}_${index + 1}.png`;
       const byteCharacters = atob(base64String);
       const byteNumbers = new Array(byteCharacters.length);
