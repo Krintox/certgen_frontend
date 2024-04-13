@@ -160,19 +160,21 @@ const Canvas = () => {
               <div className="flex mt-3 justify-center">
                 <div className="mr-3">
                 <label htmlFor="fontSelect" className="text-white m-2" style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)', display: 'inline-block', padding: '5px 10px', borderRadius: '5px' }}>Font:</label>
-                  <select id="fontSelect" className="bg-transparent border border-gradient text-white p-2 rounded">
-                    <option style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)' }} value="Arial">Arial</option>
-                    <option style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)' }} value="Helvetica">Helvetica</option>
-                    <option style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)' }} value="Times New Roman">Times New Roman</option>
-                  </select>
+                <select id="fontSelect" className="bg-gray-850 border border-white text-white p-2 rounded">
+                  <option style={{ color: '#fff' }} value="Arial">Arial</option>
+                  <option style={{ color: '#fff' }} value="Helvetica">Helvetica</option>
+                  <option style={{ color: '#fff' }} value="Times New Roman">Times New Roman</option>
+                </select>
+
                 </div>
                 <div>
                 <label htmlFor="fontSelect" className="text-white m-2" style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)', display: 'inline-block', padding: '5px 10px', borderRadius: '5px' }}>Size:</label>
-                <select id="sizeSelect" className="bg-transparent border border-orange text-white p-2 rounded">
-                  <option value="12">12px</option>
-                  <option value="16">16px</option>
-                  <option value="20">20px</option>
+                <select id="sizeSelect" className="bg-gray-850 border border-white text-white p-2 rounded">
+                  <option style={{ color: '#fff' }} value="12">12px</option>
+                  <option style={{ color: '#fff' }} value="16">16px</option>
+                  <option style={{ color: '#fff' }} value="20">20px</option>
                 </select>
+
                 </div>
               </div>
             </div>

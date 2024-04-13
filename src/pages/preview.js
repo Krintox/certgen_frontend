@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import LoadingComponent from './LoadingPage';
 import './styles/modal.css';
 import { IoMdClose } from "react-icons/io";
+import * as XLSX from 'xlsx';
 
 Modal.setAppElement('#root');
 
@@ -69,33 +70,47 @@ const PreviewPage = () => {
   const handleBulkDownload = () => {
     const zip = new JSZip();
     const imagesFolder = zip.folder('images');
-    resultImages.forEach((base64String, index) => {
-      let name = `name`;
-      if (annotations[index] && annotations[index].Name) {
-        name = annotations[index].Name;
-      }
-      const fileName = `${name}_${index + 1}.png`;
-      const byteCharacters = atob(base64String);
-      const byteNumbers = new Array(byteCharacters.length);
   
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const firstColumnValues = [];
+
+      // Iterate over all rows and extract the value from the first cell (column A)
+      XLSX.utils.sheet_to_json(sheet, { header: 1 }).forEach((row) => {
+        firstColumnValues.push(row[0]);
+      });
+
+      resultImages.forEach((base64String, index) => {
+        const name = firstColumnValues[index + 1] || `name`;
+        const fileName = `${name}_${index + 1}.png`;
+        const byteCharacters = atob(base64String);
+        const byteNumbers = new Array(byteCharacters.length);
+    
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+    
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'image/png' });
   
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'image/png' });
+        imagesFolder.file(fileName, blob);
+      });
 
-      imagesFolder.file(fileName, blob);
-    });
-
-    zip.generateAsync({ type: 'blob' }).then((content) => {
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(content);
-      link.download = `images_${new Date().toISOString()}.zip`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
+      zip.generateAsync({ type: 'blob' }).then((content) => {
+        const blobUrl = URL.createObjectURL(content);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = `images_${new Date().toISOString()}.zip`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+      });
+    };
+    reader.readAsArrayBuffer(uploadedExcelFile);
   };
   
   const handleProceed = async () => {
@@ -156,31 +171,35 @@ const PreviewPage = () => {
               )}
               {showProceedButton ? (
                 <>
-                  <table className="w-full mt-14 mb-10">
-                  <thead>
-                    <tr>
-                      <th className="border-b-2 px-4 text-white font-urbanist py-2">Sl no</th>
-                      <th className="border-b-2 px-4 text-white font-urbanist py-2">Emails</th>
-                      <th className="border-b-2 px-4 text-white font-urbanist py-2">Click to preview</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {resultEmails.map((email, index) => (
-                      <tr key={index}>
-                        <td className="px-4 text-center text-white font-urbanist py-2">{index + 1}</td>
-                        <td className="px-4 text-center text-white font-urbanist py-2">{email}</td>
-                        <td className="px-4 text-center text-white font-urbanist py-2 flex justify-center">
-                          <button
-                            onClick={() => handleImageClick(resultImages[index])}
-                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
-                          >
-                            View
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                    </tbody>
-                  </table>
+                  <div className="py-10"> {/* Add padding top here */}
+                    <div className="table-container max-h-96 overflow-y-auto">
+                      <table className="w-full mt-14 mb-10">
+                        <thead>
+                          <tr>
+                            <th className="border-b-2 px-4 text-white font-urbanist py-2">Sl no</th>
+                            <th className="border-b-2 px-4 text-white font-urbanist py-2">Emails</th>
+                            <th className="border-b-2 px-4 text-white font-urbanist py-2">Click to preview</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {resultEmails.map((email, index) => (
+                            <tr key={index}>
+                              <td className="px-4 text-center text-white font-urbanist py-2">{index + 1}</td>
+                              <td className="px-4 text-center text-white font-urbanist py-2">{email}</td>
+                              <td className="px-4 text-center text-white font-urbanist py-2 flex justify-center">
+                                <button
+                                  onClick={() => handleImageClick(resultImages[index])}
+                                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+                                >
+                                  View
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
   
                   <div className="w-full p-4 flex justify-center">
                     <button
