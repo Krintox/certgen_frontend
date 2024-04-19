@@ -9,6 +9,8 @@ const Canvas = () => {
   const [annotations, setAnnotations] = useState([]);
   const [customText, setCustomText] = useState('');
   const [uploadedImage, setUploadedImage] = useState(null);
+  const [width, setWidth] = useState(800);
+  const [height, setHeight] = useState(600);
   const navigate = useNavigate();
   const location = useLocation();
   const uploadedImageFile = location.state ? location.state.uploadedImageFile : null;
@@ -40,6 +42,7 @@ const Canvas = () => {
     };
     img.src = image;
   };
+  
 
   useEffect(() => {
     if (canvas) {
@@ -73,6 +76,7 @@ const Canvas = () => {
     const { offsetX, offsetY } = e.nativeEvent;
     addWordToCanvas(word, offsetX, offsetY);
   };
+
 
   const addWordToCanvas = (word, x, y) => {
     const text = new fabric.Text(word, {
@@ -133,12 +137,10 @@ const Canvas = () => {
     }
   }, [uploadedImageFile]);
 
+
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERT GEN</h1>
-      <p className="text-white text-center font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-12">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam sollicitudin. Est velit egestas dui id ornare arcu odio ut sem.
-      </p>
+      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas">CERT GEN</h1>
       <div className="flex flex-col md:flex-row w-full items-center justify-center">
         <div className="w-full md:w-1/3 p-4" style={{ backgroundColor: 'transparent', padding: '20px' }}>
           <h2 className="text-white" style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -191,7 +193,7 @@ const Canvas = () => {
               id="canvas"
               ref={(ref) => {
                 if (ref && !canvas) {
-                  const newCanvas = new fabric.Canvas(ref, { width: 800, height: 600 });
+                  const newCanvas = new fabric.Canvas(ref, { width: width, height: height });
                   setCanvas(newCanvas);
                 }
               }}
