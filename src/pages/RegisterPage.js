@@ -68,7 +68,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex justify-center items-center my-12 mx-4 md:mx-56">
+    <div className="flex justify-center items-center mt-6 mx-4 md:mx-56">
       <div className="flex justify-center items-center w-full">
         <div className={`container mx-auto rounded-lg${showLeftDiv ? ' md:shadow-md' : ''} relative flex flex-col md:flex-row`}>
           {/* Left Side - Conditional Rendering */}
@@ -84,7 +84,7 @@ export default function RegisterPage() {
                 </p>
               </div>
               <div className="absolute w-full bottom-0">
-                <img src={certificate} alt="Certificate" className="w-full h-2/5" />
+                <img src={certificate} alt="Certificate" className="w-full md:w-5/6" />
               </div>
             </div>
           )}
@@ -94,13 +94,13 @@ export default function RegisterPage() {
             {/* Your existing right side content */}
             <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
               <div className="w-full flex flex-col mb-2">
-                <h3 className="text-3xl md:text-5xl mb-6 md:mb-10 text-center text-white mt-12 ">CREATE AN <span className="text-orange-500">ACCOUNT</span></h3>
+                <h3 className="text-3xl md:text-5xl mb-6 md:mb-10 text-center text-white mt-12 bebas">CREATE AN <span className="text-orange-500">ACCOUNT</span></h3>
               </div>
-              <div className="rounded-lg p-4 mb-4 items-center text-center flex justify-center">
+              <div className="rounded-lg p-4 mb-4 items-center text-center flex justify-center border-2 border-orange-500">
                 <img src={googleIcon} alt="Google Icon" className="w-6 h-6 mr-2" />
                 <span className="text-white font-urbanist">Sign up with Google</span>
               </div>
-              <p className="text-white mb-4 text-center font-urbanist">- OR -</p>
+              <p className="text-white mb-4 text-center bebas text-3xl">- OR -</p>
               <form className="Register" onSubmit={Register}>
                 <input
                   type="text"
@@ -129,7 +129,7 @@ export default function RegisterPage() {
                 <div className='w-full flex items-center justify-between mb-4'>
                   <p className='text-sm md:text-base font-medium whitespace-nowrap cursor-pointer text-white font-urbanist'>
                     Already have an account?{' '}
-                    <Link to="/login" className="text-orange font-urbanist">
+                    <Link to="/login" className="text-orange font-urbanist text-orange-500">
                       Log in
                     </Link>
                   </p>
