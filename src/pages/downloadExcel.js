@@ -83,7 +83,6 @@ const ExcelDownload = () => {
           </button>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 };

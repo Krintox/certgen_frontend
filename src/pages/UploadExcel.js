@@ -80,7 +80,6 @@ const UploadExcel = () => {
           </div>
         )}
       </div>
-      <Footer/>
     </div>
   );
 };

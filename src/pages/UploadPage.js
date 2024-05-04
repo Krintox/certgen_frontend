@@ -43,12 +43,12 @@ const UploadPage = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
+    <div className="flex flex-col items-center justify-center w-full mt-10">
       <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas">CERT GEN</h1>
       <p className="text-white text-left font-urbanist text-sm md:text-lg lg:text-xl xl:text-2xl max-md:m-8 md:m-12">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam sollicitudin. Est velit egestas dui id ornare arcu odio ut sem.
       </p>
-      <div className="w-3/4 max-w-md bg-transparent rounded-lg md:mt-20" style={{ minHeight: '500px' }}>
+      <div className="w-3/4 max-w-md bg-transparent rounded-lg md:mt-20" style={{ minHeight: '300px' }}>
         {!uploadedImageFile && (
           <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-lg max-md:mx-5">
             <label htmlFor="fileInput" className="custom-file-upload">
@@ -73,7 +73,6 @@ const UploadPage = () => {
           </div>
         )}
       </div>
-      <Footer/>
     </div>
   );
 };

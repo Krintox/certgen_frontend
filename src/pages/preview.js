@@ -229,7 +229,6 @@ const PreviewPage = () => {
             </>
           )}
         </div>
-        <Footer/>
       </div>
     );
   };
