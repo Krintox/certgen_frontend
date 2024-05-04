@@ -3,6 +3,7 @@ import { fabric } from 'fabric';
 import Word from './Word';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ExcelJS from 'exceljs';
+import Footer from './Footer';
 
 const Canvas = () => {
   const [canvas, setCanvas] = useState(null);
@@ -140,7 +141,7 @@ const Canvas = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas">CERT GEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10">CERT GEN</h1>
       <div className="flex flex-col md:flex-row w-full items-center justify-center">
         <div className="w-full md:w-1/3 p-4" style={{ backgroundColor: 'transparent', padding: '20px' }}>
           <h2 className="text-white" style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -212,6 +213,7 @@ const Canvas = () => {
           <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "white" }} onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage } })} className="mt-4 ml-auto mr-auto block">Download Excel</button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }  

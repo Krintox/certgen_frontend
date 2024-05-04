@@ -4,6 +4,7 @@ import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineFileDownload } from "react-icons/md";
+import Footer from './Footer';
 
 const ExcelDownload = () => {
   const navigate = useNavigate();
@@ -71,17 +72,18 @@ const ExcelDownload = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 bebas">CERT GEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 bebas mt-10">CERT GEN</h1>
       <p className="text-white text-center font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-8"> {/* Increased padding */}
         Download the excel sheet with the columns as the annotations mentioned
       </p>
-      <div className="w-3/4 max-w-md bg-transparent rounded-lg shadow-md md:mt-4">
+      <div className="w-3/4 max-w-md bg-transparent rounded-lg shadow-md md:mt-4 mb-20">
         <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg max-md:py-12 md:p-8"> {/* Added padding */}
           <button onClick={() => createExcelWorkbook(annotations)} className="mt-4 bg-blue-500 text-white py-4 px-6 rounded-full"> {/* Increased height */}
             <MdOutlineFileDownload className="md:text-6xl max-md:text:3xl" />
           </button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
