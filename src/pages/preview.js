@@ -33,30 +33,76 @@ const PreviewPage = () => {
     }
   }, [isLoading, resultImages, resultEmails]);
 
+  useEffect(() => {
+    const savedResultImages = localStorage.getItem('resultImages');
+    const savedResultEmails = localStorage.getItem('resultEmails');
+
+    if (savedResultImages && savedResultEmails) {
+      setResultImages(JSON.parse(savedResultImages));
+      setResultEmails(JSON.parse(savedResultEmails));
+      setShowProceedButton(true);
+    }
+  }, []);
+
   const handleSendRequest = async () => {
     setIsLoading(true);
     if (annotations && resizedImage && uploadedExcelFile) {
       try {
+        // Fetch the resized image and convert it to a Blob
         const response = await fetch(resizedImage);
         const blob = await response.blob();
-
+  
+        // Create a file from the blob
         const file = new File([blob], 'image.jpg', { type: blob.type });
-
+  
+        // Prepare form data
         const formData = new FormData();
         formData.append('coordinates', JSON.stringify(annotations));
         formData.append('image', file);
         formData.append('excel', uploadedExcelFile);
-
+  
+        // Make the initial API call to get result images and emails
         const apiResponse = await axios.post('https://aliws.pythonanywhere.com/api', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         });
-
+  
         console.log('Response from server:', apiResponse.data);
         const { result_images, result_emails } = apiResponse.data;
+        localStorage.setItem('resultImages', JSON.stringify(result_images));
+        localStorage.setItem('resultEmails', JSON.stringify(result_emails));
         setResultImages(result_images);
         setResultEmails(result_emails);
+        if (!result_images || !result_emails) {
+          throw new Error('Invalid response from server');
+        }
+  
+        try {
+          // Create another form data to upload result images array
+          const uploadFormData = new FormData();
+          result_images.forEach((image, index) => {
+            const byteCharacters = atob(image);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'image/png' });
+            uploadFormData.append('arrayOfImages', blob, `image_${index + 1}.png`);
+          });
+  
+          // Make the API call to upload the images array
+          const uploadResponse = await axios.post('https://certgen-backend.vercel.app/createProject/arrayImages', uploadFormData, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+        } catch (uploadError) {
+          console.error('Error uploading Image Array:', uploadError);
+        }
+  
       } catch (error) {
         console.error('Error fetching preview:', error);
       } finally {
@@ -67,6 +113,7 @@ const PreviewPage = () => {
       setIsLoading(false);
     }
   };
+  
 
   const handleBulkDownload = () => {
     const zip = new JSZip();
