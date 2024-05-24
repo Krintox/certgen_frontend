@@ -10,6 +10,7 @@ import * as XLSX from 'xlsx';
 import Footer from './Footer';
 import QRCode from 'qrcode.react';
 import AWS from 'aws-sdk';
+import { set } from 'date-fns';
 
 Modal.setAppElement('#root');
 
@@ -90,9 +91,16 @@ const PreviewPage = () => {
         });
         
         // Send S3 image URLs to the endpoint
-        const s3ImageResponse = await axios.post('http://localhost:3000/post-data', {
+        const s3ImageResponse = await axios.post('http://127.0.0.1:5000/post-data', {
           s3ImageUrls: s3ImageUrls,
-        });
+          images: result_images,
+          coordinates: annotations,
+          emails: result_emails,
+        })
+
+        const {qr_images, final_emails} = s3ImageResponse.data;
+        setResultImages(qr_images);
+        setResultEmails(final_emails);
   
         console.log('S3 image URLs sent:', s3ImageResponse.data);
 
