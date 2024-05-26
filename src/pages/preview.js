@@ -10,7 +10,6 @@ import * as XLSX from 'xlsx';
 import Footer from './Footer';
 import QRCode from 'qrcode.react';
 import AWS from 'aws-sdk';
-import { set } from 'date-fns';
 
 Modal.setAppElement('#root');
 
@@ -29,7 +28,6 @@ const PreviewPage = () => {
   const [emailContent, setEmailContent] = useState('');
   const [subLoad, setSubLoad] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [qrCodes, setQRCodes] = useState([]);
 
   // AWS S3 Configuration
   const s3 = new AWS.S3({
@@ -91,24 +89,18 @@ const PreviewPage = () => {
         });
         
         // Send S3 image URLs to the endpoint
-        const s3ImageResponse = await axios.post('http://127.0.0.1:5000/post-data', {
+        const s3ImageResponse = await axios.post('http://localhost:3000/post-data', {
           s3ImageUrls: s3ImageUrls,
           images: result_images,
           coordinates: annotations,
           emails: result_emails,
         })
 
-        const {qr_images, final_emails} = s3ImageResponse.data;
+        const { qr_images, final_emails } = s3ImageResponse.data;
         setResultImages(qr_images);
         setResultEmails(final_emails);
   
         console.log('S3 image URLs sent:', s3ImageResponse.data);
-
-        // Generate QR codes for S3 image URLs
-        const generatedQRCodes = s3ImageUrls.map(url => <QRCode value={url} />);
-
-        // Set QR codes in state
-        setQRCodes(generatedQRCodes);
   
       } catch (error) {
         console.error('Error fetching preview:', error);
@@ -119,7 +111,7 @@ const PreviewPage = () => {
       console.log('Missing Values');
       setIsLoading(false);
     }
-  };  
+  };
 
   const handleBulkDownload = () => {
     const zip = new JSZip();
@@ -246,7 +238,9 @@ const PreviewPage = () => {
                                   View
                                 </button>
                             </td>
-                            <td className="px-4 text-center text-white font-urbanist py-2"> {qrCodes[index]} {/* Display QR code here */}</td>
+                            <td className="px-4 text-center text-white font-urbanist py-2">
+                              <QRCode value={generateImageUrl(`image_${index + 1}.png`)} /> {/* Generate QR code here */}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -273,20 +267,16 @@ const PreviewPage = () => {
               </>
             ) : (
               <div className="w-full p-4 flex justify-center">
-                <button onClick={handleSendRequest
-                } className="bg-blue-500 hover:bg-blue-700 text-white
-                font-bold py-2 px-4 rounded">
-                Generate
-              </button>
-            </div>
-          )}
-        </>
-      )}
+                <button onClick={handleSendRequest} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Generate
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
-  </div>
-);
-
+  );
 };
 
 export default PreviewPage;
-  
