@@ -154,6 +154,9 @@ const Canvas = () => {
             <div id="word2" style={{ border: "2px solid white", borderRadius: "10px", padding: "10px", marginBottom: "10px" }}>
               <Word text="Word2" onClick={() => addWordToCanvas("Word2", 20, 50)} />
             </div>
+            <div id="word3" style={{ border: "2px solid white", borderRadius: "10px", padding: "10px", marginBottom: "10px" }}>
+              <Word text="qrCode" onClick={() => addWordToCanvas("QrCode", 20, 80)} />
+            </div>
             <div>
               <input className='text-white font-urbanist bg-transparent' type="text" value={customText} onChange={handleCustomTextChange} />
               <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "white" }} onClick={handleCustomTextAdd}>Add Custom Text</button>

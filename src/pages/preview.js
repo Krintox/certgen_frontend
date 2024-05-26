@@ -91,7 +91,7 @@ const PreviewPage = () => {
         });
         
         // Send S3 image URLs to the endpoint
-        const s3ImageResponse = await axios.post('http://127.0.0.1:5000/post-data', {
+        const s3ImageResponse = await axios.post('https://aliws.pythonanywhere.com/post-data', {
           s3ImageUrls: s3ImageUrls,
           images: result_images,
           coordinates: annotations,
