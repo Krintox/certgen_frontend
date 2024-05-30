@@ -44,7 +44,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await fetch('https://certgen-backend.vercel.app/register', {
+      const response = await fetch('https://certgen-backend.vercel.app/auth/register', {
         method: 'POST',
         body: JSON.stringify({ username, password }),
         headers: { 'Content-Type': 'application/json' },
