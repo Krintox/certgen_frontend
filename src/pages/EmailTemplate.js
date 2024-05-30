@@ -39,7 +39,7 @@ const EmailTemplate = () => {
   
       console.log('Email data:', emailData); // Log email data before sending request
   
-      const response = await axios.post('https://certgen-backend.vercel.app/sendEmails', emailData);
+      const response = await axios.post('https://certgen-backend.vercel.app/email/sendEmails', emailData);
   
       if (response.status === 200) {
         setSubLoad(false);
@@ -68,7 +68,7 @@ const EmailTemplate = () => {
     <div className="flex flex-col items-center justify-center min-w-screen m-5 min-h-screen">
       <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERT GEN</h1>
       <div className="w-full bg-transparent rounded-lg shadow-md mt-10 p-4">
-        <div className="flex justify-center mb-8">
+        {/*<div className="flex justify-center mb-8">
           <button onClick={() => handleViewChange('labelled')} className="text-white py-2 px-4 border border-2 rounded cursor-pointer mr-4" style={gradientBtn}>
             Labelled <span className="arrow">&#62;</span>
           </button>
@@ -82,7 +82,7 @@ const EmailTemplate = () => {
               Note: Use {'${Annotations}'} in the body to change if the said annotation is there in the body <br></br>For Example: “Congratulations {'${Name}'}” to put in the names.
             </p>
           </div>
-        )}
+        )}*/}
         <div className="flex flex-col items-center justify-center border-2 border-solid border-orange-600 rounded-lg mt-4 p-8">
           <div className="w-full mb-4 pl-8 pr-8">
             <label htmlFor="subject" className="block bg-transparent text-white text-sm">

@@ -186,16 +186,14 @@ const PreviewPage = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden p-4 mb-20">
-        <div className="flex justify-between">
-          <div className="w-1/2 pr-4">
-            <h1 className="text-5xl md:text-7xl font-bold text-white border-b-2 md:pb-2">CERT GEN</h1>
-          </div>
-          <div className="w-1/2">
-            <p className="text-white font-urbanist">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden p-4 mb-20 flex flex-col items-center">
+        <h1 className="text-5xl md:text-7xl font-bold text-white border-b-2 pb-2 text-center">
+          CERT GEN
+        </h1>
+        <p className="text-white mt-8 mb-6 text-center">
+          (Please wait... This may take 5-6 mins)
+        </p>
         {isLoading ? (
           <LoadingComponent /> // Display the loading component here
         ) : (

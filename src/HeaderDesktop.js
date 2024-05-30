@@ -16,7 +16,7 @@ export default function Header() {
   const { setUserInfo, userInfo } = useContext(UserContext);
 
   useEffect(() => {
-    fetch('https://certgen-backend.vercel.app/profile', {
+    fetch('https://certgen-backend.vercel.app/auth/profile', {
       credentials: 'include',
     }).then(response => {
       response.json().then(userInfo => {
@@ -26,7 +26,7 @@ export default function Header() {
   }, []);
 
   function logout() {
-    fetch('https://certgen-backend.vercel.app/logout', {
+    fetch('https://certgen-backend.vercel.app/auth/logout', {
       credentials: 'include',
       method: 'POST',
     }).then(() => {
@@ -67,7 +67,7 @@ export default function Header() {
             <Link to="/newproject" className="nav-icon">
             <PiClockCounterClockwise size={35}/> <span>MY PROJECTS</span>
             </Link>
-            <Link to="/newproject" className="nav-icon">
+            <Link to="/createaccount" className="nav-icon">
             <CiUser size={35}/> <span>PROFILE</span>
             </Link>
             <a href="#how-to-use" className="nav-icon">
@@ -82,6 +82,9 @@ export default function Header() {
       <nav>
         {username && (
           <>
+            <span className="nav-icon username">
+              {username}
+            </span>
             <a onClick={logout} className="nav-icon logout-button">
             <FiLogOut size={20}/> <span className="pl-1">LOGOUT</span>
             </a>

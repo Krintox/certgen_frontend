@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import Footer from './Footer';
 
 const UploadExcel = () => {
@@ -9,6 +9,7 @@ const UploadExcel = () => {
   const { state } = location;
   const { annotations, canvasImage } = state || {};
   const uploadImage = location.state ? location.state.resizedImage : null;
+  const { projectId } = useParams();
 
   const handleExcelUpload = (event) => {
     const file = event.target.files[0];
@@ -27,7 +28,7 @@ const UploadExcel = () => {
       formData.append('excelFile', uploadedExcelFile);
 
       // Make a POST request to the backend endpoint
-      const response = await fetch('https://certgen-backend.vercel.app/createProject/excel', {
+      const response = await fetch('(https://certgen-backend.vercel.app/projects/upload-excel/${projectId}', {
         method: 'POST',
         body: formData,
         credentials: 'include' // Include credentials for cookie authentication

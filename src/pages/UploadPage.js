@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Footer from './Footer';
 
 const UploadPage = () => {
   const navigate = useNavigate();
+  const { projectId } = useParams();
   const [uploadedImageFile, setUploadedImageFile] = useState(null);
 
   const handleImageUpload = (event) => {
@@ -13,17 +14,17 @@ const UploadPage = () => {
 
   const handleDataSubmission = async () => {
     if (!uploadedImageFile) {
-      alert("No image uploaded")
+      alert("No image uploaded");
       return;
     }
 
     try {
       // Create FormData object to send the image file
       const formData = new FormData();
-      formData.append('imageFile', uploadedImageFile);
+      formData.append('file', uploadedImageFile);
 
       // Make a POST request to the backend endpoint
-      const response = await fetch('https://certgen-backend.vercel.app/createProject/image', {
+      const response = await fetch(`https://certgen-backend.vercel.app/projects/upload-image/${projectId}`, {
         method: 'POST',
         body: formData,
         credentials: 'include' // Include credentials for cookie authentication
@@ -31,17 +32,21 @@ const UploadPage = () => {
 
       if (response.ok) {
         // Redirect to the next step if the request is successful
-        alert("image uploaded");
-        navigate('/drag', { state: { uploadedImageFile } });
+        alert("Image uploaded successfully");
+        //navigate('/drag', { state: { uploadedImageFile } });
       } else {
         // Handle error response
-        navigate('/drag', { state: { uploadedImageFile } });
+        const errorData = await response.json();
+        alert(`Failed to upload project image: ${errorData.message}`);
         console.error('Failed to upload project image:', response.statusText);
       }
+
     } catch (error) {
       console.error('Error uploading project image:', error);
     }
+    navigate('/drag', { state: { uploadedImageFile } });
   };
+
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10">
       <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas">CERT GEN</h1>

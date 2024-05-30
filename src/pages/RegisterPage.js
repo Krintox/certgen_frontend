@@ -144,6 +144,7 @@ export default function RegisterPage() {
                   </button>
                 </div>
               </form>
+              {redirect && <Navigate to="/login" />}
             </div>
           </div>
         </div>

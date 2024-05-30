@@ -16,7 +16,7 @@ export default function HeaderMobile() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for controlling mobile menu visibility
 
   useEffect(() => {
-    fetch('https://certgen-backend.vercel.app/profile', {
+    fetch('https://certgen-backend.vercel.app/auth/profile', {
       credentials: 'include',
     }).then(response => {
       response.json().then(userInfo => {
@@ -26,7 +26,7 @@ export default function HeaderMobile() {
   }, []);
 
   function logout() {
-    fetch('https://certgen-backend.vercel.app/logout', {
+    fetch('https://certgen-backend.vercel.app/auth/logout', {
       credentials: 'include',
       method: 'POST',
     }).then(() => {
