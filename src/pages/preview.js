@@ -46,17 +46,13 @@ const PreviewPage = () => {
 
   const uploadToS3 = async (file, fileName) => {
     const params = {
-      Bucket: 'certgen-qr',  
-      Key: fileName,
+      Bucket: 'certgen-qr',
+      Key: `${userId}/${projectId}/${fileName}`,
       Body: file,
       ContentType: file.type,
     };
 
     return s3.upload(params).promise();
-  };
-
-  const generateImageUrl = (fileName) => {
-    return `${userId}/${projectId}/${fileName}`;
   };
 
   const handleSendRequest = async () => {
@@ -84,26 +80,37 @@ const PreviewPage = () => {
         setResultImages(result_images);
         setResultEmails(result_emails);
   
-        // Extract image URLs from result_images and generate S3 URLs
-        const s3ImageUrls = result_images.map((base64String, index) => {
-          const fileName = `image_${index + 1}.png`;
-          return generateImageUrl(fileName);
-        });
-        
+        // Upload images to S3 and get URLs
+        const s3ImageUrls = await Promise.all(result_images.map(async (base64String, index) => {
+          const byteCharacters = atob(base64String);
+          const byteNumbers = new Array(byteCharacters.length);
+
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'image/png' });
+          const file = new File([blob], `image_${index + 1}.png`, { type: 'image/png' });
+
+          const s3Response = await uploadToS3(file, `image_${index + 1}.png`);
+          return s3Response.Location;
+        }));
+
         // Send S3 image URLs to the endpoint
         const s3ImageResponse = await axios.post('https://aliws.pythonanywhere.com/post-data', {
           s3ImageUrls: s3ImageUrls,
           images: result_images,
           coordinates: annotations,
           emails: result_emails,
-        })
+        });
 
         const { qr_images, final_emails } = s3ImageResponse.data;
         setResultImages(qr_images);
         setResultEmails(final_emails);
-  
+
         console.log('S3 image URLs sent:', s3ImageResponse.data);
-  
+
       } catch (error) {
         console.error('Error fetching preview:', error);
       } finally {
@@ -225,7 +232,6 @@ const PreviewPage = () => {
                           <th className="border-b-2 px-4 text-white font-urbanist py-2">Sl no</th>
                           <th className="border-b-2 px-4 text-white font-urbanist py-2">Emails</th>
                           <th className="border-b-2 px-4 text-white font-urbanist py-2">Click to preview</th>
-                          <th className="border-b-2 px-4 text-white font-urbanist py-2">QR Code</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -239,9 +245,6 @@ const PreviewPage = () => {
                                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">
                                   View
                                 </button>
-                            </td>
-                            <td className="px-4 text-center text-white font-urbanist py-2">
-                              <QRCode value={generateImageUrl(`image_${index + 1}.png`)} /> {/* Generate QR code here */}
                             </td>
                           </tr>
                         ))}
