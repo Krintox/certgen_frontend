@@ -106,7 +106,7 @@ const EmailTemplate = () => {
             ></textarea>
           </div>
           <button onClick={handleProceed} className="mt-4 bg-orange-500 text-white py-2 px-4 rounded cursor-pointer">
-            Proceed <span className="arrow">&#62;</span>
+            Proceed
           </button>
         </div>
       </div>

@@ -24,6 +24,7 @@ const PreviewPage = () => {
   const [resultEmails, setResultEmails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showProceedButton, setShowProceedButton] = useState(false);
+  const [showMins, setShowMins] = useState(false);
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [emailSubject, setEmailSubject] = useState('');
   const [emailContent, setEmailContent] = useState('');
@@ -57,6 +58,7 @@ const PreviewPage = () => {
 
   const handleSendRequest = async () => {
     setIsLoading(true);
+    setShowMins(true);
     if (annotations && resizedImage && uploadedExcelFile) {
       try {
         const response = await fetch(resizedImage);
@@ -200,11 +202,16 @@ const PreviewPage = () => {
         <h1 className="text-5xl md:text-7xl font-bold text-white border-b-2 pb-2 text-center">
           CERT GEN
         </h1>
-        {!showProceedButton && (
+        {showMins 
+        ?
+        (
           <p className="text-white mt-8 mb-6 text-center">
             (Please wait... This may take 5-6 mins)
           </p>
-        )}
+        )
+        :
+        <p></p>
+        }
         {isLoading ? (
           <LoadingComponent /> // Display the loading component here
         ) : (
