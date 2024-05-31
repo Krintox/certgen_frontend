@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import { useProject } from '../ProjectContext';
 import logo from "../images/brand-logo.png";
 import certificate from "../images/Image(1).png";
 import googleIcon from "../images/google-icon.png";
@@ -12,6 +13,7 @@ export default function RegisterPage() {
   const [redirect, setRedirect] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const { setUserInfo } = useContext(UserContext);
+  const { setUserId } = useProject(); // Fix context usage
   const [showLeftDiv, setShowLeftDiv] = useState(true);
 
   const checkScreenSize = () => {
@@ -34,20 +36,27 @@ export default function RegisterPage() {
 
   async function login(ev) {
     ev.preventDefault();
-    const response = await fetch('https://certgen-backend.vercel.app/login', {
-      method: 'POST',
-      body: JSON.stringify({ username, password }),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-    });
-
-    if (response.ok) {
-      response.json().then(userInfo => {
-        setUserInfo(userInfo);
-        setRedirect(true);
+    try {
+      const response = await fetch('https://certgen-backend.vercel.app/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ username, password }),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
       });
-    } else {
-      alert('Wrong credentials');
+
+      if (response.ok) {
+        const responseData = await response.json();
+        const userId = responseData.id;
+        console.log('login successful:', userId);
+        setUserId(userId);
+        setUserInfo(responseData);
+        setRedirect(true);
+      } else {
+        alert('Wrong credentials');
+      }
+    } catch (error) {
+      console.error('Login failed', error);
+      alert('An error occurred while logging in');
     }
   }
 
@@ -101,7 +110,7 @@ export default function RegisterPage() {
                     value={username}
                     onChange={ev => setUsername(ev.target.value)}
                     className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist"
-                  />
+                  /><br/>
 
                   <div className="relative">
                     <input
@@ -121,9 +130,9 @@ export default function RegisterPage() {
                     </button>
                   </div>
 
-                  <div className='w-full text-right'>
+                  {/* <div className='w-full text-right'>
                     <p className='text-sm font-medium whitespace-nowrap cursor-pointer text-white font-urbanist mr-10 mt-4'>Forgot Password?</p>
-                  </div>
+                  </div> */}
 
                   <div className='w-full flex flex-col my-4'>
                     <button
@@ -137,7 +146,7 @@ export default function RegisterPage() {
                 </form>
 
                 <div className="w-full flex items-center justify-center">
-                  <p className="text-sm font-normal text-white font-urbanist">Don't have an account? <span className="font-semibold underline underline-offset-2 cursor-pointer font-urbanist">Create account</span></p>
+                  <p className="text-sm font-normal text-white font-urbanist">Don't have an account? <Link to="/register" className="font-semibold underline underline-offset-2 cursor-pointer font-urbanist">Create account</Link></p>
                 </div>
               </div>
             </div>

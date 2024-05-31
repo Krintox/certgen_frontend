@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import { useProject } from '../ProjectContext';
 import logo from "../images/brand-logo.png";
 import certificate from "../images/Image(1).png";
 
@@ -10,6 +11,7 @@ export default function NewProject() {
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
   const [showLeftDiv, setShowLeftDiv] = useState(true); // State to control visibility of left div
+  const { setProjectId } = useProject();
 
   // Function to check screen size and set showLeftDiv state accordingly
   const checkScreenSize = () => {
@@ -41,7 +43,7 @@ export default function NewProject() {
   
     try {
       // Make a POST request to the backend endpoint with credentials
-      const response = await fetch('https://certgen-backend.vercel.app/createProject/titleDesc', {
+      const response = await fetch('https://certgen-backend.vercel.app/projects/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -51,7 +53,10 @@ export default function NewProject() {
       });
   
       if (response.ok) {
-        // Redirect to the next step if the request is successful
+        const responseData = await response.json();
+        const projectId = responseData.projectId;
+        console.log('Project created successfully:', projectId);
+        setProjectId(projectId)
         setRedirect(true);
       } else {
         setRedirect(true);

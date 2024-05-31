@@ -11,7 +11,7 @@ const ProjectDetails = () => {
   // Function to fetch project details
   const fetchProjectDetails = async () => {
     try {
-      const response = await fetch(`https://certgen-backend.vercel.app/projects/${projectId}`, {
+      const response = await fetch(`https://certgen-backend.vercel.app/project/${projectId}`, {
         method: 'GET',
         credentials: 'include' // Include credentials for cookie authentication
       });

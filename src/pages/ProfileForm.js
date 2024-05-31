@@ -35,7 +35,7 @@ const ProfileForm = () => {
     formDataWithImage.append('profileImage', formData.profileImage);
 
     try {
-      const response = await fetch('https://certgen-backend.vercel.app/profile123', {
+      const response = await fetch('https://certgen-backend.vercel.app/profile/create', {
         method: 'POST',
         body: formDataWithImage,
         credentials: 'include'

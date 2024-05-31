@@ -35,7 +35,7 @@ function CreateAccount() {
     formDataWithImage.append('profileImage', formData.profileImage);
 
     try {
-      const response = await fetch('https://certgen-backend.vercel.app/profile123', {
+      const response = await fetch('https://certgen-backend.vercel.app/profile/create', {
         method: 'POST',
         body: formDataWithImage,
         credentials: 'include'
@@ -102,12 +102,12 @@ function CreateAccount() {
               placeholder="Profession"
               className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist"
             />
-            <input
+            {/*<input
               type="file"
               name="profileImage"
               onChange={handleFileChange}
               className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist"
-            />
+  />*/}
             <button type="submit" className='w-full max-w-xs text-white my-2 rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
                       style={gradientBgLeft}>Create Profile</button>
           </form>

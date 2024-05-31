@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import Footer from './Footer';
+import { useProject } from '../ProjectContext';
 
 const UploadExcel = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const UploadExcel = () => {
   const { state } = location;
   const { annotations, canvasImage } = state || {};
   const uploadImage = location.state ? location.state.resizedImage : null;
+  const { projectId } = useProject();
 
   const handleExcelUpload = (event) => {
     const file = event.target.files[0];
@@ -27,7 +29,7 @@ const UploadExcel = () => {
       formData.append('excelFile', uploadedExcelFile);
 
       // Make a POST request to the backend endpoint
-      const response = await fetch('https://certgen-backend.vercel.app/createProject/excel', {
+      const response = await fetch(`(https://certgen-backend.vercel.app/projects/upload-excel/${projectId}`, {
         method: 'POST',
         body: formData,
         credentials: 'include' // Include credentials for cookie authentication
@@ -48,7 +50,7 @@ const UploadExcel = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full md:mt-10 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 bebas mt-10">CERT GEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 bebas mt-10">CERTGEN</h1>
       <p className="text-white text-left font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-12 ">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam sollicitudin. Est velit egestas dui id ornare arcu odio ut sem.
       </p>
@@ -80,7 +82,6 @@ const UploadExcel = () => {
           </div>
         )}
       </div>
-      <Footer/>
     </div>
   );
 };

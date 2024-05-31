@@ -20,26 +20,23 @@ const EmailTemplate = () => {
 
   const handleProceed = async () => {
     try {
-      const attachments = [];
       setSubLoad(true);
-  
-      resultImages.forEach((base64String, index) => {
-        attachments.push({
-          filename: `image_${index + 1}.png`,
-          content: base64String,
-        });
-      });
   
       const emailData = {
         subject: subject,
         content: body,
-        recipients: resultEmails,
-        attachments: attachments,
+        recipients: resultEmails.map((email, index) => ({
+          email: email,
+          attachment: {
+            filename: `image_${index + 1}.png`,
+            content: resultImages[index],
+          },
+        })),
       };
   
       console.log('Email data:', emailData); // Log email data before sending request
   
-      const response = await axios.post('https://certgen-backend.vercel.app/sendEmails', emailData);
+      const response = await axios.post('https://certgen-backend.vercel.app/email/sendEmails', emailData);
   
       if (response.status === 200) {
         setSubLoad(false);
@@ -52,6 +49,7 @@ const EmailTemplate = () => {
       console.error('Error sending emails:', error);
     }
   };
+  
   
 
   const gradientBtn = {
@@ -66,9 +64,9 @@ const EmailTemplate = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-w-screen m-5 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERT GEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERTGEN</h1>
       <div className="w-full bg-transparent rounded-lg shadow-md mt-10 p-4">
-        <div className="flex justify-center mb-8">
+        {/*<div className="flex justify-center mb-8">
           <button onClick={() => handleViewChange('labelled')} className="text-white py-2 px-4 border border-2 rounded cursor-pointer mr-4" style={gradientBtn}>
             Labelled <span className="arrow">&#62;</span>
           </button>
@@ -82,7 +80,7 @@ const EmailTemplate = () => {
               Note: Use {'${Annotations}'} in the body to change if the said annotation is there in the body <br></br>For Example: “Congratulations {'${Name}'}” to put in the names.
             </p>
           </div>
-        )}
+        )}*/}
         <div className="flex flex-col items-center justify-center border-2 border-solid border-orange-600 rounded-lg mt-4 p-8">
           <div className="w-full mb-4 pl-8 pr-8">
             <label htmlFor="subject" className="block bg-transparent text-white text-sm">
@@ -108,7 +106,7 @@ const EmailTemplate = () => {
             ></textarea>
           </div>
           <button onClick={handleProceed} className="mt-4 bg-orange-500 text-white py-2 px-4 rounded cursor-pointer">
-            Proceed <span className="arrow">&#62;</span>
+            Proceed
           </button>
         </div>
       </div>

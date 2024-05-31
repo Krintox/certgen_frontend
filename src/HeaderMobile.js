@@ -16,7 +16,7 @@ export default function HeaderMobile() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for controlling mobile menu visibility
 
   useEffect(() => {
-    fetch('https://certgen-backend.vercel.app/profile', {
+    fetch('https://certgen-backend.vercel.app/auth/profile', {
       credentials: 'include',
     }).then(response => {
       response.json().then(userInfo => {
@@ -26,7 +26,7 @@ export default function HeaderMobile() {
   }, []);
 
   function logout() {
-    fetch('https://certgen-backend.vercel.app/logout', {
+    fetch('https://certgen-backend.vercel.app/auth/logout', {
       credentials: 'include',
       method: 'POST',
     }).then(() => {
@@ -57,12 +57,12 @@ export default function HeaderMobile() {
             <nav style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {!username && (
                 <>
-                  <a href="#how-to-use" className="nav-icon text-center">
+                  {/* <a href="#how-to-use" className="nav-icon text-center">
                     <TbCertificate size={35}/> <span>HOW TO USE</span>
                   </a>
                   <Link to="/reviews" className="nav-icon">
                     <BiChat size={35}/> <span>REVIEWS</span>
-                  </Link>
+                  </Link> */}
                 </>
               )}
               {username && (
@@ -77,9 +77,9 @@ export default function HeaderMobile() {
                   <Link to="/newproject" className="nav-icon">
                     <CiUser size={35}/> <span>PROFILE</span>
                   </Link>
-                  <a href="#how-to-use" className="nav-icon">
+                  {/* <a href="#how-to-use" className="nav-icon">
                     <TbCertificate size={35}/> <span>HOW TO USE</span>
-                  </a>
+                  </a> */}
                 </>
               )}
             </nav>

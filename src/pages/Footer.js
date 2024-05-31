@@ -11,10 +11,10 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-transparent shadow-md py-8">
+    <footer className="bg-transparent shadow-md py-8 w-full">
       <div className="container mx-auto px-6 lg:px-20">
         <div className="md:flex md:justify-between items-center">
-          <div className="mb-8 md:mb-0 md:w-1/4">
+          <div className="mb-8 md:mb-0">
             <a href="/" className="flex items-center text-lg mb-4">
               <img src={BrandLogo} className="h-12 me-3" alt="Webkite Logo" />
               <span className="text-4xl font-semibold whitespace-nowrap text-white">WEB<span className='text-orange-600'>KITES</span></span>
