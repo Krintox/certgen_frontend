@@ -143,7 +143,7 @@ const Canvas = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10 mb-8">CERT GEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10 mb-8">CERTGEN</h1>
       <div className="flex flex-col md:flex-row w-full items-center justify-center">
         <div className="w-full md:w-1/3 p-2" style={{ backgroundColor: 'transparent', padding: '20px' }}>
           <h2 className="text-white mb-4" style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -160,7 +160,7 @@ const Canvas = () => {
             <Word text="qrCode" onClick={() => addWordToCanvas("QrCode", 20, 80)} />
           </div>
           <div>
-            <input className='text-white font-urbanist bg-transparent mb-4' type="text" value={customText} onChange={handleCustomTextChange} />
+            <input className='text-white font-urbanist bg-transparent mb-4' type="text" value={customText} onChange={handleCustomTextChange} style={{ border: "2px solid white", borderRadius: "10px", padding: "15px 15px", width: "100%"}} placeholder="add custom text" />
             <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "white" }} onClick={handleCustomTextAdd}>Add Custom Text</button>
           </div>
           <div className="mt-6">

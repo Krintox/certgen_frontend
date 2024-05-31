@@ -200,7 +200,7 @@ const PreviewPage = () => {
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-20 overflow-hidden p-4 mb-20 flex flex-col items-center">
         <h1 className="text-5xl md:text-7xl font-bold text-white border-b-2 pb-2 text-center">
-          CERT GEN
+          CERTGEN
         </h1>
         {showMins 
         ?

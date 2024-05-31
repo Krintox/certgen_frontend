@@ -96,11 +96,11 @@ export default function RegisterPage() {
               <div className="w-full flex flex-col mb-2">
                 <h3 className="text-3xl md:text-5xl mb-6 md:mb-10 text-center text-white mt-12 bebas">CREATE AN <span className="text-orange-500">ACCOUNT</span></h3>
               </div>
-              <div className="rounded-lg p-4 mb-4 items-center text-center flex justify-center border-2 border-orange-500">
+              {/* <div className="rounded-lg p-4 mb-4 items-center text-center flex justify-center border-2 border-orange-500">
                 <img src={googleIcon} alt="Google Icon" className="w-6 h-6 mr-2" />
                 <span className="text-white font-urbanist">Sign up with Google</span>
               </div>
-              <p className="text-white mb-4 text-center bebas text-3xl">- OR -</p>
+              <p className="text-white mb-4 text-center bebas text-3xl">- OR -</p> */}
               <form className="Register" onSubmit={Register}>
                 <input
                   type="text"

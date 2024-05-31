@@ -57,12 +57,12 @@ export default function HeaderMobile() {
             <nav style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {!username && (
                 <>
-                  <a href="#how-to-use" className="nav-icon text-center">
+                  {/* <a href="#how-to-use" className="nav-icon text-center">
                     <TbCertificate size={35}/> <span>HOW TO USE</span>
                   </a>
                   <Link to="/reviews" className="nav-icon">
                     <BiChat size={35}/> <span>REVIEWS</span>
-                  </Link>
+                  </Link> */}
                 </>
               )}
               {username && (
@@ -77,9 +77,9 @@ export default function HeaderMobile() {
                   <Link to="/newproject" className="nav-icon">
                     <CiUser size={35}/> <span>PROFILE</span>
                   </Link>
-                  <a href="#how-to-use" className="nav-icon">
+                  {/* <a href="#how-to-use" className="nav-icon">
                     <TbCertificate size={35}/> <span>HOW TO USE</span>
-                  </a>
+                  </a> */}
                 </>
               )}
             </nav>

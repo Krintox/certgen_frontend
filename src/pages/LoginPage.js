@@ -110,7 +110,7 @@ export default function RegisterPage() {
                     value={username}
                     onChange={ev => setUsername(ev.target.value)}
                     className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist"
-                  />
+                  /><br/>
 
                   <div className="relative">
                     <input
@@ -130,9 +130,9 @@ export default function RegisterPage() {
                     </button>
                   </div>
 
-                  <div className='w-full text-right'>
+                  {/* <div className='w-full text-right'>
                     <p className='text-sm font-medium whitespace-nowrap cursor-pointer text-white font-urbanist mr-10 mt-4'>Forgot Password?</p>
-                  </div>
+                  </div> */}
 
                   <div className='w-full flex flex-col my-4'>
                     <button

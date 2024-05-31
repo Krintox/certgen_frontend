@@ -64,7 +64,7 @@ const EmailTemplate = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-w-screen m-5 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERT GEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERTGEN</h1>
       <div className="w-full bg-transparent rounded-lg shadow-md mt-10 p-4">
         {/*<div className="flex justify-center mb-8">
           <button onClick={() => handleViewChange('labelled')} className="text-white py-2 px-4 border border-2 rounded cursor-pointer mr-4" style={gradientBtn}>

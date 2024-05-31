@@ -46,12 +46,12 @@ export default function Header() {
       <nav>
         {!username && (
           <>
-            <a href="#how-to-use" className="nav-icon">
+            {/* <a href="#how-to-use" className="nav-icon">
               <TbCertificate size={35}/> <span>HOW TO USE</span>
             </a>
             <Link to="/reviews" className="nav-icon">
               <BiChat size={35}/> <span>REVIEWS</span>
-            </Link>
+            </Link> */}
           </>
         )}
       </nav>
@@ -70,9 +70,9 @@ export default function Header() {
             <Link to="/createaccount" className="nav-icon">
             <CiUser size={35}/> <span>PROFILE</span>
             </Link>
-            <a href="#how-to-use" className="nav-icon">
+            {/* <a href="#how-to-use" className="nav-icon">
               <TbCertificate size={35}/> <span>HOW TO USE</span>
-            </a>
+            </a> */}
           </>
           
         )}
