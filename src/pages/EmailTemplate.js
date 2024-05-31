@@ -20,21 +20,18 @@ const EmailTemplate = () => {
 
   const handleProceed = async () => {
     try {
-      const attachments = [];
       setSubLoad(true);
-  
-      resultImages.forEach((base64String, index) => {
-        attachments.push({
-          filename: `image_${index + 1}.png`,
-          content: base64String,
-        });
-      });
   
       const emailData = {
         subject: subject,
         content: body,
-        recipients: resultEmails,
-        attachments: attachments,
+        recipients: resultEmails.map((email, index) => ({
+          email: email,
+          attachment: {
+            filename: `image_${index + 1}.png`,
+            content: resultImages[index],
+          },
+        })),
       };
   
       console.log('Email data:', emailData); // Log email data before sending request
@@ -52,6 +49,7 @@ const EmailTemplate = () => {
       console.error('Error sending emails:', error);
     }
   };
+  
   
 
   const gradientBtn = {
