@@ -10,6 +10,7 @@ import * as XLSX from 'xlsx';
 import Footer from './Footer';
 import QRCode from 'qrcode.react';
 import AWS from 'aws-sdk';
+import { useProject } from '../ProjectContext';
 
 Modal.setAppElement('#root');
 
@@ -28,6 +29,7 @@ const PreviewPage = () => {
   const [emailContent, setEmailContent] = useState('');
   const [subLoad, setSubLoad] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const { projectId, userId } = useProject();
 
   // AWS S3 Configuration
   const s3 = new AWS.S3({
@@ -54,7 +56,7 @@ const PreviewPage = () => {
   };
 
   const generateImageUrl = (fileName) => {
-    return `https://certgen-qr.s3.amazonaws.com/${fileName}`;
+    return `${userId}/${projectId}/${fileName}`;
   };
 
   const handleSendRequest = async () => {
@@ -191,9 +193,11 @@ const PreviewPage = () => {
         <h1 className="text-5xl md:text-7xl font-bold text-white border-b-2 pb-2 text-center">
           CERT GEN
         </h1>
-        <p className="text-white mt-8 mb-6 text-center">
-          (Please wait... This may take 5-6 mins)
-        </p>
+        {!showProceedButton && (
+          <p className="text-white mt-8 mb-6 text-center">
+            (Please wait... This may take 5-6 mins)
+          </p>
+        )}
         {isLoading ? (
           <LoadingComponent /> // Display the loading component here
         ) : (

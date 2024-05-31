@@ -1,15 +1,43 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useProject } from '../ProjectContext'; // Updated import
+import AWS from 'aws-sdk';
 import Footer from './Footer';
 
 const UploadPage = () => {
   const navigate = useNavigate();
-  const { projectId } = useParams();
+  const { projectId, userId } = useProject(); // Use the custom hook
   const [uploadedImageFile, setUploadedImageFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showProceedButton, setShowProceedButton] = useState(false);
+
+  // AWS S3 Configuration
+  const s3 = new AWS.S3({
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    region: process.env.REACT_APP_AWS_REGION,
+  });
+
+  useEffect(() => {
+    if (uploadedImageFile) {
+      setShowProceedButton(true);
+    }
+  }, [uploadedImageFile]);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     setUploadedImageFile(file);
+  };
+
+  const uploadToS3 = async (file, fileName) => {
+    const params = {
+      Bucket: 'certgen-qr',
+      Key: fileName,
+      Body: file,
+      ContentType: file.type,
+    };
+
+    return s3.upload(params).promise();
   };
 
   const handleDataSubmission = async () => {
@@ -18,33 +46,22 @@ const UploadPage = () => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
-      // Create FormData object to send the image file
-      const formData = new FormData();
-      formData.append('file', uploadedImageFile);
+      const fileName = `${userId}/${projectId}/${uploadedImageFile.name}`;
+      const result = await uploadToS3(uploadedImageFile, fileName);
 
-      // Make a POST request to the backend endpoint
-      const response = await fetch(`https://certgen-backend.vercel.app/projects/upload-image/${projectId}`, {
-        method: 'POST',
-        body: formData,
-        credentials: 'include' // Include credentials for cookie authentication
-      });
-
-      if (response.ok) {
-        // Redirect to the next step if the request is successful
+      if (result) {
         alert("Image uploaded successfully");
-        //navigate('/drag', { state: { uploadedImageFile } });
-      } else {
-        // Handle error response
-        const errorData = await response.json();
-        alert(`Failed to upload project image: ${errorData.message}`);
-        console.error('Failed to upload project image:', response.statusText);
+        navigate('/drag', { state: { uploadedImageFile } });
       }
-
     } catch (error) {
       console.error('Error uploading project image:', error);
+      alert('Failed to upload project image');
+    } finally {
+      setIsLoading(false);
     }
-    navigate('/drag', { state: { uploadedImageFile } });
   };
 
   return (

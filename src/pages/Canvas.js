@@ -4,6 +4,7 @@ import Word from './Word';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ExcelJS from 'exceljs';
 import Footer from './Footer';
+import { useProject } from '../ProjectContext';
 
 const Canvas = () => {
   const [canvas, setCanvas] = useState(null);
@@ -14,6 +15,7 @@ const Canvas = () => {
   const [height, setHeight] = useState(600);
   const navigate = useNavigate();
   const location = useLocation();
+  const { projectId } = useProject();
   const uploadedImageFile = location.state ? location.state.uploadedImageFile : null;
 
   useEffect(() => {
@@ -162,7 +164,7 @@ const Canvas = () => {
             <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "white" }} onClick={handleCustomTextAdd}>Add Custom Text</button>
           </div>
           <div className="mt-6">
-            <h2 className="text-white"><u>FORMATTING OF THE ANNOTATIONS</u></h2>
+            <h4 className="text-white"><u>FORMATTING OF THE ANNOTATIONS</u></h4>
             <div className="flex mt-3 justify-center">
               <div className="mr-3">
                 <label htmlFor="fontSelect" className="text-white m-2" style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)', display: 'inline-block', padding: '5px 10px', borderRadius: '5px' }}>Font:</label>
@@ -201,7 +203,7 @@ const Canvas = () => {
           </div>
           <div>
             {annotations.length > 0 && (
-              <h2 className='mt-2 text-white'><u>Annotations</u></h2>
+              <h4 className='mt-2 text-white'><u>Annotations</u></h4>
             )}
             <ul>
               {annotations.map((annotation, index) => (
