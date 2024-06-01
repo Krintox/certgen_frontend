@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import Word from './Word';
 import { useNavigate, useLocation } from 'react-router-dom';
-import ExcelJS from 'exceljs';
 import Footer from './Footer';
 import { useProject } from '../ProjectContext';
 
@@ -201,13 +200,13 @@ const Canvas = () => {
               }}
             />
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             {annotations.length > 0 && (
               <h4 className='mt-2 text-white'><u>Annotations</u></h4>
             )}
-            <ul>
+            <ul className="flex flex-col items-center">
               {annotations.map((annotation, index) => (
-                <li key={index} className='flex items-center mb-2 ml-2'>
+                <li key={index} className='flex items-center mb-2'>
                   <span className='text-white'>{annotation.word}</span>
                   <button
                     style={{ 
@@ -216,7 +215,7 @@ const Canvas = () => {
                       padding: "5px 10px", 
                       border: "none", 
                       color: "white",
-                      marginLeft: '60px'
+                      marginLeft: '20px'
                     }} 
                     onClick={() => handleDeleteWord(annotation.word)}
                   >
@@ -232,7 +231,6 @@ const Canvas = () => {
       <Footer/>
     </div>
   );
-  
 }  
 
 export default Canvas;

@@ -7,8 +7,6 @@ import LoadingComponent from './LoadingPage';
 import './styles/modal.css';
 import { IoMdClose } from "react-icons/io";
 import * as XLSX from 'xlsx';
-import Footer from './Footer';
-import QRCode from 'qrcode.react';
 import AWS from 'aws-sdk';
 import { useProject } from '../ProjectContext';
 
@@ -231,8 +229,8 @@ const PreviewPage = () => {
             )}
             {showProceedButton ? (
               <>
-                <div className="py-10"> {/* Add padding top here */}
-                  <div className="table-container max-h-96 overflow-y-auto">
+                <div className="py-10 flex"> {/* Add padding top here */}
+                  <div className="table-container max-h-96 overflow-y-auto ">
                     <table className="w-full mt-14 mb-10">
                       <thead>
                         <tr>
