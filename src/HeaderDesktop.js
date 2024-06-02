@@ -64,9 +64,9 @@ export default function Header() {
             <img src={newProject} alt="Project" className="nav-icon-image" />
             NEW PROJECT
             </Link>
-            <Link to="/newproject" className="nav-icon">
+           {/* <Link to="/newproject" className="nav-icon">
             <PiClockCounterClockwise size={35}/> <span>MY PROJECTS</span>
-            </Link>
+        </Link>*/}
             <Link to="/createaccount" className="nav-icon">
             <CiUser size={35}/> <span>PROFILE</span>
             </Link>

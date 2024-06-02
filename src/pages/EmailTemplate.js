@@ -12,7 +12,6 @@ const EmailTemplate = () => {
   const [subLoad, setSubLoad] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
 
-
   const handleViewChange = (selectedView) => {
     setView(selectedView);
     setSelectedButton(selectedView); // Set the selected button state
@@ -21,7 +20,7 @@ const EmailTemplate = () => {
   const handleProceed = async () => {
     try {
       setSubLoad(true);
-  
+
       const emailData = {
         subject: subject,
         content: body,
@@ -33,14 +32,15 @@ const EmailTemplate = () => {
           },
         })),
       };
-  
+
       console.log('Email data:', emailData); // Log email data before sending request
-  
+
       const response = await axios.post('https://certgen-backend.vercel.app/email/sendEmails', emailData);
-  
+
       if (response.status === 200) {
         setSubLoad(false);
         alert('Emails sent successfully');
+        window.location.href = '/';
         console.log('Emails sent successfully');
       } else {
         console.error('Failed to send emails');
@@ -49,8 +49,6 @@ const EmailTemplate = () => {
       console.error('Error sending emails:', error);
     }
   };
-  
-  
 
   const gradientBtn = {
     background: selectedButton === 'labelled' ? "linear-gradient(to bottom right, #FB360F, #F28A18)" : "transparent", // Conditional background for labelled button
@@ -64,25 +62,10 @@ const EmailTemplate = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-w-screen m-5 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2">CERTGEN</h1>
-      <div className="w-full bg-transparent rounded-lg shadow-md mt-10 p-4">
-        {/*<div className="flex justify-center mb-8">
-          <button onClick={() => handleViewChange('labelled')} className="text-white py-2 px-4 border border-2 rounded cursor-pointer mr-4" style={gradientBtn}>
-            Labelled <span className="arrow">&#62;</span>
-          </button>
-          <button onClick={() => handleViewChange('unlabelled')} className="text-white py-2 border border-2 px-4 rounded cursor-pointer ml-4" style={gradientBtnUnlabelled}>
-            Unlabelled <span className="arrow">&#62;</span>
-          </button>
-        </div>
-        {view === 'labelled' && (
-          <div className="flex flex-col items-center justify-center mt-4 p-4">
-            <p className="text-md text-center font-medium text-white mb-4 font-urbanist">
-              Note: Use {'${Annotations}'} in the body to change if the said annotation is there in the body <br></br>For Example: “Congratulations {'${Name}'}” to put in the names.
-            </p>
-          </div>
-        )}*/}
-        <div className="flex flex-col items-center justify-center border-2 border-solid border-orange-600 rounded-lg mt-4 p-8">
-          <div className="w-full mb-4 pl-8 pr-8">
+      <h1 className="text-4xl md:text-6xl font-semibold text-white border-b-2 pb-2 text-center">CERTGEN</h1>
+      <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-10 p-4">
+        <div className="flex flex-col items-center justify-center border-2 border-solid border-orange-600 rounded-lg mt-4 p-4 md:p-8">
+          <div className="w-full mb-4 px-4">
             <label htmlFor="subject" className="block bg-transparent text-white text-sm">
               Subject:
             </label>
@@ -94,7 +77,7 @@ const EmailTemplate = () => {
               onChange={(e) => setSubject(e.target.value)}
             />
           </div>
-          <div className="w-full mb-4 pl-8 pr-8">
+          <div className="w-full mb-4 px-4">
             <label htmlFor="body" className="block bg-transparent text-white text-sm mb-2">
               Body:
             </label>

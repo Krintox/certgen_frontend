@@ -59,7 +59,7 @@ export default function NewProject() {
         setProjectId(projectId)
         setRedirect(true);
       } else {
-        setRedirect(true);
+        setRedirect(false);
         // Handle error response
         console.error('Failed to create project title and description:', response.statusText);
       }
