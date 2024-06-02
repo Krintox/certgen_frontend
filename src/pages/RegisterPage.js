@@ -127,14 +127,13 @@ export default function RegisterPage() {
                 />
 
                 <div className='w-full flex items-center justify-between mb-4'>
-                  <p className='text-sm md:text-base font-medium whitespace-nowrap cursor-pointer text-white font-urbanist'>
+                  <p className='text-sm md:text-base font-medium whitespace-nowrap cursor-pointer text-white font-urbanist text-wrap'>
                     Already have an account?{' '}
                     <Link to="/login" className="text-orange font-urbanist text-orange-500">
                       Log in
                     </Link>
                   </p>
                 </div>
-
                 <div className='w-full flex flex-col'>
                   <button
                     type="submit"

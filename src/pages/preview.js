@@ -234,25 +234,21 @@ const PreviewPage = () => {
                     <table className="w-full mt-14 mb-10">
                       <thead>
                         <tr>
-                          <th className="border-b-2 px-4 text-white font-urbanist py-2">Sl no</th>
-                          <th className="border-b-2 px-4 text-white font-urbanist py-2">Emails</th>
+                          <th className="border-b-2 px-4 text-white font-urbanist py-2">Email</th>
                           <th className="border-b-2 px-4 text-white font-urbanist py-2">Click to preview</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {resultEmails.map((email, index) => (
-                          <tr key={index}>
-                            <td className="px-4 text-center text-white font-urbanist py-2">{index + 1}</td>
-                            <td className="px-4 text-center text-white font-urbanist py-2">{email}</td>
+                          <tr>
+                            <td className="px-4 text-center text-white font-urbanist py-2">{resultEmails[0]}</td>
                             <td className="px-4 text-center text-white font-urbanist py-2"> 
                                 <button
-                                  onClick={() => handleImageClick(resultImages[index])}
+                                  onClick={() => handleImageClick(resultImages[0])}
                                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">
                                   View
                                 </button>
                             </td>
                           </tr>
-                        ))}
                       </tbody>
                     </table>
                   </div>
