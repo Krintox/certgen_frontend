@@ -45,7 +45,7 @@ const PreviewPage = () => {
 
   const uploadToS3 = async (file, fileName) => {
     const params = {
-      Bucket: 'certgen-qr',
+      Bucket: 'certgenml',
       Key: `${userId}/${projectId}/${fileName}`,
       Body: file,
       ContentType: file.type,

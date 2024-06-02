@@ -28,10 +28,11 @@ const UploadPage = () => {
     const file = event.target.files[0];
     setUploadedImageFile(file);
   };
+  // https://certgenml.s3.ap-south-1.amazonaws.com/
 
   const uploadToS3 = async (file, fileName) => {
     const params = {
-      Bucket: 'certgen-qr',
+      Bucket: 'certgenml',
       Key: fileName,
       Body: file,
       ContentType: file.type,
