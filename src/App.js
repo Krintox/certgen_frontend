@@ -17,6 +17,7 @@ import ProjectsList from './pages/projectview';
 import ProjectDetails from './pages/projectdetails';
 import ExcelDownload from './pages/downloadExcel';
 import EmailTemplate from './pages/EmailTemplate';
+import TrialProj from './pages/trialProj'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/email" element={<EmailTemplate/>}/>
           <Route path="/projectview" element={<ProjectsList/>}/>
           <Route path="/projectdet/:id" element={<ProjectDetails/>}/>
+          <Route path="/yourprojects" element={<TrialProj/>}/>
         </Route>
       </Routes>
     </UserContextProvider>

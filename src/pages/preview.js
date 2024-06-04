@@ -50,6 +50,7 @@ const PreviewPage = () => {
       Body: file,
       ContentType: file.type,
     };
+    console.log(userId);
 
     return s3.upload(params).promise();
   };
