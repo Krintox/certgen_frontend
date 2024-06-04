@@ -74,7 +74,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex justify-center items-center mt-12 mb-12">
-      <div className="flex justify-center items-center w-3/4">
+      <div className="lg:w-3/4 md:w-3/4 flex justify-center items-center">
         <div className={`container mx-auto rounded-lg${showLeftDiv ? ' shadow-md' : ''} relative flex overflow-hidden h-5/6 w-10/12`}>
           {/* Left Side */}
           {showLeftDiv && (
@@ -137,7 +137,7 @@ export default function RegisterPage() {
                   <div className='w-full flex flex-col my-4'>
                     <button
                       type="submit"
-                      className='w-full text-white my-2 rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
+                      className='w-full text-white my-2 rounded-md p-3 text-center flex items-center justify-center cursor-pointer'
                       style={gradientBgLeft}
                     >
                       Log in
