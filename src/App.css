@@ -5,8 +5,10 @@
 }
 
 body {
-    background: linear-gradient(45deg, #222029, #3B4148);
-    color: #222;
+    padding: 0%;
+    margin: 0%;
+    font-family: 'Urbanist', sans-serif;
+    background-color: #F3F3F3;
 }
 
 a {
@@ -62,7 +64,7 @@ header{
     box-shadow: 0px 2.98256px 17.4564px rgba(0, 0, 0, 0.1);
     background-color: rgba(255,255,255,0.1);
     border-radius: 10PX;
-    border: 2px solid #6C6F74;
+    border: 2px solid #FB360F;
     @media screen and (max-width: 700px) {
         flex-direction: column;
         gap: 10px;
@@ -465,8 +467,7 @@ input {
     top: 100%;
     right: 0;
     z-index: 999;
-    background: rgba(255, 255, 255, 0.6); 
-    backdrop-filter: blur(10px); 
+    background: rgba(255, 119, 0, 0.6); 
     border-radius: 10px;
     width: calc(100vw - 20px); 
     max-width: 400px;

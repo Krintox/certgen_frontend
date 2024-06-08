@@ -38,9 +38,9 @@ export default function Header() {
   const username = userInfo?.username;
 
   return (
-    <header>
-      <div className="header-title">
-      <Link to="/" className="logo-link">
+    <header className="text-black">
+      <div className="header-title text-black">
+      <Link to="/" className="logo-link text-black">
         <img src={logoImage} alt="Logo" className="logo-image" />
       </Link>
       <nav>
@@ -60,14 +60,14 @@ export default function Header() {
       <nav>
         {username && (
           <>
-          <Link to="/newproject" className="nav-icon">
-            <img src={newProject} alt="Project" className="nav-icon-image" />
+          <Link to="/newproject" className="nav-icon text-black">
+            <img src={newProject} alt="Project" className="nav-icon-image text-black" />
             NEW PROJECT
             </Link>
            {/* <Link to="/newproject" className="nav-icon">
             <PiClockCounterClockwise size={35}/> <span>MY PROJECTS</span>
         </Link>*/}
-            <Link to="/createaccount" className="nav-icon">
+            <Link to="/createaccount" className="nav-icon text-black">
             <CiUser size={35}/> <span>PROFILE</span>
             </Link>
             {/* <a href="#how-to-use" className="nav-icon">
@@ -82,20 +82,20 @@ export default function Header() {
       <nav>
         {username && (
           <>
-            <span className="nav-icon username">
+            <span className="nav-icon username text-black">
               {username}
             </span>
-            <a onClick={logout} className="nav-icon logout-button">
+            <a onClick={logout} className="nav-icon logout-button text-black">
             <FiLogOut size={20}/> <span className="pl-1">LOGOUT</span>
             </a>
           </>
         )}
         {!username && (
           <>
-            <Link to="/register" className="signup-button">
+            <Link to="/register" className="signup-button text-black">
               Sign Up
             </Link>
-            <Link to="/login" className="signin-button">
+            <Link to="/login" className="signin-button text-black">
               Sign In
             </Link>
           </>

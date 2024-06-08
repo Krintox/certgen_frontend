@@ -82,7 +82,7 @@ export default function RegisterPage() {
               <div className='absolute left-[10%] flex flex-col'>
                 <h1 className='text-4xl text-white font-semibold mt-6 flex items-center z-10'>
                   <img src={logo} alt="logo" className="w-12 h-12 mr-2" />
-                  <span className="text-white">WEBKITES</span>
+                  <span className="text-white">CER<span className="text-orange-500">TTO</span></span>
                 </h1>
                 <p className='text-3xl text-white font-urbanist font-normal p-4'>
                   The only <br /> certificate <br /> automation <br /> tool you need
@@ -95,11 +95,11 @@ export default function RegisterPage() {
           )}
 
           {/* Right Side */}
-          <div className={`w-${showLeftDiv ? '1/2' : 'full'} h-full flex flex-col justify-center items-center p-6 rounded-lg`} style={gradientBgRight}>
+          <div className={`w-${showLeftDiv ? '1/2' : 'full'} z-10 bg-white text-black h-full flex flex-col justify-center items-center p-6 rounded-lg`} style={{ marginLeft: showLeftDiv ? '-1%' : '0' }} >
             {/* Your existing right side content */}
             <div className='w-full flex flex-col max-w-[500px] bg-transparent md:my-12'>
               <div className="w-full flex-col mb-2 ">
-                <h3 className="text-6xl mb-10 text-center text-white mt-12 bebas">WELCOME <span className="text-orange-400">BACK </span> </h3>
+                <h3 className="text-6xl mb-10 text-center text-black mt-12 bebas">WELCOME <span className="text-orange-400">BACK </span> </h3>
               </div>
 
               <div className="w-full flex flex-col">
@@ -109,7 +109,7 @@ export default function RegisterPage() {
                     placeholder=" Username"
                     value={username}
                     onChange={ev => setUsername(ev.target.value)}
-                    className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist"
+                    className="text-black bg-transparent login-input focus:border-orange-400 font-urbanist"
                   /><br/>
 
                   <div className="relative">
@@ -118,12 +118,12 @@ export default function RegisterPage() {
                       placeholder=" Password"
                       value={password}
                       onChange={ev => setPassword(ev.target.value)}
-                      className="text-white bg-transparent login-input focus:border-orange-400 font-urbanist pr-12"
+                      className="text-black bg-transparent login-input focus:border-orange-400 font-urbanist pr-12"
                     />
                     {/* Eye button to toggle password visibility */}
                     <button
                       type="button"
-                      className="absolute top-1/2 transform -translate-y-1/2 right-3 text-white"
+                      className="absolute top-1/2 transform -translate-y-1/2 right-3 text-black"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <HiEyeOff /> : <HiEye />}
@@ -131,13 +131,13 @@ export default function RegisterPage() {
                   </div>
 
                   {/* <div className='w-full text-right'>
-                    <p className='text-sm font-medium whitespace-nowrap cursor-pointer text-white font-urbanist mr-10 mt-4'>Forgot Password?</p>
+                    <p className='text-sm font-medium blackspace-nowrap cursor-pointer text-black font-urbanist mr-10 mt-4'>Forgot Password?</p>
                   </div> */}
 
                   <div className='w-full flex flex-col my-4'>
                     <button
                       type="submit"
-                      className='w-full text-white my-2 rounded-md p-3 text-center flex items-center justify-center cursor-pointer'
+                      className='w-full text-black my-2 rounded-md p-3 text-center flex items-center justify-center cursor-pointer'
                       style={gradientBgLeft}
                     >
                       Log in
@@ -146,7 +146,7 @@ export default function RegisterPage() {
                 </form>
 
                 <div className="w-full flex items-center justify-center">
-                  <p className="text-sm font-normal text-white font-urbanist">Don't have an account? <Link to="/register" className="font-semibold underline underline-offset-2 cursor-pointer font-urbanist">Create account</Link></p>
+                  <p className="text-sm font-normal text-black font-urbanist">Don't have an account? <Link to="/register" className="font-semibold underline underline-offset-2 cursor-pointer font-urbanist">Create account</Link></p>
                 </div>
               </div>
             </div>

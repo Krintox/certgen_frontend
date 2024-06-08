@@ -87,11 +87,11 @@ export default function NewProject() {
         <div className={`container mx-auto rounded-lg${showLeftDiv ? ' shadow-md' : ''} relative flex overflow-hidden h-5/6 w-10/12`}>
           {/* Left Side */}
           {showLeftDiv && (
-            <div className="relative w-1/2 h-full flex flex-col rounded-lg" style={gradientBgLeft}>
+            <div className="relative w-1/2 h-full flex flex-col" style={gradientBgLeft}>
               <div className='absolute left-[10%] flex flex-col'>
                 <h1 className='text-4xl text-white font-bold mt-6 flex items-center z-10'>
                   <img src={logo} alt="logo" className="w-12 h-12 mr-2" />
-                  <span className="text-white">WEBKITES</span>
+                  <span className="text-white">CER<span className="text-orange-500">TTO</span></span>
                 </h1>
                 <p className='text-3xl text-white font-urbanist font-normal mt-2'>
                   The only <br /> certificate <br /> automation <br /> tool you need
@@ -104,10 +104,11 @@ export default function NewProject() {
           )}
 
           {/* Right Side */}
-          <div className={`w-${showLeftDiv ? '1/2' : 'full'} h-full flex flex-col justify-center items-center p-6 rounded-lg`} style={gradientBgRight}>
+          <div className={`w-${showLeftDiv ? '1/2' : 'full'} z-50 h-full flex flex-col justify-center items-center p-6 rounded-2xl${showLeftDiv ? '' : ' shadow-md'}`}
+          style={{ marginLeft: showLeftDiv ? '-1%' : '0', backgroundColor:showLeftDiv? 'white':'' }} >
             <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
               <div className="w-full flex flex-col mb-4 mt-12">
-                <h3 className="text-5xl mb-2 text-center text-white">LET'S BEGIN</h3>
+                <h3 className="text-5xl mb-2 text-center text-black urbanist">LET'S BEGIN</h3>
               </div>
 
               <div className="w-full mb-4">
@@ -118,7 +119,7 @@ export default function NewProject() {
                       placeholder="Project Name"
                       value={projectName}
                       onChange={ev => setProjectName(ev.target.value)}
-                      className="w-full text-white py-2 my-2 bg-transparent shadow-md border border-grey-100 font-urbanist"
+                      className="w-full text-black py-2 my-2 bg-transparent shadow-md border border-grey-100 font-urbanist"
                     />
                   </div>
 
@@ -128,14 +129,14 @@ export default function NewProject() {
                       placeholder="Description"
                       value={description}
                       onChange={ev => setDescription(ev.target.value)}
-                      className="w-full text-white py-2 my-2 bg-transparent shadow-md border border-grey-100 font-urbanist"
+                      className="w-full text-black py-2 my-2 bg-transparent shadow-md border border-grey-100 font-urbanist"
                     />
                   </div>
 
                   <div className='w-full'>
                     <button
                       type="submit"
-                      className='w-full text-white my-2 font-semibold rounded-md p-3 text-center flex items-center justify-center cursor-pointer'
+                      className='w-full text-black my-2 font-semibold rounded-md p-3 text-center flex items-center justify-center cursor-pointer'
                       style={gradientBgLeft}
                     >
                       Proceed

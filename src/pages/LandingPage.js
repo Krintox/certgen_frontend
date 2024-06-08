@@ -19,7 +19,7 @@ export default function LandingPage() {
       text: "Create your account by providing your details.",
     },
     {
-      image: upload,
+      image: generate,
       alt: "upload",
       heading: "UPLOAD YOUR TEMPLATES",
       text: "Upload your certificate templates and an excel sheet containing the details of the participants and other necessary details.",
@@ -53,14 +53,14 @@ export default function LandingPage() {
           <img src={img} alt="img" className="w-full" />
         </div>
         <div className="md:w-2/4">
-          <h2 className="text-4xl md:text-7xl text-white leading-tight text-center md:text-right">
+          <h2 className="text-4xl md:text-7xl text-black leading-tight text-center md:text-right">
             <img src={smallRocket} alt="smallRocket" className="inline mr-2" />
             EMPOWER YOUR <span className="text-orange-600 underline underline-offset-4">CERTIFICATE </span>CREATION PROCESS WITH <span className="text-orange-600 underline underline-offset-4">EASE </span>AND <span className="text-orange-600 underline underline-offset-4">EFFICIENCY</span>
             <img src={smallRocket} alt="smallRocket" className="inline ml-2" />
           </h2>
         </div>
       </div>
-      <p className="w-full h-auto bg-amber-600 bg-opacity-20 rounded-lg border-transparent text-white flex items-center text-lg md:text-3xl align-middle justify-center mt-10 leading-tight text-center border" style={{ borderColor: "#7D7263", padding: "1rem" }}>
+      <p className="w-full h-auto bg-amber-600 bg-opacity-20 rounded-lg border-transparent text-black flex items-center text-lg md:text-3xl align-middle justify-center mt-10 leading-tight text-center border" style={{ borderColor: "#7D7263", padding: "1rem" }}>
         CHOOSE US FOR AUTOMATED, CUSTOMIZABLE CERTIFICATE CREATION WITH SEAMLESS DATA INTEGRATION,
         USER- <br/> FRIENDLY INTERFACE, AND TOP-NOTCH SECURITY.
       </p>
@@ -81,7 +81,7 @@ export default function LandingPage() {
               <div className="text-orange self-center p-4 rounded-md text-lg md:text-5xl leading-tight mt-8 md:mt-0 md:p-4 md:ml-4" style={{ color: "#F66714" }}>
                 {row.heading}
               </div>
-              <div className="text-white text-md md:text-3xl font-urbanist text-center md:text-left mt-8 md:mt-0 md:p-4 md:mr-4">
+              <div className="text-black text-md md:text-3xl font-urbanist text-center md:text-left mt-8 md:mt-0 md:p-4 md:mr-4">
                 {row.text}
               </div>
             </div>
