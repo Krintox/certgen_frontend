@@ -7,7 +7,7 @@ const Word = ({ text }) => {
 
   return (
     <div
-      className="word font-urbanist"
+      className="word font-urbanist text-black"
       draggable="true"
       onDragStart={handleDragStart}
       style={{ color: 'white' }}

@@ -5,6 +5,78 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from './Footer';
 import { useProject } from '../ProjectContext';
 
+const Annotations = ({ addWordToCanvas }) => {
+  const [isAnnotationsDropdownOpen, setIsAnnotationsDropdownOpen] = useState(false);
+  const [isFontDropdownOpen, setIsFontDropdownOpen] = useState(false);
+
+  const handleDragStart = (e, word) => {
+    e.dataTransfer.setData('text/plain', word);
+  };
+
+  const toggleAnnotationsDropdown = () => {
+    setIsAnnotationsDropdownOpen(!isAnnotationsDropdownOpen);
+  };
+
+  const toggleFontDropdown = () => {
+    setIsFontDropdownOpen(!isFontDropdownOpen);
+  };
+
+  return (
+    <div className='border-2 border-orange-500 ml-10' style={{ padding: '20px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)', height: '100%' }}>
+      <h2 style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textAlign: 'center' }}>
+        Formatting
+      </h2>
+      <div className="annotations" style={{ marginTop: '10px' }}>
+        <h4
+          style={{ textAlign: 'center', cursor: 'pointer', background: "linear-gradient(to bottom right, #FB360F, #F28A18)", color: 'white', padding: '10px', borderRadius: '5px' }}
+          onClick={toggleAnnotationsDropdown}
+        >
+          Annotations
+        </h4>
+        {isAnnotationsDropdownOpen && (
+          <div className="annotation-items" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '10px' }}>
+            {['Name', 'Title', 'Signature', 'Date','qrCode'].map(word => (
+              <div
+                key={word}
+                style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '5px', textAlign: 'center', cursor: 'pointer' }}
+                draggable
+                onDragStart={(e) => handleDragStart(e, word)}
+                onClick={() => addWordToCanvas(word, 50, 50)}
+              >
+                {word}
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="text-options" style={{ marginTop: '20px' }}>
+          <h4
+            style={{ textAlign: 'center', cursor: 'pointer', background: "linear-gradient(to bottom right, #FB360F, #F28A18)", color: 'white', padding: '10px', borderRadius: '5px' }}
+            onClick={toggleFontDropdown}
+          >
+            Text
+          </h4>
+          {isFontDropdownOpen && (
+            <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <div className="mr-6">
+                <label className="block mb-2">Font:</label>
+                <select className="border border-black text-black p-2 rounded">
+                  <option value="Urbanist">Urbanist</option>
+                </select>
+              </div>
+              <div>
+                <label className="block mb-2">Size:</label>
+                <select className="border border-black text-black p-2 rounded">
+                  <option value="18">18px</option>
+                </select>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Canvas = () => {
   const [canvas, setCanvas] = useState(null);
   const [annotations, setAnnotations] = useState([]);
@@ -44,7 +116,6 @@ const Canvas = () => {
     };
     img.src = image;
   };
-  
 
   useEffect(() => {
     if (canvas) {
@@ -78,7 +149,6 @@ const Canvas = () => {
     const { offsetX, offsetY } = e.nativeEvent;
     addWordToCanvas(word, offsetX, offsetY);
   };
-
 
   const addWordToCanvas = (word, x, y) => {
     const text = new fabric.Text(word, {
@@ -139,52 +209,14 @@ const Canvas = () => {
     }
   }, [uploadedImageFile]);
 
-
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10 mb-8">CERTGEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10 mb-8">CERTGEN</h1>
       <div className="flex flex-col md:flex-row w-full items-center justify-center">
-        <div className="w-full md:w-1/3 p-2" style={{ backgroundColor: 'transparent', padding: '20px' }}>
-          <h2 className="text-white mb-4" style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            <u>POSITION OF THE ELEMENTS</u>
-          </h2>
-          <h4 className="text-white mb-4"><u>DRAG AND DROP THEM IN THE CERTIFICATE</u></h4>
-          <div id="word1" style={{ border: "2px solid white", borderRadius: "10px", padding: "10px", marginBottom: "16px"}}>
-            <Word text="Word1" onClick={() => addWordToCanvas("Word1", 20, 20)} />
-          </div>
-          <div id="word2" style={{ border: "2px solid white", borderRadius: "10px", padding: "10px", marginBottom: "16px" }}>
-            <Word text="Word2" onClick={() => addWordToCanvas("Word2", 20, 50)} />
-          </div>
-          <div id="word3" style={{ border: "2px solid white", borderRadius: "10px", padding: "10px", marginBottom: "16px" }}>
-            <Word text="qrCode" onClick={() => addWordToCanvas("QrCode", 20, 80)} />
-          </div>
-          <div>
-            <input className='text-white font-urbanist bg-transparent mb-4' type="text" value={customText} onChange={handleCustomTextChange} style={{ border: "2px solid white", borderRadius: "10px", padding: "15px 15px", width: "100%"}} placeholder="add custom text" />
-            <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "white" }} onClick={handleCustomTextAdd}>Add Custom Text</button>
-          </div>
-          <div className="mt-6">
-            <h4 className="text-white"><u>FORMATTING OF THE ANNOTATIONS</u></h4>
-            <div className="flex mt-3 justify-center">
-              <div className="mr-3">
-                <label htmlFor="fontSelect" className="text-white m-2" style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)', display: 'inline-block', padding: '5px 10px', borderRadius: '5px' }}>Font:</label>
-                <select id="fontSelect" className="bg-gray-850 border border-white text-white p-2 rounded">
-                  <option style={{ color: '#fff' }} value="Arial">Arial</option>
-                  <option style={{ color: '#fff' }} value="Helvetica">Helvetica</option>
-                  <option style={{ color: '#fff' }} value="Times New Roman">Times New Roman</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="fontSelect" className="text-white m-2" style={{ background: 'linear-gradient(to bottom right, #FB360F, #F28A18)', display: 'inline-block', padding: '5px 10px', borderRadius: '5px' }}>Size:</label>
-                <select id="sizeSelect" className="bg-gray-850 border border-white text-white p-2 rounded">
-                  <option style={{ color: '#fff' }} value="12">12px</option>
-                  <option style={{ color: '#fff' }} value="16">16px</option>
-                  <option style={{ color: '#fff' }} value="20">20px</option>
-                </select>
-              </div>
-            </div>
-          </div>
+        <div className="w-full md:w-1/4 p-2" style={{ backgroundColor: 'transparent', padding: '20px', height: '600px' }}>
+          <Annotations addWordToCanvas={addWordToCanvas} />
         </div>
-        <div className="w-full md:w-2/3 p-2">
+        <div className="w-full md:w-3/4 p-2">
           <div
             className="canvas-container overflow-auto"
             onDrop={handleDrop}
@@ -202,19 +234,19 @@ const Canvas = () => {
           </div>
           <div className="flex flex-col items-center">
             {annotations.length > 0 && (
-              <h4 className='mt-2 text-white'><u>Annotations</u></h4>
+              <h4 className='mt-2 text-black'><u>Annotations</u></h4>
             )}
             <ul className="flex flex-col items-center">
               {annotations.map((annotation, index) => (
                 <li key={index} className='flex items-center mb-2'>
-                  <span className='text-white'>{annotation.word}</span>
+                  <span className='text-black'>{annotation.word}</span>
                   <button
                     style={{ 
                       background: "linear-gradient(to bottom right, #FB360F, #F28A18)", 
                       borderRadius: "10px", 
                       padding: "5px 10px", 
                       border: "none", 
-                      color: "white",
+                      color: "black",
                       marginLeft: '20px'
                     }} 
                     onClick={() => handleDeleteWord(annotation.word)}
@@ -225,12 +257,12 @@ const Canvas = () => {
               ))}
             </ul>
           </div>
-          <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "white" }} onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage } })} className="mt-8 ml-auto mr-auto block">Download Excel</button>
+          <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "black" }} onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage } })} className="mt-8 ml-auto mr-auto block">Download Excel</button>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
-}  
+};
 
 export default Canvas;
