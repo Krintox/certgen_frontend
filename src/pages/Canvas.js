@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
-import Word from './Word';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Footer from './Footer';
 import { useProject } from '../ProjectContext';
+import { CiText } from "react-icons/ci";
+import { HiOutlineAnnotation } from "react-icons/hi";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import Footer from './Footer';
 
 const Annotations = ({ addWordToCanvas }) => {
   const [isAnnotationsDropdownOpen, setIsAnnotationsDropdownOpen] = useState(false);
@@ -28,17 +30,19 @@ const Annotations = ({ addWordToCanvas }) => {
       </h2>
       <div className="annotations" style={{ marginTop: '10px' }}>
         <h4
-          style={{ textAlign: 'center', cursor: 'pointer', background: "linear-gradient(to bottom right, #FB360F, #F28A18)", color: 'white', padding: '10px', borderRadius: '5px' }}
+          style={{ textAlign: 'center', cursor: 'pointer', background: "linear-gradient(to bottom right, #FB360F, #F28A18)", color: 'white', padding: '10px', borderRadius: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           onClick={toggleAnnotationsDropdown}
         >
+          <HiOutlineAnnotation style={{ marginRight: '5px' }}/>
           Annotations
+          <RiArrowDropDownLine style={{ marginLeft: '5px', transform: isAnnotationsDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}/>
         </h4>
         {isAnnotationsDropdownOpen && (
           <div className="annotation-items" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '10px' }}>
-            {['Name', 'Title', 'Signature', 'Date','qrCode'].map(word => (
+            {['Name', 'Title', 'Signature', 'Date', 'qrCode'].map(word => (
               <div
                 key={word}
-                style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '5px', textAlign: 'center', cursor: 'pointer' }}
+                style={{ padding: '10px', border: '1px solid #FF5733', borderRadius: '5px', textAlign: 'center', cursor: 'pointer' }}
                 draggable
                 onDragStart={(e) => handleDragStart(e, word)}
                 onClick={() => addWordToCanvas(word, 50, 50)}
@@ -50,22 +54,24 @@ const Annotations = ({ addWordToCanvas }) => {
         )}
         <div className="text-options" style={{ marginTop: '20px' }}>
           <h4
-            style={{ textAlign: 'center', cursor: 'pointer', background: "linear-gradient(to bottom right, #FB360F, #F28A18)", color: 'white', padding: '10px', borderRadius: '5px' }}
+            style={{ textAlign: 'center', cursor: 'pointer', background: "linear-gradient(to bottom right, #FB360F, #F28A18)", color: 'white', padding: '10px', borderRadius: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             onClick={toggleFontDropdown}
           >
+            <CiText style={{ marginRight: '5px' }}/>
             Text
+            <RiArrowDropDownLine style={{ marginLeft: '5px', transform: isFontDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}/>
           </h4>
           {isFontDropdownOpen && (
             <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <div className="mr-6">
                 <label className="block mb-2">Font:</label>
-                <select className="border border-black text-black p-2 rounded">
+                <select className="border-2 border-orange-500 text-black p-2 rounded">
                   <option value="Urbanist">Urbanist</option>
                 </select>
               </div>
               <div>
                 <label className="block mb-2">Size:</label>
-                <select className="border border-black text-black p-2 rounded">
+                <select className="border-2 border-orange-500 text-black p-2 rounded">
                   <option value="18">18px</option>
                 </select>
               </div>
