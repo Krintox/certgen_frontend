@@ -52,43 +52,43 @@ const EmailTemplate = () => {
 
   const gradientBtn = {
     background: selectedButton === 'labelled' ? "linear-gradient(to bottom right, #FB360F, #F28A18)" : "transparent", // Conditional background for labelled button
-    border: selectedButton === 'labelled' ? "none" : "1px solid white", 
+    border: selectedButton === 'labelled' ? "none" : "1px solid black", 
   };
 
   const gradientBtnUnlabelled = {
     background: selectedButton === 'unlabelled' ? "linear-gradient(to bottom right, #FB360F, #F28A18)" : "transparent", // Conditional background for unlabelled button
-    border: selectedButton === 'unlabelled' ? "none" : "1px solid white", 
+    border: selectedButton === 'unlabelled' ? "none" : "1px solid black", 
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-w-screen m-5 min-h-screen">
-      <h1 className="text-4xl md:text-6xl font-semibold text-white border-b-2 pb-2 text-center">CERTGEN</h1>
+      <h1 className="text-4xl md:text-6xl font-semibold text-black border-b-2 pb-2 text-center">CERTGEN</h1>
       <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-10 p-4">
         <div className="flex flex-col items-center justify-center border-2 border-solid border-orange-600 rounded-lg mt-4 p-4 md:p-8">
           <div className="w-full mb-4 px-4">
-            <label htmlFor="subject" className="block bg-transparent text-white text-sm">
+            <label htmlFor="subject" className="block bg-transparent text-black text-sm">
               Subject:
             </label>
             <input
               type="text"
               id="subject"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-transparent leading-tight focus:outline-none focus:shadow-outline font-urbanist"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline font-urbanist"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
             />
           </div>
           <div className="w-full mb-4 px-4">
-            <label htmlFor="body" className="block bg-transparent text-white text-sm mb-2">
+            <label htmlFor="body" className="block bg-transparent text-black text-sm mb-2">
               Body:
             </label>
             <textarea
               id="body"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-transparent leading-tight focus:outline-none focus:shadow-outline h-32 resize-none font-urbanist"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline h-32 resize-none font-urbanist"
               value={body}
               onChange={(e) => setBody(e.target.value)}
             ></textarea>
           </div>
-          <button onClick={handleProceed} className="mt-4 bg-orange-500 text-white py-2 px-4 rounded cursor-pointer">
+          <button onClick={handleProceed} className="mt-4 bg-orange-500 text-black py-2 px-4 rounded cursor-pointer">
             Proceed
           </button>
         </div>

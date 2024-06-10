@@ -11,37 +11,37 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-transparent shadow-md py-8 w-full">
-      <div className="container mx-auto px-6 lg:px-20">
-        <div className="md:flex md:justify-between items-center">
+    <footer className="shadow-md py-8 w-full bg-opacity-20 bg-blue-500">
+      <div className="px-6 lg:px-20">
+        <div className="md:flex md:justify-between items-center w-full">
           <div className="mb-8 md:mb-0">
-            <a href="/" className="flex items-center text-lg mb-4">
+            <a href="/" className="flex items-center text-lg mb-4 no-underline">
               <img src={BrandLogo} className="h-12 me-3" alt="Webkite Logo" />
-              <span className="text-4xl font-semibold whitespace-nowrap text-white">WEB<span className='text-orange-600'>KITES</span></span>
+              <span className="text-4xl font-semibold whitespace-nowrap text-black">CER<span className='text-orange-600'>TTO</span></span>
             </a>
-            <p className="text-xl mb-2 text-white font-urbanist">+1 (7635) 547-12-97</p>
-            <p className="text-base text-white font-urbanist">support@lift.agency</p>
+            <p className="text-xl mb-2 text-black font-urbanist">+1 (7635) 547-12-97</p>
+            <p className="text-base text-black font-urbanist">support@lift.agency</p>
           </div>
           <div className='md:w-2/4 md:pl-10 md:py-4'>
-            <h2 className="mb-8 text-lg md:text-xl font-bold text-white uppercase font-urbanist text-left">Quick Links</h2>
+            <h2 className="mb-8 text-lg md:text-xl font-bold text-black uppercase font-urbanist text-left">Quick Links</h2>
             <div className="grid grid-cols-2 gap-4 sm:gap-4 sm:grid-cols-2">
               <div>
-                <ul className="text-white font-medium">
+                <ul className="text-black font-medium">
                   <li className="mb-4">
-                    <a href="/" className="hover:underline text-white font-urbanist">Product</a>
+                    <a href="/" className="hover:underline text-black font-urbanist">Product</a>
                   </li>
                   <li>
-                    <a href="/" className="hover:underline text-white font-urbanist">Information</a>
+                    <a href="/" className="hover:underline text-black font-urbanist">Information</a>
                   </li>
                 </ul>
               </div>
               <div>
-                <ul className="text-white font-medium">
+                <ul className="text-black font-medium">
                   <li className="mb-4">
-                    <a href="/" className="hover:underline text-white font-urbanist">Company</a>
+                    <a href="/" className="hover:underline text-black font-urbanist">Company</a>
                   </li>
                   <li>
-                    <a href="/" className="hover:underline text-white font-urbanist">Lift Media</a>
+                    <a href="/" className="hover:underline text-black font-urbanist no-underline">Lift Media</a>
                   </li>
                 </ul>
               </div>
@@ -49,7 +49,7 @@ function Footer() {
           </div>
           <div className="md:w-1/4 flex flex-col items-center justify-center md:py-4 mt-12 md:mt-0">
             <div className="relative mb-6">
-              <h2 className="mb-2 text-lg md:text-xl font-semibold text-white text-left uppercase font-urbanist">Subscribe</h2>
+              <h2 className="mb-2 text-lg md:text-xl font-semibold text-black text-left uppercase font-urbanist">Subscribe</h2>
               <div className='flex flex-row'>
                 <input type="email" id="email" className="flex-grow rounded-lg bg-white border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 font-urbanist" placeholder="Get product updates" required />
               </div>
@@ -59,26 +59,26 @@ function Footer() {
 
         <hr className="my-8 border sm:mx-auto lg:my-8" style={{ borderColor: "#57595F" }} />
 
-        <div className="sm:flex sm:items-center sm:justify-between">
-          <div className="flex mt-6 sm:mt-4 sm:justify-center sm:mt-0">
+        <div className="sm:flex sm:items-center sm:justify-between w-full">
+          <div className="flex mt-6 sm:justify-center sm:mt-0">
             <div className="footer-icons flex items-center space-x-3 sm:text-center">
               {socialLinks.map((socialLink, index) => {
                 const Icon = socialLink.icon;
                 return (
                   <Icon
                     key={`social-${index}`}
-                    className="w-10 h-10 p-2 text-white rounded-full border border-gray-300 bg-transparent hover:bg-white hover:text-black cursor-pointer transition-colors duration-300"
+                    className="w-10 h-10 p-2 text-black rounded-full border border-gray-300 bg-transparent hover:bg-white hover:text-black cursor-pointer transition-colors duration-300"
                   />
                 );
               })}
             </div>
           </div>
 
-          <p className='text-white font-urbanist text-center md:mt-4 sm:mt-8'>
+          <p className='text-black font-urbanist text-center md:mt-4 sm:mt-8'>
             A product of <img src={Logo} className="inline" alt="Logo" />
           </p>
 
-          <span className="text-sm text-white sm:text-center dark:text-white font-urbanist">© 2024 <a href="/" className="hover:underline font-urbanist">Lift Media</a>. All Rights Reserved.</span>
+          <span className="text-sm text-black sm:text-center dark:text-white font-urbanist">© 2024 <a href="/" className="hover:underline font-urbanist">Lift Media</a>. All Rights Reserved.</span>
         </div>
       </div>
     </footer>

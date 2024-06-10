@@ -44,10 +44,16 @@ code {
 }
 
 
-::-webkit-scrollbar
-{
-  width: 0px;
+::-webkit-scrollbar {
+  width: 5px;
 }
+
+::-webkit-scrollbar-thumb {
+  background-color: #F66714; /* Change scrollbar color */
+  border-radius: 20px;
+}
+
+
 
 
 .bebas {
