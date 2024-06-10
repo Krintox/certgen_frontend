@@ -39,16 +39,16 @@ export default function HeaderMobile() {
 
   return (
     <header style={{ position: 'relative', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div className="header-title">
+      <div className="header-title text-black">
         <Link to="/" className="logo-link">
           <img src={logoImage} alt="Logo" className="logo-image" style={{ width: '100px' }} />
         </Link>
       </div>
       <div>
         {!isMenuOpen ? (
-          <FiMenu size={30} onClick={() => setIsMenuOpen(true)} className="text-white" />
+          <FiMenu size={30} onClick={() => setIsMenuOpen(true)} className="text-black" />
         ) : (
-          <FiX size={30} onClick={() => setIsMenuOpen(false)} className="text-white" />
+          <FiX size={30} onClick={() => setIsMenuOpen(false)} className="text-black" />
         )}
       </div>
       {isMenuOpen && (
@@ -67,14 +67,14 @@ export default function HeaderMobile() {
               )}
               {username && (
                 <>
-                  <Link to="/newproject" className="nav-icon">
-                    <img src={newProject} alt="Project" className="nav-icon-image" />
+                  <Link to="/newproject" className="nav-icon text-black">
+                    <img src={newProject} alt="Project" className="nav-icon-image text-black" />
                     NEW PROJECT
                   </Link>
-                  <Link to="/newproject" className="nav-icon">
+                  <Link to="/newproject" className="nav-icon text-black">
                     <PiClockCounterClockwise size={35}/> <span>MY PROJECTS</span>
                   </Link>
-                  <Link to="/newproject" className="nav-icon">
+                  <Link to="/newproject" className="nav-icon text-black">
                     <CiUser size={35}/> <span>PROFILE</span>
                   </Link>
                   {/* <a href="#how-to-use" className="nav-icon">
@@ -86,7 +86,7 @@ export default function HeaderMobile() {
             <nav style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               {username && (
                 <a onClick={logout} className="nav-icon-mob logout-button">
-                  <FiLogOut size={20}/> <span className="pl-1">LOGOUT</span>
+                  <FiLogOut size={20}/> <span className="pl-1 text-black">LOGOUT</span>
                 </a>
               )}
               {!username && (

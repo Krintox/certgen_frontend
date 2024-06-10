@@ -72,13 +72,13 @@ const ExcelDownload = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 bebas mt-10">CERTGEN</h1>
-      <p className="text-white text-center font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-8"> {/* Increased padding */}
+      <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 bebas mt-10">CERTTO</h1>
+      <p className="text-black text-center font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-8"> {/* Increased padding */}
         Download the excel sheet with the columns as the annotations mentioned
       </p>
       <div className="w-3/4 max-w-md bg-transparent rounded-lg shadow-md md:mt-4 mb-20">
-        <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg max-md:py-12 md:p-8"> {/* Added padding */}
-          <button onClick={() => createExcelWorkbook(annotations)} className="bg-blue-500 text-white py-4 px-6 rounded-full"> {/* Increased height */}
+        <div className="flex flex-col items-center justify-center border-2 border-dashed border-black rounded-lg max-md:py-12 md:p-8"> {/* Added padding */}
+          <button onClick={() => createExcelWorkbook(annotations)} className="bg-blue-500 text-black py-4 px-6 rounded-full"> {/* Increased height */}
             <MdOutlineFileDownload className="md:text-3xl max-md:text:3xl" />
           </button>
         </div>

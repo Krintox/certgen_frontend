@@ -67,30 +67,30 @@ const UploadPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10">
-      <h1 className="text-7xl md:text-8xl font-semibold text-white border-b-2 under md:pb-2 max-md:text-7xl bebas">CERTGEN</h1>
-      <p className="text-white text-left font-urbanist text-sm md:text-lg lg:text-xl xl:text-2xl max-md:m-8 md:m-12">
+      <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 max-md:text-7xl bebas">CERTGEN</h1>
+      <p className="text-black text-left font-urbanist text-sm md:text-lg lg:text-xl xl:text-2xl max-md:m-8 md:m-12">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam sollicitudin. Est velit egestas dui id ornare arcu odio ut sem.
       </p>
       <div className="w-3/4 max-w-md bg-transparent rounded-lg md:mt-20" style={{ minHeight: '300px' }}>
         {!uploadedImageFile && (
-          <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-lg max-md:mx-5">
+          <div className="flex flex-col items-center justify-center p-8 md:pt-14 border-2 border-dashed border-black rounded-lg max-md:mx-5">
             <label htmlFor="fileInput" className="custom-file-upload">
               <input type="file" accept="image/*" id="fileInput" className='inputfile' onChange={handleImageUpload} />
               <div className="upload-icon custom-file-upload">+</div>
             </label>
-            <p className="md:text-lg text-center font-medium text-gray-500 md:mt-10 max-md:m-2">
+            <p className="md:text-lg text-center font-medium text-black md:mt-10 max-md:m-2 urbanist">
               Upload the certificate template
             </p>
           </div>
         )}
         {uploadedImageFile && (
-          <div className="flex flex-col items-center justify-center p-4 border-2 border-dashed rounded-lg">
+          <div className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-black rounded-lg">
             <img
               className="w-full h-full object-cover rounded-lg max-md:p-10"
               src={URL.createObjectURL(uploadedImageFile)}
               alt="Uploaded Image"
             />
-            <button onClick={handleDataSubmission} className="mt-4 bg-orange-500 text-white py-2 px-4 rounded cursor-pointer">
+            <button onClick={handleDataSubmission} className="mt-4 bg-orange-500 text-black py-2 px-4 rounded cursor-pointer urbanist">
               Proceed to Canvas
             </button>
           </div>
