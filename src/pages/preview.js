@@ -80,6 +80,7 @@ const PreviewPage = () => {
         const { result_images, result_emails } = apiResponse.data;
         setResultImages(result_images);
         setResultEmails(result_emails);
+        setShowMins(false);
   
         // Upload images to S3 and get URLs
         const s3ImageUrls = await Promise.all(result_images.map(async (base64String, index) => {
@@ -204,8 +205,8 @@ const PreviewPage = () => {
         {showMins 
         ?
         (
-          <p className="text-black mt-8 mb-6 text-center">
-            (Please wait... This may take 5-6 mins)
+          <p className="text-black mt-8 mb-6 text-center urbanist">
+            Please wait... This may take 5-6 mins
           </p>
         )
         :

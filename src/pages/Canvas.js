@@ -7,9 +7,10 @@ import { HiOutlineAnnotation } from "react-icons/hi";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Footer from './Footer';
 
-const Annotations = ({ addWordToCanvas }) => {
+const Annotations = ({ addWordToCanvas, annotations, handleDeleteWord }) => {
   const [isAnnotationsDropdownOpen, setIsAnnotationsDropdownOpen] = useState(false);
   const [isFontDropdownOpen, setIsFontDropdownOpen] = useState(false);
+  const [customWord, setCustomWord] = useState('');
 
   const handleDragStart = (e, word) => {
     e.dataTransfer.setData('text/plain', word);
@@ -23,8 +24,19 @@ const Annotations = ({ addWordToCanvas }) => {
     setIsFontDropdownOpen(!isFontDropdownOpen);
   };
 
+  const handleCustomWordChange = (e) => {
+    setCustomWord(e.target.value);
+  };
+
+  const handleAddCustomWord = () => {
+    if (customWord.trim() !== '') {
+      addWordToCanvas(customWord, 50, 50);
+      setCustomWord('');
+    }
+  };
+
   return (
-    <div className='border-2 border-orange-500 ml-10' style={{ padding: '20px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)', height: '100%' }}>
+    <div className='border-2 border-orange-500 ml-10' style={{ padding: '20px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)', height: '100%', overflowY: 'auto' }}>
       <h2 style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textAlign: 'center' }}>
         Formatting
       </h2>
@@ -50,6 +62,21 @@ const Annotations = ({ addWordToCanvas }) => {
                 {word}
               </div>
             ))}
+            <div style={{ gridColumn: 'span 2', display: 'flex', alignItems: 'center' }}>
+              <input
+                type="text"
+                value={customWord}
+                onChange={handleCustomWordChange}
+                placeholder="Enter custom word"
+                style={{ flex: 1, padding: '5px', borderRadius: '5px', border: '1px solid #FF5733' }}
+              />
+              <button
+                onClick={handleAddCustomWord}
+                style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: '5px', padding: '5px 10px', border: 'none', color: 'white', marginLeft: '10px' }}
+              >
+                Add
+              </button>
+            </div>
           </div>
         )}
         <div className="text-options" style={{ marginTop: '20px' }}>
@@ -78,6 +105,31 @@ const Annotations = ({ addWordToCanvas }) => {
             </div>
           )}
         </div>
+        {annotations.length > 0 && (
+          <>
+            <h4 className='mt-4 text-black'><u>Annotations</u></h4>
+            <ul className="flex flex-col items-center">
+              {annotations.map((annotation, index) => (
+                <li key={index} className='flex items-center mb-2'>
+                  <span className='text-black'>{annotation.word}</span>
+                  <button
+                    style={{ 
+                      background: "linear-gradient(to bottom right, #FB360F, #F28A18)", 
+                      borderRadius: "10px", 
+                      padding: "5px 10px", 
+                      border: "none", 
+                      color: "black",
+                      marginLeft: '20px'
+                    }} 
+                    onClick={() => handleDeleteWord(annotation.word)}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </div>
   );
@@ -220,7 +272,7 @@ const Canvas = () => {
       <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10 mb-8">CERTGEN</h1>
       <div className="flex flex-col md:flex-row w-full items-center justify-center">
         <div className="w-full md:w-1/4 p-2" style={{ backgroundColor: 'transparent', padding: '20px', height: '600px' }}>
-          <Annotations addWordToCanvas={addWordToCanvas} />
+          <Annotations addWordToCanvas={addWordToCanvas} annotations={annotations} handleDeleteWord={handleDeleteWord} />
         </div>
         <div className="w-full md:w-3/4 p-2">
           <div
@@ -238,34 +290,9 @@ const Canvas = () => {
               }}
             />
           </div>
-          <div className="flex flex-col items-center">
-            {annotations.length > 0 && (
-              <h4 className='mt-2 text-black'><u>Annotations</u></h4>
-            )}
-            <ul className="flex flex-col items-center">
-              {annotations.map((annotation, index) => (
-                <li key={index} className='flex items-center mb-2'>
-                  <span className='text-black'>{annotation.word}</span>
-                  <button
-                    style={{ 
-                      background: "linear-gradient(to bottom right, #FB360F, #F28A18)", 
-                      borderRadius: "10px", 
-                      padding: "5px 10px", 
-                      border: "none", 
-                      color: "black",
-                      marginLeft: '20px'
-                    }} 
-                    onClick={() => handleDeleteWord(annotation.word)}
-                  >
-                    Delete
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "black" }} onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage } })} className="mt-8 ml-auto mr-auto block">Download Excel</button>
         </div>
       </div>
+      <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "black" }} onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage } })} className="my-8 ml-auto mr-auto block">Download Excel</button>
       <Footer />
     </div>
   );
