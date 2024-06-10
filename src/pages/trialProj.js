@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AWS from 'aws-sdk';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 import { UserContext } from '../UserContext';
 import LoadingComponent from './LoadingPage';
 import './styles/modal.css';
+import '../App.css'
 
 const TrialProj = () => {
   const { userInfo } = useContext(UserContext);
@@ -89,11 +92,34 @@ const TrialProj = () => {
     }
   };
 
+  const downloadZip = async () => {
+    const zip = new JSZip();
+    
+    try {
+      const fetchImageBlob = async (url) => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return blob;
+      };
+
+      const imageBlobs = await Promise.all(imageUrls.map(url => fetchImageBlob(url)));
+
+      imageBlobs.forEach((blob, index) => {
+        zip.file(`image${index + 1}.jpg`, blob);
+      });
+
+      const content = await zip.generateAsync({ type: 'blob' });
+      saveAs(content, 'project-images.zip');
+    } catch (error) {
+      console.error('Error downloading zip:', error);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="w-full max-w-2xl rounded-lg mt-20 overflow-hidden p-4 mb-20 flex flex-col items-center">
-        <h2 className="font-bold text-white border-b-2 pb-2 text-center">
-          User Projects
+    <div className="flex flex-col items-center justify-center w-12/12">
+      <div className="w-11/12 rounded-lg mt-20 overflow-hidden p-4 mb-20 flex flex-col items-center">
+        <h2 className="font-bold text-white border-b-2 pb-2">
+          My <span>Projects</span>
         </h2>
         {isLoading ? (
           <LoadingComponent />
@@ -102,6 +128,9 @@ const TrialProj = () => {
             <button onClick={() => setSelectedProject(null)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 mt-10">
               Back to Projects
             </button>
+            {/* <button onClick={downloadZip} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4 mt-10">
+              Download Zip
+            </button> */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
               {imageUrls.map((url, index) => (
                 <div key={index} className="rounded-lg overflow-hidden">
@@ -111,14 +140,15 @@ const TrialProj = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+          <div className="mt-8 w-12/12" style={{width: '100%'}}>
             {projects.map((project, index) => (
               <div
                 key={index}
                 onClick={() => fetchImages(project.folder)}
-                className="cursor-pointer rounded-lg overflow-hidden bg-gray-800 text-white text-center p-2"
+                className="cursor-pointer rounded-lg overflow-hidden text-white text-center py-2 px-7 projectNamediv mb-6"
               >
-                <h4>{project.title}</h4>
+                <h4 className="font-bold text-left p-4 pt-2 pb-2">Name <span className="standardrgbcolor">: </span> {project.title}</h4>
+                <p className='text-left px-4'>Description : {project.description}</p>
               </div>
             ))}
           </div>

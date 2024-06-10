@@ -485,3 +485,13 @@ input {
     align-items: flex-end;
     margin-bottom: 20px;
   }
+
+
+  .projectNamediv{
+    border: 2px solid white;
+    border-radius: 0.75rem;
+  }
+
+  .standardrgbcolor{
+    color: rgb(255, 81, 47);
+  }
