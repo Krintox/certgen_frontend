@@ -125,8 +125,8 @@ const TrialProj = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <div className="w-11/12 rounded-lg mt-20 overflow-hidden p-4 mb-20 flex flex-col items-start">
-        <h2 className="font-bold text-black border-b-2 pb-2 text-4xl mb-4 font-bebas-neue">
-          My <span>Projects</span>
+        <h2 className="font-bold text-black border-b-2 pb-2 text-4xl md:text-6xl mb-4 bebas-neue-regular">
+          My Projects
         </h2>
         {isLoading ? (
           <LoadingComponent />
