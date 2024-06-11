@@ -64,7 +64,7 @@ export default function Header() {
             <img src={newProject} alt="Project" className="nav-icon-image text-black" />
             NEW PROJECT
             </Link>
-          <Link to="/yourprojects" className="nav-icon">
+          <Link to="/yourprojects" className="nav-icon text-black">
             <PiClockCounterClockwise size={35}/> <span>MY PROJECTS</span>
         </Link>
             <Link to="/createaccount" className="nav-icon text-black">

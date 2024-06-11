@@ -39,7 +39,7 @@ export default function HeaderMobile() {
 
   return (
     <header style={{ position: 'relative', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div className="header-title text-black">
+      <div className="header-title text-black z-40">
         <Link to="/" className="logo-link">
           <img src={logoImage} alt="Logo" className="logo-image" style={{ width: '100px' }} />
         </Link>
@@ -71,10 +71,10 @@ export default function HeaderMobile() {
                     <img src={newProject} alt="Project" className="nav-icon-image text-black" />
                     NEW PROJECT
                   </Link>
-                  <Link to="/newproject" className="nav-icon text-black">
+                  <Link to="/yourprojects" className="nav-icon text-black">
                     <PiClockCounterClockwise size={35}/> <span>MY PROJECTS</span>
                   </Link>
-                  <Link to="/newproject" className="nav-icon text-black">
+                  <Link to="/createaccount" className="nav-icon text-black">
                     <CiUser size={35}/> <span>PROFILE</span>
                   </Link>
                   {/* <a href="#how-to-use" className="nav-icon">
@@ -94,7 +94,7 @@ export default function HeaderMobile() {
                   <Link to="/register" className="signup-button">
                     Sign Up
                   </Link>
-                  <Link to="/login" className="signin-button">
+                  <Link to="/login" className="signin-button text-black">
                     Sign In
                   </Link>
                 </div>

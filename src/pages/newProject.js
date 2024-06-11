@@ -104,7 +104,7 @@ export default function NewProject() {
           )}
 
           {/* Right Side */}
-          <div className={`w-${showLeftDiv ? '1/2' : 'full'} z-50 h-full flex flex-col justify-center items-center p-6 rounded-2xl${showLeftDiv ? '' : ' shadow-md'}`}
+          <div className={`w-${showLeftDiv ? '1/2' : 'full'} md:z-50 h-full flex flex-col justify-center items-center p-6 rounded-2xl${showLeftDiv ? '' : ' shadow-md'}`}
           style={{ marginLeft: showLeftDiv ? '-1%' : '0', backgroundColor:showLeftDiv? 'white':'' }} >
             <div className='w-full flex flex-col max-w-[500px] bg-transparent'>
               <div className="w-full flex flex-col mb-4 mt-12">

@@ -94,7 +94,7 @@ export default function RegisterPage() {
           )}
 
           {/* Right Side */}
-          <div className={`w-${showLeftDiv ? '1/2' : 'full'} z-10 bg-white text-black h-full flex flex-col justify-center items-center p-6 rounded-lg`} style={{ marginLeft: showLeftDiv ? '-1%' : '0' }} >
+          <div className={`w-${showLeftDiv ? '1/2' : 'full'} md:z-10 bg-white text-black h-full flex flex-col justify-center items-center p-6 rounded-lg`} style={{ marginLeft: showLeftDiv ? '-1%' : '0' }} >
             {/* Your existing right side content */}
             <div className='w-full flex flex-col max-w-[500px] bg-transparent md:my-12'>
               <div className="w-full flex flex-col mb-2">
