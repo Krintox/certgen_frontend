@@ -85,8 +85,8 @@ export default function HeaderMobile() {
             </nav>
             <nav style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               {username && (
-                <a onClick={logout} className="nav-icon-mob logout-button">
-                  <FiLogOut size={20}/> <span className="pl-1 text-black">LOGOUT</span>
+                <a onClick={logout} className="nav-icon text-black">
+                  <FiLogOut size={20}/> <span>LOGOUT</span>
                 </a>
               )}
               {!username && (

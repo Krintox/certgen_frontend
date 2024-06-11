@@ -206,7 +206,7 @@ const PreviewPage = () => {
         ?
         (
           <p className="text-black mt-8 mb-6 text-center urbanist">
-            Please wait... This may take 5-6 mins
+      
           </p>
         )
         :
