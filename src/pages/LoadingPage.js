@@ -1,6 +1,6 @@
 // LoadingPage.js
 import React from 'react';
-import loadingGif from '../images/loading.GIF'; // Import your loading GIF
+import loadingGif from '../images/loading.gif'; // Import your loading GIF
 
 const LoadingPage = () => {
   return (
