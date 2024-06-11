@@ -17,7 +17,7 @@ import ProjectsList from './pages/projectview';
 import ProjectDetails from './pages/projectdetails';
 import ExcelDownload from './pages/downloadExcel';
 import EmailTemplate from './pages/EmailTemplate';
-import TrialProj from './pages/trialProj'
+import TrialProj from './pages/MyProjects'
 
 function App() {
   return (
