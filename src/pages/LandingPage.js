@@ -69,7 +69,7 @@ export default function LandingPage() {
         <h2 className="text-2xl md:text-6xl font-semibold leading-tight flex items-center text-center md:text-left">
           <img src={iconCertificate} alt="Icon Certificate" className="mr-4 mt-3" />
           <span style={{ color: "#F66714" }}>HOW TO USE</span>
-          <img src={rocketImage} alt="Rocket" className="ml-4" />
+          <img src={rocketImage} alt="Rocket" className="ml-4 max-md:w-32" />
         </h2>
 
         {/* Five Divs Section */}
