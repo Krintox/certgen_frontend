@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { FaSpinner } from 'react-icons/fa'; // Import spinner icon
 
 const EmailTemplate = () => {
   const location = useLocation();
@@ -47,6 +48,7 @@ const EmailTemplate = () => {
       }
     } catch (error) {
       console.error('Error sending emails:', error);
+      setSubLoad(false);
     }
   };
 
@@ -88,19 +90,19 @@ const EmailTemplate = () => {
               onChange={(e) => setBody(e.target.value)}
             ></textarea>
           </div>
-          <button onClick={handleProceed} className="mt-4 bg-orange-500 text-black py-2 px-4 rounded cursor-pointer">
-            Proceed
+          <button
+            onClick={handleProceed}
+            className="mt-4 bg-orange-500 text-black py-2 px-4 rounded cursor-pointer flex items-center justify-center"
+            disabled={subLoad}
+          >
+            {subLoad ? (
+              <FaSpinner className="animate-spin mr-2" /> // Show spinner when loading
+            ) : (
+              'Proceed'
+            )}
           </button>
         </div>
       </div>
-      <style>
-        {`
-          .arrow {
-            font-size: 1.5rem;
-            margin-left: 0.5rem; 
-          }
-        `}
-      </style>
     </div>
   );
 };
