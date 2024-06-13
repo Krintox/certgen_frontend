@@ -67,7 +67,7 @@ const UploadPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10">
-      <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 max-md:text-7xl bebas">CERTGEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 max-md:text-7xl bebas">CERTTO</h1>
       <p className="text-black text-left font-urbanist text-sm md:text-lg lg:text-xl xl:text-2xl max-md:m-8 md:m-12">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam sollicitudin. Est velit egestas dui id ornare arcu odio ut sem.
       </p>

@@ -124,13 +124,16 @@ const TrialProj = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
+      {isLoading && (
+        <div className="loading-popup">
+          <LoadingComponent />
+        </div>
+      )}
       <div className="w-11/12 rounded-lg mt-20 overflow-hidden p-4 mb-20 flex flex-col items-start">
         <h2 className="font-bold text-black border-b-2 pb-2 text-4xl md:text-6xl mb-4 bebas-neue-regular">
           My Projects
         </h2>
-        {isLoading ? (
-          <LoadingComponent />
-        ) : selectedProject ? (
+        {selectedProject ? (
           <div className="w-full">
             <button onClick={() => setSelectedProject(null)} className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mb-4 mt-10">
               Back to Projects

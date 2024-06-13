@@ -269,7 +269,7 @@ const Canvas = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
-      <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10 mb-8">CERTGEN</h1>
+      <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10 mb-8">CERTTO</h1>
       <div className="flex flex-col md:flex-row w-full items-center justify-center">
         <div className="w-full md:w-1/4 p-2" style={{ backgroundColor: 'transparent', padding: '20px', height: '600px' }}>
           <Annotations addWordToCanvas={addWordToCanvas} annotations={annotations} handleDeleteWord={handleDeleteWord} />
