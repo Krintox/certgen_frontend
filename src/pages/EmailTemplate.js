@@ -64,7 +64,7 @@ const EmailTemplate = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-w-screen m-5 min-h-screen">
-      <h1 className="text-4xl md:text-6xl font-semibold text-black border-b-2 pb-2 text-center">CERTGEN</h1>
+      <h1 className="text-4xl md:text-6xl font-semibold text-black border-b-2 pb-2 text-center">CER<span className='text-orange-500'>TTO</span></h1>
       <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-10 p-4">
         <div className="flex flex-col items-center justify-center border-2 border-solid border-orange-600 rounded-lg mt-4 p-4 md:p-8">
           <div className="w-full mb-4 px-4">
