@@ -51,7 +51,7 @@ const Annotations = ({ addWordToCanvas, annotations, handleDeleteWord }) => {
         </h4>
         {isAnnotationsDropdownOpen && (
           <div className="annotation-items" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '10px' }}>
-            {['Name', 'Title', 'Date', 'qrCode'].map(word => (
+            {['Name', 'Title', 'Unique ID', 'qrCode'].map(word => (
               <div
                 key={word}
                 style={{ padding: '10px', border: '1px solid #FF5733', borderRadius: '5px', textAlign: 'center', cursor: 'pointer' }}
