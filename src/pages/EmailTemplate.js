@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { FaSpinner } from 'react-icons/fa'; // Import spinner icon
 
 const EmailTemplate = () => {
   const location = useLocation();
@@ -47,6 +48,7 @@ const EmailTemplate = () => {
       }
     } catch (error) {
       console.error('Error sending emails:', error);
+      setSubLoad(false);
     }
   };
 
@@ -62,7 +64,7 @@ const EmailTemplate = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-w-screen m-5 min-h-screen">
-      <h1 className="text-4xl md:text-6xl font-semibold text-black border-b-2 pb-2 text-center">CERTGEN</h1>
+      <h1 className="text-4xl md:text-6xl font-semibold text-black border-b-2 pb-2 text-center">CER<span className='text-orange-500'>TTO</span></h1>
       <div className="w-full max-w-2xl bg-transparent rounded-lg shadow-md mt-10 p-4">
         <div className="flex flex-col items-center justify-center border-2 border-solid border-orange-600 rounded-lg mt-4 p-4 md:p-8">
           <div className="w-full mb-4 px-4">
@@ -88,19 +90,19 @@ const EmailTemplate = () => {
               onChange={(e) => setBody(e.target.value)}
             ></textarea>
           </div>
-          <button onClick={handleProceed} className="mt-4 bg-orange-500 text-black py-2 px-4 rounded cursor-pointer">
-            Proceed
+          <button
+            onClick={handleProceed}
+            className="mt-4 bg-orange-500 text-black py-2 px-4 rounded cursor-pointer flex items-center justify-center"
+            disabled={subLoad}
+          >
+            {subLoad ? (
+              <FaSpinner className="animate-spin mr-2" /> // Show spinner when loading
+            ) : (
+              'Proceed'
+            )}
           </button>
         </div>
       </div>
-      <style>
-        {`
-          .arrow {
-            font-size: 1.5rem;
-            margin-left: 0.5rem; 
-          }
-        `}
-      </style>
     </div>
   );
 };

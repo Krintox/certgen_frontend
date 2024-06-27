@@ -46,12 +46,12 @@ export default function Header() {
       <nav>
         {!username && (
           <>
-            {/* <a href="#how-to-use" className="nav-icon">
+            <a href="#how-to-use" className="nav-icon text-black">
               <TbCertificate size={35}/> <span>HOW TO USE</span>
             </a>
-            <Link to="/reviews" className="nav-icon">
+            <Link to="/reviews" className="nav-icon text-black">
               <BiChat size={35}/> <span>REVIEWS</span>
-            </Link> */}
+            </Link>
           </>
         )}
       </nav>
@@ -64,12 +64,12 @@ export default function Header() {
             <img src={newProject} alt="Project" className="nav-icon-image text-black" />
             NEW PROJECT
             </Link>
-           {/* <Link to="/newproject" className="nav-icon">
+          <Link to="/yourprojects" className="nav-icon text-black">
             <PiClockCounterClockwise size={35}/> <span>MY PROJECTS</span>
-        </Link>*/}
+        </Link>
             <Link to="/createaccount" className="nav-icon text-black">
             <CiUser size={35}/> <span>PROFILE</span>
-            </Link>
+        </Link>
             {/* <a href="#how-to-use" className="nav-icon">
               <TbCertificate size={35}/> <span>HOW TO USE</span>
             </a> */}

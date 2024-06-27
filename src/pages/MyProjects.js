@@ -124,15 +124,18 @@ const TrialProj = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <div className="w-11/12 rounded-lg mt-20 overflow-hidden p-4 mb-20 flex flex-col items-start">
-        <h2 className="font-bold text-black border-b-2 pb-2 text-4xl mb-4 font-bebas-neue">
-          My <span>Projects</span>
-        </h2>
-        {isLoading ? (
+      {isLoading && (
+        <div className="loading-popup">
           <LoadingComponent />
-        ) : selectedProject ? (
+        </div>
+      )}
+      <div className="w-11/12 rounded-lg mt-20 overflow-hidden p-4 mb-20 flex flex-col items-start">
+        <h2 className="font-bold text-black border-b-2 pb-2 text-4xl md:text-6xl mb-4 bebas-neue-regular">
+          My Projects
+        </h2>
+        {selectedProject ? (
           <div className="w-full">
-            <button onClick={() => setSelectedProject(null)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 mt-10">
+            <button onClick={() => setSelectedProject(null)} className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mb-4 mt-10">
               Back to Projects
             </button>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
