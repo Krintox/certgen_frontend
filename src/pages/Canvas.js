@@ -51,7 +51,7 @@ const Annotations = ({ addWordToCanvas, annotations, handleDeleteWord }) => {
         </h4>
         {isAnnotationsDropdownOpen && (
           <div className="annotation-items" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '10px' }}>
-            {['Name', 'Title', 'Signature', 'Date', 'qrCode'].map(word => (
+            {['Name', 'Title', 'Date', 'qrCode'].map(word => (
               <div
                 key={word}
                 style={{ padding: '10px', border: '1px solid #FF5733', borderRadius: '5px', textAlign: 'center', cursor: 'pointer' }}
@@ -142,6 +142,7 @@ const Canvas = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [width, setWidth] = useState(800);
   const [height, setHeight] = useState(600);
+  const [numberOfCertificates, setNumberOfCertificates] = useState(1); 
   const navigate = useNavigate();
   const location = useLocation();
   const { projectId } = useProject();
@@ -267,6 +268,10 @@ const Canvas = () => {
     }
   }, [uploadedImageFile]);
 
+  const handleNumberOfCertificatesChange = (e) => {
+    setNumberOfCertificates(e.target.value);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-full mt-10 min-h-screen">
       <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 max-md:text-7xl bebas mt-10 mb-8">CERTTO</h1>
@@ -292,7 +297,18 @@ const Canvas = () => {
           </div>
         </div>
       </div>
-      <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "black" }} onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage } })} className="my-8 ml-auto mr-auto block">Download Excel</button>
+      <div className="my-4">
+        <label htmlFor="numberOfCertificates">Number of Certificates:</label>
+        <input
+          type="number"
+          id="numberOfCertificates"
+          value={numberOfCertificates}
+          onChange={handleNumberOfCertificatesChange}
+          className="border-2 border-orange-500 text-black p-2 rounded ml-2"
+          min="1"
+        />
+      </div>
+      <button style={{ background: "linear-gradient(to bottom right, #FB360F, #F28A18)", borderRadius: "10px", padding: "10px", border: "none", color: "black" }} onClick={() => navigate('/excelDownload', { state: { annotations, canvasImage: canvas.toDataURL('image/png'), resizedImage: uploadedImage, numberOfCertificates } })} className="my-8 ml-auto mr-auto block">Download Excel</button>
       <Footer />
     </div>
   );

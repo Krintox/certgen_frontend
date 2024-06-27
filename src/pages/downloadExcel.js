@@ -10,9 +10,9 @@ const ExcelDownload = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
-  const { annotations, canvasImage, resizedImage } = state || {};
+  const { annotations, canvasImage, resizedImage, numberOfCertificates } = state || {};
 
-  const createExcelWorkbook = async (annotations) => {
+  const createExcelWorkbook = async (annotations, numberOfCertificates) => {
     if (!annotations) return;
 
     // Creating and setting up Excel Workbook
@@ -29,10 +29,16 @@ const ExcelDownload = () => {
 
     const annoSheet = workbook.addWorksheet('Data', {});
 
+    // Add unique ID column as the first column
+    const idColumnIndex = 1;
+    annoSheet.getColumn(idColumnIndex).values = ['Unique ID'];
+    annoSheet.getColumn(idColumnIndex).width = 20;
+
+    // Adding other headers
     annotations.forEach((annotation, index) => {
       const columnHeader = annotation.word;
       const columnWidth = 20; // Example width, adjust as needed
-      const columnIndex = index + 1; // Start column index from 1
+      const columnIndex = index + 2; // Start column index from 2 because 1 is for Unique ID
 
       // Adding header for the column
       annoSheet.getColumn(columnIndex).values = [columnHeader];
@@ -44,14 +50,19 @@ const ExcelDownload = () => {
       });
     });
 
-    const emailColumnIndex = annotations.length + 1; // Assuming 1-based indexing
-    annoSheet.getColumn(emailColumnIndex).values = ['Email']; // Header
-    annoSheet.getColumn(emailColumnIndex).width = 20; // Adjust width as needed
+    // Add email column as the last column
+    const emailColumnIndex = annotations.length + 2;
+    annoSheet.getColumn(emailColumnIndex).values = ['Email'];
+    annoSheet.getColumn(emailColumnIndex).width = 20;
 
-    // Setting style for email column header
-    annoSheet.getColumn(emailColumnIndex).eachCell(cell => {
-      cell.font = { bold: true };
-    });
+    // Generate rows
+    for (let i = 0; i < numberOfCertificates; i++) {
+      const row = [];
+      row.push(Math.floor(10000000 + Math.random() * 90000000).toString()); // 8-digit unique ID
+      annotations.forEach(() => row.push('')); // Adjust as per your requirement
+      row.push(''); // Placeholder for email
+      annoSheet.addRow(row);
+    }
 
     try {
       const buffer = await workbook.xlsx.writeBuffer();
@@ -73,12 +84,12 @@ const ExcelDownload = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <h1 className="text-7xl md:text-8xl font-semibold text-black border-b-2 under md:pb-2 bebas mt-10">CERTTO</h1>
-      <p className="text-black text-center font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-8"> {/* Increased padding */}
+      <p className="text-black text-center font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-8">
         Download the excel sheet with the columns as the annotations mentioned
       </p>
       <div className="w-3/4 max-w-md bg-transparent rounded-lg shadow-md md:mt-4 mb-20">
-        <div className="flex flex-col items-center justify-center border-2 border-dashed border-black rounded-lg max-md:py-12 md:p-8"> {/* Added padding */}
-          <button onClick={() => createExcelWorkbook(annotations)} className="bg-blue-500 text-black py-4 px-6 rounded-full"> {/* Increased height */}
+        <div className="flex flex-col items-center justify-center border-2 border-dashed border-black rounded-lg max-md:py-12 md:p-8">
+          <button onClick={() => createExcelWorkbook(annotations, numberOfCertificates)} className="bg-blue-500 text-black py-4 px-6 rounded-full">
             <MdOutlineFileDownload className="md:text-3xl max-md:text:3xl" />
           </button>
         </div>
