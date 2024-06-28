@@ -74,9 +74,9 @@ export default function HeaderMobile() {
                   <Link to="/yourprojects" className="nav-icon text-black">
                     <PiClockCounterClockwise size={35}/> <span>MY PROJECTS</span>
                   </Link>
-                  <Link to="/createaccount" className="nav-icon text-black">
+                  {/* <Link to="/createaccount" className="nav-icon text-black">
                     <CiUser size={35}/> <span>PROFILE</span>
-                  </Link>
+                  </Link> */}
                   {/* <a href="#how-to-use" className="nav-icon">
                     <TbCertificate size={35}/> <span>HOW TO USE</span>
                   </a> */}
