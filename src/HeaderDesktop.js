@@ -49,9 +49,9 @@ export default function Header() {
             <a href="#how-to-use" className="nav-icon text-black">
               <TbCertificate size={35}/> <span>HOW TO USE</span>
             </a>
-            <Link to="/reviews" className="nav-icon text-black">
+            {/* <Link to="/reviews" className="nav-icon text-black">
               <BiChat size={35}/> <span>REVIEWS</span>
-            </Link>
+            </Link> */}
           </>
         )}
       </nav>
