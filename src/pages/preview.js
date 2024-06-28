@@ -108,8 +108,19 @@ const PreviewPage = () => {
 
         console.log('S3 image URLs sent:', s3ImageResponse.data);
 
+        // Send S3 image URLs to the endpoint to generate QR codes
+        const finalResponse = await axios.post('https://aliws.pythonanywhere.com/post-data', {
+          s3ImageUrls: s3ImageUrls.map(urlObj => urlObj.imageUrl),
+          images: result_images,
+          coordinates: annotations,
+          emails: result_emails,
+        });
+
+        const { qr_images, final_emails } = finalResponse.data;
+        setResultImages(qr_images);
+        setResultEmails(final_emails);
+
       } catch (error) {
-        console.log("here is the error message.....")
         console.error('Error fetching preview:', error);
       } finally {
         setIsLoading(false);
@@ -145,34 +156,34 @@ const PreviewPage = () => {
   const handleBulkDownload = () => {
     const zip = new JSZip();
     const imagesFolder = zip.folder('images');
-
+  
     const reader = new FileReader();
     reader.onload = (e) => {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
       const firstColumnValues = [];
-
+  
       XLSX.utils.sheet_to_json(sheet, { header: 1 }).forEach((row) => {
         firstColumnValues.push(row[0]);
       });
-
+  
       resultImages.forEach((base64String, index) => {
         const name = firstColumnValues[index + 1] || `name`;
         const fileName = `${name}_${index + 1}.png`;
         const byteCharacters = atob(base64String);
         const byteNumbers = new Array(byteCharacters.length);
-
+  
         for (let i = 0; i < byteCharacters.length; i++) {
           byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
-
+  
         const byteArray = new Uint8Array(byteNumbers);
         const blob = new Blob([byteArray], { type: 'image/png' });
-
+  
         imagesFolder.file(fileName, blob);
       });
-
+  
       zip.generateAsync({ type: 'blob' }).then((content) => {
         const blobUrl = URL.createObjectURL(content);
         const link = document.createElement('a');
@@ -184,8 +195,10 @@ const PreviewPage = () => {
         URL.revokeObjectURL(blobUrl);
       });
     };
+  
     reader.readAsArrayBuffer(uploadedExcelFile);
   };
+  
 
   const handleProceed = async () => {
     try {
@@ -210,6 +223,7 @@ const PreviewPage = () => {
     setSelectedImage(null);
   };
 
+
   const gradientBtn = {
     background: 'linear-gradient(to bottom right, #FB360F, #F28A18)',
   };
@@ -224,7 +238,7 @@ const PreviewPage = () => {
         ?
         (
           <p className="text-black mt-8 mb-6 text-center urbanist">
-      
+            Please wait... This may take 5-6 mins
           </p>
         )
         :
