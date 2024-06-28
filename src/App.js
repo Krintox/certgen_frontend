@@ -18,6 +18,7 @@ import ProjectDetails from './pages/projectdetails';
 import ExcelDownload from './pages/downloadExcel';
 import EmailTemplate from './pages/EmailTemplate';
 import MyProjects from './pages/MyProjects'
+import AdminImageDisplay from './pages/AdminImageDisplay';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/projectview" element={<ProjectsList/>}/>
           <Route path="/projectdet/:id" element={<ProjectDetails/>}/>
           <Route path="/yourprojects" element={<MyProjects/>}/>
+          <Route path="/admin89053" element={<AdminImageDisplay/>}/>
         </Route>
       </Routes>
     </UserContextProvider>

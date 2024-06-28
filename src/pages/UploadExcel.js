@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from './Footer';
 import { useProject } from '../ProjectContext';
 
@@ -8,7 +8,7 @@ const UploadExcel = () => {
   const location = useLocation();
   const [uploadedExcelFile, setUploadedExcelFile] = useState(null);
   const { state } = location;
-  const { annotations, canvasImage } = state || {};
+  const { annotations, canvasImage, uniqueIDs } = state || {};
   const uploadImage = location.state ? location.state.resizedImage : null;
   const { projectId } = useProject();
 
@@ -29,7 +29,7 @@ const UploadExcel = () => {
       formData.append('excelFile', uploadedExcelFile);
 
       // Make a POST request to the backend endpoint
-      const response = await fetch(`(https://certgen-backend.vercel.app/projects/upload-excel/${projectId}`, {
+      const response = await fetch(`https://certgen-backend.vercel.app/projects/upload-excel/${projectId}`, {
         method: 'POST',
         body: formData,
         credentials: 'include' // Include credentials for cookie authentication
@@ -37,10 +37,10 @@ const UploadExcel = () => {
 
       if (response.ok) {
         // Proceed to the Preview page if the request is successful
-        navigate('/preview', { state: { uploadedExcelFile, annotations, canvasImage, uploadImage } });
+        navigate('/preview', { state: { uploadedExcelFile, annotations, canvasImage, uploadImage, uniqueIDs } });
       } else {
         // Handle error response
-        navigate('/preview', { state: { uploadedExcelFile, annotations, canvasImage, uploadImage } });
+        navigate('/preview', { state: { uploadedExcelFile, annotations, canvasImage, uploadImage, uniqueIDs } });
         console.error('Failed to upload Excel file:', response.statusText);
       }
     } catch (error) {
@@ -54,7 +54,7 @@ const UploadExcel = () => {
       <p className="text-black text-left font-urbanist text-md md:text-lg lg:text-xl xl:text-2xl m-12 ">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam sollicitudin. Est velit egestas dui id ornare arcu odio ut sem.
       </p>
-      <div className="w-3/4 max-w-md  bg-transparent rounded-lg shadow-md md:mt-20 mb-20 border-black">
+      <div className="w-3/4 max-w-md bg-transparent rounded-lg shadow-md md:mt-20 mb-20 border-black">
         {!uploadedExcelFile && (
           <div className="flex flex-col items-center justify-center p-4 pt-4 border-2 border-dashed border-black rounded-lg max-md:py-12">
             <label htmlFor="excelInput" className="custom-file-upload">

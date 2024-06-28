@@ -50,7 +50,6 @@ const PreviewPage = () => {
       Body: file,
       ContentType: file.type,
     };
-    console.log(userId);
 
     return s3.upload(params).promise();
   };
@@ -82,6 +81,9 @@ const PreviewPage = () => {
         setResultEmails(result_emails);
         setShowMins(false);
   
+        // Extract unique IDs from Excel file
+        const uniqueIDs = await extractUniqueIDs(uploadedExcelFile);
+  
         // Upload images to S3 and get URLs
         const s3ImageUrls = await Promise.all(result_images.map(async (base64String, index) => {
           const byteCharacters = atob(base64String);
@@ -96,24 +98,18 @@ const PreviewPage = () => {
           const file = new File([blob], `image_${index + 1}.png`, { type: 'image/png' });
 
           const s3Response = await uploadToS3(file, `image_${index + 1}.png`);
-          return s3Response.Location;
+          return { imageId: uniqueIDs[index], imageUrl: s3Response.Location };
         }));
 
-        // Send S3 image URLs to the endpoint
-        const s3ImageResponse = await axios.post('https://aliws.pythonanywhere.com/post-data', {
-          s3ImageUrls: s3ImageUrls,
-          images: result_images,
-          coordinates: annotations,
-          emails: result_emails,
+        // Send S3 image URLs to the backend API
+        const s3ImageResponse = await axios.post(`https://certgen-backend.vercel.app/projects/upload-images/${projectId}`, {
+          photos: s3ImageUrls,
         });
-
-        const { qr_images, final_emails } = s3ImageResponse.data;
-        setResultImages(qr_images);
-        setResultEmails(final_emails);
 
         console.log('S3 image URLs sent:', s3ImageResponse.data);
 
       } catch (error) {
+        console.log("here is the error message.....")
         console.error('Error fetching preview:', error);
       } finally {
         setIsLoading(false);
@@ -122,6 +118,28 @@ const PreviewPage = () => {
       console.log('Missing Values');
       setIsLoading(false);
     }
+  };
+
+  const extractUniqueIDs = async (file) => {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onload = (e) => {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const uniqueIDs = [];
+
+        XLSX.utils.sheet_to_json(sheet, { header: 1 }).forEach((row, index) => {
+          if (index > 0) { // Skip header row
+            uniqueIDs.push(row[0]);
+          }
+        });
+
+        resolve(uniqueIDs);
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsArrayBuffer(file);
+    });
   };
 
   const handleBulkDownload = () => {

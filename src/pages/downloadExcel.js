@@ -55,10 +55,13 @@ const ExcelDownload = () => {
     annoSheet.getColumn(emailColumnIndex).values = ['Email'];
     annoSheet.getColumn(emailColumnIndex).width = 20;
 
-    // Generate rows
+    // Generate rows and capture unique IDs
+    const uniqueIDs = [];
     for (let i = 0; i < numberOfCertificates; i++) {
-      const row = [];
-      row.push(Math.floor(10000000 + Math.random() * 90000000).toString()); // 8-digit unique ID
+      const uniqueID = Math.floor(10000000 + Math.random() * 90000000).toString(); // 8-digit unique ID
+      uniqueIDs.push(uniqueID);
+
+      const row = [uniqueID];
       annotations.forEach(() => row.push('')); // Adjust as per your requirement
       row.push(''); // Placeholder for email
       annoSheet.addRow(row);
@@ -75,7 +78,7 @@ const ExcelDownload = () => {
 
       // Conclude function
       console.log("Your file has been downloaded successfully!");
-      navigate('/excel', { state: { annotations, canvasImage, resizedImage} })
+      navigate('/excel', { state: { annotations, canvasImage, resizedImage, uniqueIDs } });
     } catch (err) {
       console.error(err);
     }
