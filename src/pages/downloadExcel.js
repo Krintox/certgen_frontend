@@ -37,6 +37,12 @@ const ExcelDownload = () => {
     // Adding other headers
     annotations.forEach((annotation, index) => {
       const columnHeader = annotation.word;
+
+      // Skip any annotations with header "Unique ID"
+      if (columnHeader.toLowerCase() === 'unique id') {
+        return;
+      }
+
       const columnWidth = 20; // Example width, adjust as needed
       const columnIndex = index + 2; // Start column index from 2 because 1 is for Unique ID
 
