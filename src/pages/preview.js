@@ -69,7 +69,7 @@ const PreviewPage = () => {
         formData.append('image', file);
         formData.append('excel', uploadedExcelFile);
   
-        const apiResponse = await axios.post('https://aliws.pythonanywhere.com/api', formData, {
+        const apiResponse = await axios.post('https://certgen-api-zm6m.onrender.com/api', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -109,7 +109,7 @@ const PreviewPage = () => {
         console.log('S3 image URLs sent:', s3ImageResponse.data);
 
         // Send S3 image URLs to the endpoint to generate QR codes
-        const finalResponse = await axios.post('https://aliws.pythonanywhere.com/post-data', {
+        const finalResponse = await axios.post('https://certgen-api-zm6m.onrender.com/post-data', {
           s3ImageUrls: s3ImageUrls.map(urlObj => urlObj.imageUrl),
           images: result_images,
           coordinates: annotations,
