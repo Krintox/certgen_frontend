@@ -129,7 +129,7 @@ const AdminImageDisplay = () => {
         <div className="mt-4">
           <h3 className="text-xl font-bold mb-2">Certificate Image:</h3>
           <img src={imageUrl} alt="Certificate" />
-          <p className="text-blue-500 break-all">{imageUrl}</p>
+          <a href={imageUrl} className="text-blue-500 break-all">{imageUrl}</a>
         </div>
       )}
     </div>
